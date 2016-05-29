@@ -3,11 +3,12 @@ objectListWeekend = [];
 openingSoon = [];
 closingSoon = [];
 options = [5, 10, 15, 20];
+expandCount = 0;
 resultsSection = document.getElementById("results")
 //I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
 
 // var today = new Date();
-var today = 6;
+var today = 4;
 
 
 // if (today.getDay > 5) {
@@ -42,6 +43,10 @@ var conans = new Location ('Conan\'s', 'conans', 'hipster', true, 6, 9, true);
 var johns = new Location ('John\'s', 'johns', 'Dive', false, 7, 9);
 var bearkats = new Location ('Bearkat\'s', 'jerrystavern', 'Dive', true, 7, 9);
 var bishops = new Location ('Bishop\'s', 'conans', 'hipster', true, 7, 9, true);
+var toms = new Location ('Tom\'s', 'toms', 'hipster', true, 8, 9, true);
+var dicks = new Location ('Dick\'s', 'dicks', 'Dive', false, 8, 9);
+var harrys = new Location ('harry\'s', 'harrys', 'Dive', true, 8, 9);
+var yomommas = new Location ('YoMommas\'s', 'yomommas', 'hipster', true, 8, 9, true);
 
 //Creates two arrays for locations opening soon and closing soon
 // for (var i = 0; i < objectList.length; i++)
@@ -56,7 +61,7 @@ var bishops = new Location ('Bishop\'s', 'conans', 'hipster', true, 7, 9, true);
 //***Testing loop*** falsely creates openingSoon array, delete when done
 //Creates opening and closing arrays
 function buildOpenCloseArrays () {
-  console.log('building!');
+  console.log('builing opening and closing array');
   for (var i = 0; i < objectList.length; i++) {
     if (today < objectList[i].end) { //Is happy hour over?
       if (today > objectList[i].start) {//Has happy hour begun?
@@ -67,9 +72,9 @@ function buildOpenCloseArrays () {
       }
     }
   }
+  console.log('There are ' + (openingSoon.length + closingSoon.length) + ' available Happy Hours');
 }
 buildOpenCloseArrays();
-
 
 //Sorts all the arrays
 var sortObjectList = function () {
@@ -80,6 +85,7 @@ var sortObjectList = function () {
 sortObjectList();
 
 var sortClosingSoon = function () {
+  console.log('sorting closing array');
   closingSoon.sort(function (a, b) {
     return a.end > b.end;
   });
@@ -87,6 +93,7 @@ var sortClosingSoon = function () {
 sortClosingSoon();
 
 var sortOpeningSoon = function () {
+  console.log('sorting opening array');
   openingSoon.sort(function (a, b) {
     return a.start > b.start;
   });
@@ -165,13 +172,13 @@ var buildClosingSoonRow = function (i) {
 var sectionBuild = function (numResults) {
   for (var i = 0; i < openingSoon.length; i++) {
     if (resultsSection.childElementCount < options[numResults]) {
-      console.log('building openingSoon with i @ ' + i);
+      console.log('building openingSoon row with i @ ' + i);
       buildOpeningSoonRow(i); //very interesting that i doesn't automatically scope down into this function.
     }
   }
 
   for (var i = 0; i < closingSoon.length; i++) {
-    console.log('building closingSoon with i @ ' + i);
+    console.log('building closingSoon row with i @ ' + i);
     if (resultsSection.childElementCount < options[numResults]) {
       buildClosingSoonRow(i);
     }
@@ -179,28 +186,27 @@ var sectionBuild = function (numResults) {
 }
 sectionBuild(0);
 
-//Gives user expand button if there are more locations available
+//Creates button to expand results based on the amount you want shown
 function expander (numResults) {
     if (openingSoon.length + closingSoon.length > options[numResults]) {
     var expandButton = document.createElement('button');
     expandButton.id = 'expandButton';
     expandButton.textContent = 'See More';
     resultsSection.appendChild(expandButton);
+    ++expandCount;
     expandButton.addEventListener('click', expandList);
   }
 }
-expander(0);
+expander(expandCount);
 
 
 function expandList (event) {
   resultsSection.removeChild(expandButton);
   while (resultsSection.firstChild) {
-    console.log('Whammy');
     resultsSection.removeChild(resultsSection.firstChild);
   }
-  sectionBuild(1);
-  expander(1);
-  console.log(openingSoon.length + closingSoon.length);
+  sectionBuild(expandCount);
+  expander(expandCount);
 }
 
 
