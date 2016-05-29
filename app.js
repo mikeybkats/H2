@@ -31,18 +31,28 @@ var larrysbar = new Location ('Larry\'s Bar', 'larrysbar', 'Dive', 2, 4);
 var moesbar = new Location ('Moe\'s Bar', 'moesbar', 'Dive', 3, 5);
 var curlysbar = new Location ('Curly\'s Bar', 'curlysbar', 'Dive', 4, 5, true);
 
-console.dir(objectList.sort(function (a, b) {
-  return a.start > b.start;
-}));
+var sortObjectList = function () {
+  objectList.sort(function (a, b) {
+    return a.start > b.start;
+  });
+}
+sortObjectList();
+
+// var sortClosingSoon = function () {
+//   closingSoon.sort(function (a, b) {
+//     return a.end > b.end;
+//   });
+// }
+// sortClosingSoon();
+//
+// var sortOpeningSoon = function () {
+//   openingSoon.sort(function (a, b) {
+//     return a.start > b.start;
+//   });
+// }
+// sortClosingSoon();
 
 
-
-//Grab the currentTime
-//if current object has start time < current time keep going
-//then push object to openingSoon Array
-
-//if current object has start time > current time
-//then push object to closingSoon Array
 
 
 function buildRow () {
@@ -79,32 +89,11 @@ function buildRow () {
 };
 
 for (var i = 0; i < objectList.length; i++)
-  if (objectList[i].start < today.getHours()) {
-    if (today.getHours() > objectList[i].end) {
+  if (today.getHours() < objectList[i].end) { //Is happy hour over?
+    if (today.getHours() > objectList[i].start) {//Has happy hour begun?
+        closingSoon.push(objectList[i]);
+      }
+    openingSoon.push(objectList[i]);
     }
     buildRow();
   }
-
-
-//I want to populate each row with the
-
-// function that created a clock based on an instance property
-// put that clock on a div
-// put that div in a clock variable
-// return clock to the higher scoped function
-// append clock to a parent div
-
-
-// I need it to create a section
-// I need it to append the section to the body
-
-// I need to check the time
-// I need to
-
-// I need to create a row function that
-  // ceates first row div
-
-// I then need to place a that function into a for loop that does the same thing five times for each instance that matches
-
-// I need to append first row div to section
-// I need to create a loop that c
