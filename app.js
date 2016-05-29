@@ -71,7 +71,6 @@ function buildOpenCloseArrays () {
 buildOpenCloseArrays();
 
 
-
 //Sorts all the arrays
 var sortObjectList = function () {
   objectList.sort(function (a, b) {
@@ -93,6 +92,7 @@ var sortOpeningSoon = function () {
   });
 }
 sortOpeningSoon();
+
 
 //openingSoon Row Builder
 var buildOpeningSoonRow = function (i) {
@@ -162,9 +162,9 @@ var buildClosingSoonRow = function (i) {
 };
 
 //Builds first five taking first from openingSoon and then from closingSoon
-var sectionBuild = function () {
+var sectionBuild = function (numResults) {
   for (var i = 0; i < openingSoon.length; i++) {
-    if (resultsSection.childElementCount < options[0]) {
+    if (resultsSection.childElementCount < options[numResults]) {
       console.log('building openingSoon with i @ ' + i);
       buildOpeningSoonRow(i); //very interesting that i doesn't automatically scope down into this function.
     }
@@ -172,25 +172,35 @@ var sectionBuild = function () {
 
   for (var i = 0; i < closingSoon.length; i++) {
     console.log('building closingSoon with i @ ' + i);
-    if (resultsSection.childElementCount < options[0]) {
+    if (resultsSection.childElementCount < options[numResults]) {
       buildClosingSoonRow(i);
     }
   }
 }
-sectionBuild();
+sectionBuild(0);
 
 //Gives user expand button if there are more locations available
-if (openingSoon.length + closingSoon.length > options[0]) {
-  var expandButton = document.createElement('button');
-  expandButton.id = 'expandButton';
-  expandButton.textContent = 'See More';
-  resultsSection.appendChild(expandButton);
-  expandButton.addEventListener('click', expandList);
+function expander (numResults) {
+    if (openingSoon.length + closingSoon.length > options[numResults]) {
+    var expandButton = document.createElement('button');
+    expandButton.id = 'expandButton';
+    expandButton.textContent = 'See More';
+    resultsSection.appendChild(expandButton);
+    expandButton.addEventListener('click', expandList);
+  }
 }
+expander(0);
 
 
 function expandList (event) {
   resultsSection.removeChild(expandButton);
+  while (resultsSection.firstChild) {
+    console.log('Whammy');
+    resultsSection.removeChild(resultsSection.firstChild);
+  }
+  sectionBuild(1);
+  expander(1);
+  console.log(openingSoon.length + closingSoon.length);
 }
 
 
