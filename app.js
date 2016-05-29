@@ -54,16 +54,22 @@ var bishops = new Location ('Bishop\'s', 'conans', 'hipster', true, 7, 9, true);
 //   }
 
 //***Testing loop*** falsely creates openingSoon array, delete when done
-for (var i = 0; i < objectList.length; i++) {
-  if (today < objectList[i].end) { //Is happy hour over?
-    if (today > objectList[i].start) {//Has happy hour begun?
-        closingSoon.push(objectList[i]);
-    }
-    if (today < objectList[i].start) {
-      openingSoon.push(objectList[i]);
+//Creates opening and closing arrays
+function buildOpenCloseArrays () {
+  console.log('building!');
+  for (var i = 0; i < objectList.length; i++) {
+    if (today < objectList[i].end) { //Is happy hour over?
+      if (today > objectList[i].start) {//Has happy hour begun?
+          closingSoon.push(objectList[i]);
+      }
+      if (today < objectList[i].start) {
+        openingSoon.push(objectList[i]);
+      }
     }
   }
 }
+buildOpenCloseArrays();
+
 
 
 //Sorts all the arrays
@@ -89,7 +95,7 @@ var sortOpeningSoon = function () {
 sortOpeningSoon();
 
 //openingSoon Row Builder
-var buildOpeningSoonRow = function () {
+var buildOpeningSoonRow = function (i) {
   var newLoc = document.createElement('div');
   newLoc.id = 'loc' + openingSoon.indexOf(openingSoon[i]);
   resultsSection.appendChild(newLoc);
@@ -121,10 +127,10 @@ var buildOpeningSoonRow = function () {
   // createClock();
 };
 
-
-var buildClosingSoonRow = function () {
+//closingSoon Row Builder
+var buildClosingSoonRow = function (i) {
   var newLoc = document.createElement('div');
-  newLoc.id = 'loc' + closingSoon.indexOf(closingSoon[i]);
+  newLoc.id = 'loc' + closingSoon.indexOf(closingSoon[i]);//Prob doesn't need to be numbered
   resultsSection.appendChild(newLoc);
 
   var createH3 = function () {
@@ -156,27 +162,37 @@ var buildClosingSoonRow = function () {
 };
 
 //Builds first five taking first from openingSoon and then from closingSoon
-//This should be wrapped
-for (var i = 0; i < openingSoon.length; i++) {
-  if (resultsSection.childElementCount < options[0]) {
-    buildOpeningSoonRow();
+var sectionBuild = function () {
+  for (var i = 0; i < openingSoon.length; i++) {
+    if (resultsSection.childElementCount < options[0]) {
+      console.log('building openingSoon with i @ ' + i);
+      buildOpeningSoonRow(i); //very interesting that i doesn't automatically scope down into this function.
+    }
+  }
+
+  for (var i = 0; i < closingSoon.length; i++) {
+    console.log('building closingSoon with i @ ' + i);
+    if (resultsSection.childElementCount < options[0]) {
+      buildClosingSoonRow(i);
+    }
   }
 }
+sectionBuild();
 
-for (var i = 0; i < closingSoon.length; i++) {
-  if (resultsSection.childElementCount < options[0]) {
-    buildClosingSoonRow();
-  }
-}
-
-//if openingSoon + closingSoon > options[0] then build expand button
-
+//Gives user expand button if there are more locations available
 if (openingSoon.length + closingSoon.length > options[0]) {
   var expandButton = document.createElement('button');
   expandButton.id = 'expandButton';
   expandButton.textContent = 'See More';
   resultsSection.appendChild(expandButton);
+  expandButton.addEventListener('click', expandList);
 }
+
+
+function expandList (event) {
+  resultsSection.removeChild(expandButton);
+}
+
 
 //The above function should then be repeated but changed to options[1]
 //And hooked into an 'expand' event handler
