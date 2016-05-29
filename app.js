@@ -2,6 +2,7 @@ objectList = [];
 objectListWeekend = [];
 openingSoon = [];
 closingSoon = [];
+options = [5, 10, 15, 20];
 resultsSection = document.getElementById("results")
 //I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
 
@@ -48,7 +49,7 @@ var conans = new Location ('Conan\'s', 'conans', 'hipster', true, 4, 5, true);
 //     }
 //   }
 
-//Testing loop, creates openingSoon false array, delete when done
+//***Testing loop*** falsely creates openingSoon array, delete when done
 for (var i = 0; i < objectList.length; i++) {
   if (today < objectList[i].end) { //Is happy hour over?
     if (today > objectList[i].start) {//Has happy hour begun?
@@ -115,21 +116,26 @@ var buildOpeningSoonRow = function () {
 };
 // buildOpeningSoonRow();
 
-//Builds first five
+//Builds first five taking first from openingSoon and then from closingSoon
+//This should be wrapped
 for (var i = 0; i < openingSoon.length; i++) {
-  if (resultsSection.childElementCount < 5) {
+  if (resultsSection.childElementCount < options[0]) {
     buildOpeningSoonRow();
   }
 }
 
+// for (var i = 0; i < closingSoon.length; i++) {
+//   if (resultsSection.childElementCount < options[0]) {
+//     buildClosingSoonRow();
+//   }
+// }
+
+//The above function should then be repeated but changed to options[1]
+//And hooked into an 'expand' event handler
+//I may even be able to set a variable inside of the options[var], that I could then just reuse the above function with as an input that will flow through the function aboveFunction(var), whenever I want to expand my options list.
 
 
 
-
-
-
-//By default I want to display any locations that have begun happy hour
-//Then I want to display any locations that are opening soon
 
 //if they hit the vibe button, I want to resort my array by vibe then display
 //if they hit the food button, I want to remove any locations without food
