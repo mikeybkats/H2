@@ -10,6 +10,14 @@ resultsSection = document.getElementById("results")
 // var today = new Date();
 var today = 4;
 
+// Testing button for filters... will move soon
+var bodyElement = document.getElementById('body');
+var diveButton = document.createElement('button');
+diveButton.id = 'diveButton';
+diveButton.textContent = 'DIVE FILTER';
+bodyElement.appendChild(diveButton);
+diveButton.addEventListener('click', diveFilter);
+
 
 // if (today.getDay > 5) {
 //   console.log('gotta do the weekend list yo');
@@ -34,19 +42,19 @@ function Location (styledname, name, vibe, food, start, end, weekend, url) {
 };
 
 var stjohns = new Location ('St. Johns', 'stjohns', 'Groovy', true, 5, 8, 'http://www.saintjohnsseattle.com/');
-var larrysbar = new Location ('Larry\'s Bar', 'larrysbar', 'Dive', true, 6, 9);
-var moesbar = new Location ('Moe\'s Bar', 'moesbar', 'Dive', false, 5, 7);
-var curlysbar = new Location ('Curly\'s Bar', 'curlysbar', 'Dive', false, 4, 7, true);
-var benstavern = new Location ('Ben\'s Tavern', 'benstavern', 'Dive', false, 5, 8);
-var jerrystavern = new Location ('Jerry\'s Tavern', 'jerrystavern', 'Dive', true, 6, 8);
-var conans = new Location ('Conan\'s', 'conans', 'hipster', true, 6, 9, true);
-var johns = new Location ('John\'s', 'johns', 'Dive', false, 7, 9);
-var bearkats = new Location ('Bearkat\'s', 'jerrystavern', 'Dive', true, 7, 9);
-var bishops = new Location ('Bishop\'s', 'conans', 'hipster', true, 7, 9, true);
-var toms = new Location ('Tom\'s', 'toms', 'hipster', true, 8, 9, true);
+var larrysbar = new Location ('Larry\'s Bar', 'larrysbar', 'Groovy', true, 6, 9);
+var moesbar = new Location ('Moe\'s Bar', 'moesbar', 'Uppity', false, 5, 7);
+var curlysbar = new Location ('Curly\'s Bar', 'curlysbar', 'Uppity', false, 4, 7, true);
+var benstavern = new Location ('Ben\'s Tavern', 'benstavern', 'Uppity', false, 5, 8);
+var jerrystavern = new Location ('Jerry\'s Tavern', 'jerrystavern', 'Hipster', true, 6, 8);
+var conans = new Location ('Conan\'s', 'conans', 'Hipster', true, 6, 9, true);
+var johns = new Location ('John\'s', 'johns', 'Hipster', false, 7, 9);
+var bearkats = new Location ('Bearkat\'s', 'jerrystavern', 'Hipster', true, 7, 9);
+var bishops = new Location ('Bishop\'s', 'conans', 'Hipster', true, 7, 9, true);
+var toms = new Location ('Tom\'s', 'toms', 'Dive', true, 8, 9, true);
 var dicks = new Location ('Dick\'s', 'dicks', 'Dive', false, 8, 9);
 var harrys = new Location ('harry\'s', 'harrys', 'Dive', true, 8, 9);
-var yomommas = new Location ('YoMommas\'s', 'yomommas', 'hipster', true, 8, 9, true);
+var yomommas = new Location ('YoMommas\'s', 'yomommas', 'Dive', true, 8, 9, true);
 
 //Creates two arrays for locations opening soon and closing soon
 // for (var i = 0; i < objectList.length; i++)
@@ -199,7 +207,6 @@ function expander (numResults) {
 }
 expander(expandCount);
 
-
 function expandList (event) {
   resultsSection.removeChild(expandButton);
   while (resultsSection.firstChild) {
@@ -209,13 +216,28 @@ function expandList (event) {
   expander(expandCount);
 }
 
-
-//The above function should then be repeated but changed to options[1]
-//And hooked into an 'expand' event handler
-//I may even be able to set a variable inside of the options[var], that I could then just reuse the above function with an input that will flow through the function aboveFunction(var), whenever I want to expand my options list.
+// var nodeArray = resultsSection.childNodes;
+// console.log(nodeArray[1]);
 
 
+function diveFilter (event) {
+ for (var i = 1; i < resultsSection.childElementCount-2; i++)
+  console.log(resultsSection.childNodes[i]);
+  if (resultsSection.childNodes[i].childNodes[1].innerHTML === 'Uppity' || 'Groovy' || 'Hipster') {
+    resultsSection.removeChild(resultsSection.childNodes[i]);
+    console.log('removing ' + resultsSection.childNodes[0].innerHTML);
+  }
+}
 
+// for (var i = 1; i < nodeArray.length - 2; i++) {
+//   var filterMe = nodeArray[i];
+//   console.log(filterMe);
+// }
+
+
+//holding = nodeArray[0]
+//'Dive' === holding.childNodes[1].innerHTML'
+//resultsSection.removeChild(holding)
 
 //if they hit the vibe button, I want to resort my array by vibe then display
 //if they hit the food button, I want to remove any locations without food
