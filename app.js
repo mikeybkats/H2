@@ -4,8 +4,9 @@ openingSoon = [];
 closingSoon = [];
 options = [5, 10, 15, 20];
 expandCount = 0;
-resultsSection = document.getElementById("results")
+var resultsSection = document.getElementById("results");
 //I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
+
 
 // var today = new Date();
 var today = 4;
@@ -69,7 +70,7 @@ var yomommas = new Location ('YoMommas\'s', 'yomommas', 'Dive', true, 8, 9, true
 //***Testing loop*** falsely creates openingSoon array, delete when done
 //Creates opening and closing arrays
 function buildOpenCloseArrays () {
-  console.log('builing opening and closing array');
+  console.log('building opening and closing array');
   for (var i = 0; i < objectList.length; i++) {
     if (today < objectList[i].end) { //Is happy hour over?
       if (today > objectList[i].start) {//Has happy hour begun?
@@ -209,6 +210,7 @@ function expander (numResults) {
 expander(expandCount);
 
 
+
 function expandList (event) { //This happens when there's more options
   expandDiv.removeChild(expandButton); //Removes button
   while (resultsSection.firstChild) { //While the resultsSection has a first child
@@ -218,11 +220,40 @@ function expandList (event) { //This happens when there's more options
   expander(expandCount);//Show the button if there's still more
 }
 
-function diveFilter (event) {
 
+//There doesn't seem to be any way to store things from the DOM in order to remove them
+//You can't push the DOM elements to an array because they don't show up as removable elements
+//You can't store an element in a variable and then remove the element stored in the variable from DOM
+//You can't even iterate over the DOM because you can't test the innerHTML text against a string
+//No matter where I define the i, or whether I use a while or for loop, the i looses its scope
+function diveFilter (event) {
+  console.log('in');
+  var i = 1;
+  while (i < resultsSection.childElementCount+1) {
+    console.log(i);
+    var checkMe = resultsSection.childNodes[i].childNodes[1].innerHTML;
+    i++;
+    if (checkMe === 'Hipster') {
+      console.log(checkMe === 'Hipster');
+      console.log(resultsSection.childNodes[i-1]);
+      resultsSection.removeChild(resultsSection.childNodes[i-1]);
+    }
+  }
 }
 
 
+
+// function diveFilter (event) {
+//   var i = 1;
+//   console.log(typeof(resultsSection.childNodes[i].childNodes[i].innerHTML));
+//   var store = resultsSection.childNodes[i].childNodes[i].innerHTML;
+//   console.log(store === 'Hipster');
+//
+//   if (store === 'Hipster') {
+//     resultsSection.removeChild(resultsSection.childNodes[i]);
+//     console.log('WTF?');
+//   }
+// }
 
 //if they hit the vibe button, I want to resort my array by vibe then display
 //if they hit the food button, I want to remove any locations without food
