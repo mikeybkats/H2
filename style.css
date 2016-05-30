@@ -725,6 +725,11 @@ footer {
 
 }
 
+.character-count-meter {
+  font-size: 1.2em;
+  margin: 0 3px;
+}
+
 /*#expandButton {
   color: blue;
 }*/

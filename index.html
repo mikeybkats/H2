@@ -49,25 +49,27 @@
 
       <section class="comments">
         <div class="bigquote">
-          <h0>"Never have I tasted so delicious a libation!"</h0>
+          <h0 id="user-comment">"Never have I tasted so delicious a libation!"</h0>
           <div class="block-quote-caption">
             <div class="circle-small">
               <img src="images/comment_face.png" class="comment-face">
             </div>
 
-            <h3 class="block-quote-caption-type">- Dudeman</h3>
+            <h3 class="block-quote-caption-type" id="user-name">- Dudeman</h3>
           </div>
         </div>
 
         <div class="comment-form">
 
-          <h2>Choose Wisely. Choose Pub Capture.</h2>
-          <p>Leave us a messageif you have a location recommendation or if you would like to be added to our list.</p>
+          <h2>Why not leave a message or recommendation?</h2>
+          <p>Please leave us a message if you have a location recommendation or if you would like to be added to our list.</p>
 
           <form>
             <fieldset>
-              <textarea class="input1" name="input1">enter your name</textarea>
-              <textarea class="input2" name="input2">leave a comment</textarea>
+              <textarea class="input1" name="nameEntry" id="input1">enter your name</textarea>
+              <p id="name-character-meter" class="character-count-meter"></p>
+              <textarea class="input2" name="commentEntry" id="input2">leave a comment</textarea>
+              <p id="comment-character-meter" class="character-count-meter"></p>
               <button class="button">SUBMIT</button>
             </fieldset>
           </form>
@@ -83,6 +85,8 @@
       </section>
 
       <script src="app.js" type="text/javascript"></script>
+      <script src="app-comment.js" type="text/javascript"></script>
+
     </body>
 
 
