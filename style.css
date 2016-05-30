@@ -420,14 +420,16 @@ textarea {
 
 p {
   font-family: 'Open Sans', sans-serif;
+  color: white;
 }
 
 h0 {
   font-family: 'Open Sans', sans-serif;
   font-weight: 800;
   color: #ff6000;
-  font-size: 5em;
+  font-size: 4.5em;
   font-weight: bold;
+  line-height: 1em;
 }
 
 h1 {
@@ -443,6 +445,7 @@ h2 {
   font-family: 'Open Sans', sans-serif;
   color: white;
   font-size: 2.5em;
+  line-height: 1em;
 }
 
 h3 {
@@ -593,6 +596,25 @@ footer {
   background-color: black;
   min-height: 250px;
 }
+
+.about {
+  background-color: black;
+  min-height: 400px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+}
+
+.circle {
+  border-radius: 100%;
+  margin: 0 4% 0 4%;
+  min-width: 160px;
+  min-height: 160px;
+  border: 5px solid #ff6000;
+  background-color: #ff6000;
+}
+
 /*#expandButton {
   color: blue;
 }*/
