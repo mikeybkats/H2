@@ -226,6 +226,7 @@ function expandList (event) { //This happens when there's more options
 //You can't store an element in a variable and then remove the element stored in the variable from DOM
 //You can't even iterate over the DOM because you can't test the innerHTML text against a string
 //No matter where I define the i, or whether I use a while or for loop, the i looses its scope
+//This crazy nonsense is the a work in progress
 function diveFilter (event) {
   console.log('in');
   var i = 1;
