@@ -6,8 +6,6 @@
       <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800' rel='stylesheet' type='text/css'>
       <title> H2 </title>
     </head>
-
-<<<<<<< HEAD
     <body>
       <header>
         <img src="images/logo_pub_capture.png" class="logo">
@@ -43,7 +41,7 @@
           </div>
         </div>
         <div class="ticker-alignment">
-          <div id="results" class="ticker">
+          <div id="results">
           </div>
         </div>
       </section>
@@ -54,11 +52,26 @@
         </div>
         <div class="comment-form">
           <h2>Choose Wisely. Choose Pub Capture.</h2>
-          <p>Leave us a messageif you have a location recommendation or if you would like to be added to our list.</p>
-          <form>
+          <p>Leave us a message if you have a location recommendation or if you would like to be added to our list.</p>
+          <form id="form">
             <fieldset>
-              <input class="input1" name="input1">
-              <input class="input2" name="input2">
+              <label for="name">Name: </label>
+              <input class="input1" name="name">
+              <label for="start">Happy Hour Start: </label>
+              <input class="input2" name="start">
+              <label for="end">Happy Hour End: </label>
+              <input class="input2" name="end">
+              <select name="vibe">
+                <option value="Dive">Dive</option>
+                <option value="Hipster">Hipster</option>
+                <option value="Uppity">Uppity</option>
+                <option value="Groovy">Groovy</option>
+              </select>
+              <select name="food">
+                <option value="true">Yes</option>
+                <option value="false">No</option>
+              </select>
+              <input type="submit" name="Add Location">
             </fieldset>
           </form>
         </div>
@@ -69,17 +82,7 @@
         <div class="circle"></div>
         <div class="circle"></div>
         <div class="circle"></div>
-=======
-    <body id='body'>
-      <section id="results">
->>>>>>> 888ecc423c844304907706e43347ee8d811b3f01
       </section>
-
-      <div id=expandDiv>
-      </div>
-
-    </body>
     <script src="app.js" type="text/javascript"></script>
-
-
+</body>
 </html>
