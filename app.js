@@ -200,44 +200,29 @@ function expander (numResults) {
     var expandButton = document.createElement('button');
     expandButton.id = 'expandButton';
     expandButton.textContent = 'See More';
-    resultsSection.appendChild(expandButton);
+    var expandDiv = document.getElementById('expandDiv');
+    expandDiv.appendChild(expandButton);
     ++expandCount;
     expandButton.addEventListener('click', expandList);
   }
 }
 expander(expandCount);
 
-function expandList (event) {
-  resultsSection.removeChild(expandButton);
-  while (resultsSection.firstChild) {
-    resultsSection.removeChild(resultsSection.firstChild);
+
+function expandList (event) { //This happens when there's more options
+  expandDiv.removeChild(expandButton); //Removes button
+  while (resultsSection.firstChild) { //While the resultsSection has a first child
+    resultsSection.removeChild(resultsSection.firstChild);//Remove all the children
   }
-  sectionBuild(expandCount);
-  expander(expandCount);
+  sectionBuild(expandCount);//Build the section again now that expandCount has been plused up
+  expander(expandCount);//Show the button if there's still more
 }
-
-// var nodeArray = resultsSection.childNodes;
-// console.log(nodeArray[1]);
-
 
 function diveFilter (event) {
- for (var i = 1; i < resultsSection.childElementCount-2; i++)
-  console.log(resultsSection.childNodes[i]);
-  if (resultsSection.childNodes[i].childNodes[1].innerHTML === 'Uppity' || 'Groovy' || 'Hipster') {
-    resultsSection.removeChild(resultsSection.childNodes[i]);
-    console.log('removing ' + resultsSection.childNodes[0].innerHTML);
-  }
+
 }
 
-// for (var i = 1; i < nodeArray.length - 2; i++) {
-//   var filterMe = nodeArray[i];
-//   console.log(filterMe);
-// }
 
-
-//holding = nodeArray[0]
-//'Dive' === holding.childNodes[1].innerHTML'
-//resultsSection.removeChild(holding)
 
 //if they hit the vibe button, I want to resort my array by vibe then display
 //if they hit the food button, I want to remove any locations without food
