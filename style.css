@@ -522,7 +522,7 @@ header {
   background-color: black;
   justify-content: center;
   align-items: center;
-  min-height: 400px;
+  min-height: 600px;
 }
 
 .ticker-filter-section {
@@ -585,11 +585,34 @@ header {
   max-width: 30%;
 }
 
+form {
+  border: none;
+}
+
+fieldset {
+  border: none;
+}
+
 .comment-form {
+  flex-direction: row;
   align-items: center;
   margin: 20px 0 0 0;
   padding: 50px;
   max-width: 30%;
+}
+
+.input1 {
+  background-color: white;
+  height: 30px;
+  width: 200px;
+  margin-top: 20px;
+}
+
+.input2 {
+  background-color: white;
+  height: 30px;
+  width: 200px;
+  margin-top: 20px;
 }
 
 footer {
