@@ -7,7 +7,6 @@ var expandCount = 0;
 var results = document.getElementById('results');
 //I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
 
-var today = new Date();
 var currentHour = (new Date).getHours();
 var currentMinute = (new Date).getMinutes();
 
@@ -22,22 +21,20 @@ var currentMinute = (new Date).getMinutes();
 //   console.log('gotta do the weekend list yo');
 // }
 
-function Location (styledname, name, vibe, food, start, end, weekend, url) {
-  this.styledname = styledname;
-  this.name = name;
+function Location (start, end, styledName, vibe, food, url) {
+  this.styledName = styledName;
   this.start = start;
   this.end = end;
-  this.weekend = weekend;
   this.vibe = vibe;
   this.food = food;
-  this.imgPath = 'img/' + this.name + '.png';
+  this.imgPath = 'img/' + this.styledName + '.png';
   this.url = url;
-  this.tallyShown = 0;
-  this.tallyClick = 0;
+  // this.tallyShown = 0;
+  // this.tallyClick = 0;
   objectList.push(this);
-  if (weekend === true) {
-    objectListWeekend.push(this);
-  }
+  // if (weekend === true) {
+  //   objectListWeekend.push(this);
+  // }
 };
 
 //Creates two arrays for locations opening soon and closing soon
@@ -113,7 +110,7 @@ function buildResults() {
   var trEl = document.createElement('tr');
   for (var i = 0; i < 5; i++) {
     var tdEl = document.createElement('td');
-    tdEl.textContent = objectList[i].name;
+    tdEl.textContent = objectList[i].styledName;
     trEl.appendChild(tdEl);
     tdEl = document.createElement('td');
     tdEl.textContent = objectList[i].vibe;
@@ -148,7 +145,7 @@ function addNewLocation(event) {
   } else {
     bool = false;
   }
-  var add = new Location(name, vibe, bool, start, end);
+  var add = new Location(start, end, name, vibe, bool);
   var lsAdd = JSON.stringify(objectList);
   localStorage.setItem('locationsArray', lsAdd);
 }
