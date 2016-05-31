@@ -4,6 +4,7 @@ var nameCharacterMeter = document.getElementById('name-character-meter');
 var commentCharacterMeter = document.getElementById('comment-character-meter');
 var userName = document.getElementById('user-name');
 var userComment = document.getElementById('user-comment');
+var submitButton = document.getElementById('submit-button');
 
 function CharacterCount(title, maxLength) {
   this.title = title;
@@ -13,6 +14,9 @@ function CharacterCount(title, maxLength) {
 
 var commentBox = new CharacterCount ('comment', 40);
 var nameBox = new CharacterCount ('name', 15);
+
+function populateComment (event){
+}
 
 function pushCommentCharacters (event){
   commentBox.count = commentEntry.value.length;
@@ -33,5 +37,24 @@ function pushNameCharacters (event){
   }
 }
 
+function nameFieldReset (event){
+  nameEntry.value = '';
+}
+
+function commentFieldReset (event){
+  commentEntry.value = '';
+}
+
+function submitButtonEvent (event){
+
+  var bigComment = document.getElementById('user-comment');
+  var userName = document.getElementById('user-name');
+  bigComment.innerText = '"' + commentEntry.value + '"';
+  userName.innerText = ' - ' + nameEntry.value;
+}
+
+nameEntry.addEventListener('focus', nameFieldReset);
+commentEntry.addEventListener('focus', commentFieldReset);
 nameEntry.addEventListener('keydown', pushNameCharacters);
 commentEntry.addEventListener('keydown', pushCommentCharacters);
+submitButton.addEventListener('click', submitButtonEvent);

@@ -631,6 +631,7 @@ fieldset {
   color: #9A6633;
   font-weight: 400;
   font-size: 1.5em;
+  border: 0px;
   resize: none;
 }
 
@@ -640,11 +641,11 @@ fieldset {
   padding: 2px;
   width: 99%;
   padding: 8px 0 0 8px;
-
   margin-top: 20px;
   color: #9A6633;
   font-weight: 400;
   font-size: 1.5em;
+  border: 0px;
   resize: none;
 }
 
@@ -713,7 +714,7 @@ footer {
 }
 
 .button {
-  margin: 20px 0;
+  margin: 20px 1px;
   height: 45px;
   width: 200px;
   background-color: #ff6000;
