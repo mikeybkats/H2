@@ -18,26 +18,26 @@
 =================================================================
 ### Developer viewpoint
 
-* Developer:
-* Developer:
-* Developer:
-* Developer:
-* Developer:
+* Developer: As a Developer I want to create a scrollable site for users to find a happy hour.
+* Developer: As a Developer I want to populate HH times in a ticker table with countdown function.
+* Developer: As a Developer I want a drop-down button to be able to filter by vibe, food, and time.
+* Developer: As a Developer I want to show the user how much time until start and end of the HH.
+
 
 ==================================================================
 ### User viewpoint
 
-* H2 User:
-* H2 User:
-* H2 User:
+* H2 User: As a user I want to be able to find a HH fast.
+* H2 User: As a user I want to leave a comment or suggestion on the page.
+* H2 User: As a user I want to have the information accessible all in one place.
 * H2 User:
 * H2 User:
 
 ==================================================================
 ### Marketing viewpoint
 
-* Marketing Agent:
-* Marketing Agent:
+* Marketing Agent: As a marketer I want to be able to give a comment to add a location to the list.
+* Marketing Agent: As a marketer I want to convey the ease-of-use in functionality.
 * Marketing Agent:
 * Marketing Agent:
 * Marketing Agent:
@@ -74,4 +74,18 @@
    * Buckleys: (http://viaducthistory.com/neighborhood/MGMBuilding.htm)
    * Rendezvous: (http://joelrogers.photoshelter.com/image/I0000i0eSVQaE7uY)
    * Lava Lounge: (https://joeynix.wordpress.com/2011/02/14/lava-lounge-belltown-2/)
+ * Drink Logos:
+   * Michael Barakat: Old Fashioned (http://www.liquor.com)
+   * John Shaff: Sierra Nevada Torpedo (http://www.micromatic.com)
+   * Dylan Sanders: Southern Baptist (http://www.seriouseats.com)
+   * Michael Bishop: Hofbraü (http://www.pintjockey.com)
+ * Icons from Noun Project
+   * Author: Yuvika Koul -- noun_86739_cc.png (https://thenounproject.com/)
+   * Author: Yuvika Koul -- noun_86739_cc.svg (https://thenounproject.com/)
+   * Author: Stolkramaker -- noun_98458_cc.png (https://thenounproject.com/)
+   * Author: Stolkramaker -- noun_98458_cc.svg (https://thenounproject.com/)
+   * Author: Simon Child -- noun_1811_cc.png (https://thenounproject.com/)
+   * Author: Simon Child -- noun_1811_cc.svg (https://thenounproject.com/)
+   * Author: Arthur Shlain -- noun_160008_cc.png (https://thenounproject.com/)
+   * Author: Fabyano de Tiburi -- noun_251400_cc.svg (https://thenounproject.com/)
 ----
