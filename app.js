@@ -107,6 +107,9 @@ function buildResults() {
     if (i < closingSoon.length) {
       console.log(i + ' ' + closingSoon.length);
       var trEl = document.createElement('tr');
+      if (closingSoon[i].food) {
+        trEl.setAttribute('class', 'food');
+      }
       var tdEl = document.createElement('td');
       tdEl.textContent = closingSoon[i].styledName;
       trEl.appendChild(tdEl);
