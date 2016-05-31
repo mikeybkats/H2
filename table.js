@@ -1,10 +1,20 @@
-objectList = [];
-objectListWeekend = [];
-openingSoon = [];
-closingSoon = [];
-options = [5, 10, 15, 20];
-expandCount = 0;
-var resultsSection = document.getElementById('results');
+var objectList = [];
+var objectListWeekend = [];
+var openingSoon = [];
+var closingSoon = [];
+var options = [5, 10, 15, 20];
+var expandCount = 0;
+
+var relaxingOpeningSoon = [];
+var relaxingClosingSoon = [];
+
+var upbeatOpeningSoon = [];
+var upbeatClosingClosing = [];
+
+var refinedOpeningSoon = [];
+var refinedClosingSoon = [];
+
+var resultsTable = document.getElementById('results');
 //I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
 
 // var today = new Date();
@@ -37,7 +47,7 @@ function Location (styledname, name, vibe, food, start, end, weekend, url) {
   objectList.push(this);
   if (weekend === true) {
     objectListWeekend.push(this);
-  }
+  };
 };
 
 var stjohns = new Location ('St. Johns', 'stjohns', 'Groovy', true, 5, 8, 'http://www.saintjohnsseattle.com/');
@@ -52,7 +62,7 @@ var bearkats = new Location ('Bearkat\'s', 'jerrystavern', 'Hipster', true, 7, 9
 var bishops = new Location ('Bishop\'s', 'conans', 'Hipster', true, 7, 9, true);
 var toms = new Location ('Tom\'s', 'toms', 'Dive', true, 8, 9, true);
 var dicks = new Location ('Dick\'s', 'dicks', 'Dive', false, 8, 9);
-var harrys = new Location ('harry\'s', 'harrys', 'Dive', true, 8, 9);
+var harrys = new Location ('Harry\'s', 'harrys', 'Dive', true, 8, 9);
 var yomommas = new Location ('YoMommas\'s', 'yomommas', 'Dive', true, 8, 9, true);
 
 //Creates two arrays for locations opening soon and closing soon
@@ -73,9 +83,27 @@ function buildOpenCloseArrays () {
     if (today < objectList[i].end) { //Is happy hour over?
       if (today > objectList[i].start) {//Has happy hour begun?
         closingSoon.push(objectList[i]);
+        if ('refined' === objectList[i].vibe) {
+          refinedClosingSoon.push(objectList[i]);
+        }
+        if ('relaxing' === objectList[i].vibe) {
+          relaxingClosingSoon.push(objectList[i]);
+        }
+        if ('upbeat' === objectList[i].vibe) {
+          upbeatClosingClosing.push(objectList[i]);
+        }
       }
       if (today < objectList[i].start) {
         openingSoon.push(objectList[i]);
+        if ('refined' === objectList[i].vibe) {
+          refinedOpeningSoon.push(objectList[i]);
+        }
+        if ('relaxing' === objectList[i].vibe) {
+          refinedOpeningSoon.push(objectList[i]);
+        }
+        if ('upbeat' === objectList[i].vibe) {
+          refinedOpeningSoon.push(objectList[i]);
+        }
       }
     }
   }
@@ -91,47 +119,66 @@ var sortObjectList = function () {
 };
 sortObjectList();
 
-var sortClosingSoon = function () {
-  console.log('sorting closing array');
-  closingSoon.sort(function (a, b) {
-    return a.end > b.end;
-  });
-};
-sortClosingSoon();
-
-var sortOpeningSoon = function () {
+var sortAllOpeningSoon = function () {
   console.log('sorting opening array');
   openingSoon.sort(function (a, b) {
     return a.start > b.start;
   });
+  relaxingOpeningSoon.sort(function (a, b) {
+    return a.start > b.start;
+  });
+  refinedOpeningSoon.sort(function (a, b) {
+    return a.start > b.start;
+  });
+  upbeatOpeningSoon.sort(function (a, b) {
+    return a.start > b.start;
+  });
 };
-sortOpeningSoon();
+sortAllOpeningSoon();
+
+var sortAllClosingSoon = function () {
+  console.log('sorting closing array');
+  closingSoon.sort(function (a, b) {
+    return a.end > b.end;
+  });
+  relaxingClosingSoon.sort(function (a, b) {
+    return a.start > b.start;
+  });
+  refinedClosingSoon.sort(function (a, b) {
+    return a.start > b.start;
+  });
+  upbeatClosingClosing.sort(function (a, b) {
+    return a.start > b.start;
+  });
+};
+sortAllClosingSoon();
+
 
 //openingSoon Row Builder
-var buildOpeningSoonRow = function (i) {
-  var newLoc = document.createElement('div');
-  newLoc.id = 'loc' + openingSoon.indexOf(openingSoon[i]);
-  resultsSection.appendChild(newLoc);
+var buildOpeningSoonRow = function (i, arrayUsed) {
+  var newLoc = document.createElement('tr');
+  newLoc.id = 'loc' + arrayUsed.indexOf(arrayUsed[i]);
+  resultsTable.appendChild(newLoc);
 
-  var createH3 = function () {
-    var h3El = document.createElement('h3');
-    h3El.textContent = openingSoon[i].styledname;//Add location name
-    newLoc.appendChild(h3El);
+  var createTdName = function () {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = arrayUsed[i].styledname;//Add location name
+    newLoc.appendChild(tdEl);
   };
-  createH3();
+  createTdName();
 
-  var createP = function () {
-    var pEl = document.createElement('p');
-    pEl.textContent = openingSoon[i].vibe;//Add location vibe
-    newLoc.appendChild(pEl);
+  var createVibe = function () {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = arrayUsed[i].vibe;//Add location vibe
+    newLoc.appendChild(tdEl);
   };
-  createP();
+  createVibe();
 
   // var createClock = function () {
   //   var setTimer = function (){
   //     //something that pulls in props from an instance and creates a timer
   //     var newTimer = 'Countdown Timer';
-  //     var newClock = document.createElement('div');
+  //     var newClock = document.createElement('tr');
   //     newClock.textContent = newTimer; //Add location countdown
   //     newLoc.appendChild(newClock);
   //   }
@@ -141,30 +188,30 @@ var buildOpeningSoonRow = function (i) {
 };
 
 //closingSoon Row Builder
-var buildClosingSoonRow = function (i) {
-  var newLoc = document.createElement('div');
-  newLoc.id = 'loc' + closingSoon.indexOf(closingSoon[i]);//Prob doesn't need to be numbered
-  resultsSection.appendChild(newLoc);
+var buildClosingSoonRow = function (i, arrayUsed) {
+  var newLoc = document.createElement('tr');
+  newLoc.id = 'loc' + arrayUsed.indexOf(arrayUsed[i]);//Prob doesn't need to be numbered
+  resultsTable.appendChild(newLoc);
 
-  var createH3 = function () {
-    var h3El = document.createElement('h3');
-    h3El.textContent = closingSoon[i].styledname;//Add location name
-    newLoc.appendChild(h3El);
+  var createTdName = function () {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = arrayUsed[i].styledname;//Add location name
+    newLoc.appendChild(tdEl);
   };
-  createH3();
+  createTdName();
 
-  var createP = function () {
-    var pEl = document.createElement('p');
-    pEl.textContent = closingSoon[i].vibe;//Add location vibe
-    newLoc.appendChild(pEl);
+  var createVibe = function () {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = arrayUsed[i].vibe;//Add location vibe
+    newLoc.appendChild(tdEl);
   };
-  createP();
+  createVibe();
 
   var createClock = function () {
     var setTimer = function (){
       //something that pulls in props from an instance and creates a timer
       var newTimer = 'Countdown Timer';
-      var newClock = document.createElement('div');
+      var newClock = document.createElement('tr');
       newClock.textContent = newTimer; //Add location countdown
       newLoc.appendChild(newClock);
       newClock.style.color = '#cc0000';
@@ -175,22 +222,20 @@ var buildClosingSoonRow = function (i) {
 };
 
 //Builds first five taking first from openingSoon and then from closingSoon
-var sectionBuild = function (numResults) {
-  for (var i = 0; i < openingSoon.length; i++) {
-    if (resultsSection.childElementCount < options[numResults]) {
-      console.log('building openingSoon row with i @ ' + i);
-      buildOpeningSoonRow(i); //very interesting that i doesn't automatically scope down into this function.
+var sectionBuild = function (numResults, openingSoonArray, closingSoonArray) {
+  for (var i = 0; i < openingSoonArray.length; i++) {
+    if (resultsTable.childElementCount < options[numResults]) {
+      buildOpeningSoonRow(i, openingSoonArray); //very interesting that i doesn't automatically scope down into this function.
     }
   }
 
-  for (var i = 0; i < closingSoon.length; i++) {
-    console.log('building closingSoon row with i @ ' + i);
-    if (resultsSection.childElementCount < options[numResults]) {
-      buildClosingSoonRow(i);
+  for (var i = 0; i < closingSoonArray.length; i++) {
+    if (resultsTable.childElementCount < options[numResults]) {
+      buildClosingSoonRow(i, closingSoonArray);
     }
   }
 };
-sectionBuild(0);
+sectionBuild(0, openingSoon, closingSoon);
 
 //Creates button to expand results based on the amount you want shown
 function expander (numResults) {
@@ -208,10 +253,10 @@ expander(expandCount);
 
 function expandList (event) { //This happens when there's more options
   expandDiv.removeChild(expandButton); //Removes button
-  while (resultsSection.firstChild) { //While the resultsSection has a first child
-    resultsSection.removeChild(resultsSection.firstChild);//Remove all the children
+  while (resultsTable.firstChild) { //While the resultsTable has a first child
+    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
-  sectionBuild(expandCount);//Build the section again now that expandCount has been plused up
+  sectionBuild(expandCount, openingSoon, closingSoon);//Build the section again now that expandCount has been plused up
   expander(expandCount);//Show the button if there's still more
 }
 
@@ -222,32 +267,69 @@ function expandList (event) { //This happens when there's more options
 //No matter where I define the i, or whether I use a while or for loop, the i looses its scope
 //This crazy nonsense is the a work in progress
 
-function diveFilter (event) {
-  console.log('in');
-  var i = 1;
-  while (i < resultsSection.childElementCount + 1) {
-    console.log(i);
-    var checkMe = resultsSection.childNodes[i].childNodes[1].innerHTML;
-    i++;
-    if (checkMe === 'Hipster') {
-      console.log(checkMe === 'Hipster');
-      console.log(resultsSection.childNodes[i - 1]);
-      resultsSection.removeChild(resultsSection.childNodes[i - 1]);
-    }
-  }
-}
-
 // function diveFilter (event) {
+//   console.log('in');
 //   var i = 1;
-//   console.log(typeof(resultsSection.childNodes[i].childNodes[i].innerHTML));
-//   var store = resultsSection.childNodes[i].childNodes[i].innerHTML;
-//   console.log(store === 'Hipster');
-//
-//   if (store === 'Hipster') {
-//     resultsSection.removeChild(resultsSection.childNodes[i]);
-//     console.log('WTF?');
+//   while (i < resultsTable.childElementCount + 1) {
+//     console.log(i);
+//     var checkMe = resultsTable.childNodes[i].childNodes[1].innerHTML;
+//     i++;
+//     if (checkMe === 'Hipster') {
+//       console.log(checkMe === 'Hipster');
+//       console.log(resultsTable.childNodes[i - 1]);
+//       resultsTable.removeChild(resultsTable.childNodes[i - 1]);
+//     }
 //   }
 // }
+
+// Even with methods available to table elements, once you try to access the DOM from within a For loop everything breaks down.
+// function diveFilter (event) {
+//   var i = 1;
+//   console.log(typeof(resultsTable.childNodes[i].childNodes[i].innerHTML));
+//   var store = resultsTable.childNodes[i].childNodes[i].innerHTML;
+//   console.log(store === 'Hipster');
+//   for (var i = 0; i < resultsTable.childElementCount; i++) {
+//     var store = resultsTable.childNodes[i].childNodes[i].innerHTML;
+//     if (store === 'Hipster') {
+//       resultsTable.deleteRow(resultsTable.childNodes[i]);
+//       console.log('Killed it with fire');
+//     }
+//   }
+// }
+
+function diveFilter (event) {
+  // var i = 1;
+  // console.log(typeof(resultsTable.childNodes[i].childNodes[i].innerHTML));
+  // var store = resultsTable.childNodes[i].childNodes[i].innerHTML;
+  // console.log(store === 'Hipster');
+  // for (var i = 0; i < resultsTable.childElementCount; i++) {
+  //   var store = resultsTable.childNodes[i].childNodes[i].innerHTML;
+  //   if (store === 'Hipster') {
+  //     resultsTable.deleteRow(resultsTable.childNodes[i]);
+  //     console.log('Killed it with fire');
+  //   }
+  // }
+  //expandCount = 0;
+}
+
+// var buildRelaxingOpeningSoonRow = function (i) {
+//   var newLoc = document.createElement('tr');
+//   newLoc.id = 'loc' + openingSoon.indexOf(openingSoon[i]);
+//   resultsTable.appendChild(newLoc);
+//
+//   var createTdName = function () {
+//     var tdEl = document.createElement('td');
+//     tdEl.textContent = openingSoon[i].styledname;//Add location name
+//     newLoc.appendChild(tdEl);
+//   };
+//   createTdName();
+//
+//   var createVibe = function () {
+//     var tdEl = document.createElement('td');
+//     tdEl.textContent = openingSoon[i].vibe;//Add location vibe
+//     newLoc.appendChild(tdEl);
+//   };
+//   createVibe();
 
 //if they hit the vibe button, I want to resort my array by vibe then display
 //if they hit the food button, I want to remove any locations without food
