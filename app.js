@@ -5,8 +5,7 @@ var closingSoon = [];
 var options = [5, 10, 15, 20];
 var expandCount = 0;
 var results = document.getElementById('results');
-//I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
-
+//I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display
 var currentHour = (new Date).getHours();
 var currentMinute = (new Date).getMinutes();
 
