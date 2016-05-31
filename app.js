@@ -4,26 +4,18 @@ var openingSoon = [];
 var closingSoon = [];
 var options = [5, 10, 15, 20];
 var expandCount = 0;
+var expandButton = document.getElementById('expand');
 var results = document.getElementById('results');
+var id;
 //I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
 
 var currentHour = (new Date).getHours();
 var currentMinute = (new Date).getMinutes();
+var currentSecond = (new Date).getSeconds();
 
-// Testing button for filters... will move soon
-// var bodyElement = document.getElementById('body');
-// var diveButton = document.createElement('button');
-// diveButton.id = 'diveButton';
-// diveButton.textContent = 'DIVE FILTER';
-// bodyElement.appendChild(diveButton);
-// diveButton.addEventListener('click', diveFilter);
-// if (today.getDay > 5) {
-//   console.log('gotta do the weekend list yo');
-// }
-
-function Location (start, end, styledName, vibe, food, url) {
+function Location (startTime, end, styledName, vibe, food, url) {
   this.styledName = styledName;
-  this.start = start;
+  this.startTime = startTime;
   this.end = end;
   this.vibe = vibe;
   this.food = food;
@@ -52,10 +44,10 @@ function buildOpenCloseArrays () {
   console.log('builing opening and closing array');
   for (var i = 0; i < objectList.length; i++) {
     if (currentHour < objectList[i].end) { //Is happy hour over?
-      if (currentHour >= objectList[i].start) {//Has happy hour begun?
+      if (currentHour >= objectList[i].startTime) {//Has happy hour begun?
         closingSoon.push(objectList[i]);
       }
-      if (currentHour < objectList[i].start) {
+      if (currentHour < objectList[i].startTime) {
         openingSoon.push(objectList[i]);
       }
     }
@@ -66,7 +58,7 @@ function buildOpenCloseArrays () {
 //Sorts all the arrays
 function sortObjectList () {
   objectList.sort(function (a, b) {
-    return a.start > b.start;
+    return a.startTime < b.startTime;
   });
 }
 
@@ -80,7 +72,7 @@ function sortClosingSoon() {
 function sortOpeningSoon() {
   console.log('sorting opening array');
   openingSoon.sort(function (a, b) {
-    return a.start > b.start;
+    return a.startTime < b.startTime;
   });
 }
 
@@ -104,38 +96,75 @@ function buildResultsHeader() {
   results.appendChild(thEl);
 }
 
-//objectList to be replaced with proper array once we've discussed things
-// for loop also should be adjusted for expand after we discuss that as well
 function buildResults() {
-  var trEl = document.createElement('tr');
-  for (var i = 0; i < 5; i++) {
-    var tdEl = document.createElement('td');
-    tdEl.textContent = objectList[i].styledName;
-    trEl.appendChild(tdEl);
-    tdEl = document.createElement('td');
-    tdEl.textContent = objectList[i].vibe;
-    trEl.appendChild(tdEl);
-    tdEl = document.createElement('td');
-    tdEl.textContent = (parseInt(objectList[i].start) - 12) + ':00pm';
-    trEl.appendChild(tdEl);
-    tdEl = document.createElement('td');
-    tdEl.textContent = (parseInt(objectList[i].end) - 12) + ':00pm';
-    trEl.appendChild(tdEl);
-    tdEl = document.createElement('td');
-    // If/else statement to calculate time remaining by subtracting currentHour/instance.start||end
-    // and currentMinute from instance.end and concatentating the string for table output too lazy atm
-    if (currentHour > objectList[i].start) {
-//
-    }
-    trEl.appendChild(tdEl);
+  buildResultsHeader();
+  var counter = 0;
+  var remainder = options[expandCount] - closingSoon.length;
+  if ((openingSoon.length + closingSoon.length) < options[expandCount]) {
+    options[expandCount] = openingSoon.length + closingSoon.length;
   }
-  results.appendChild(trEl);
+  for (var i = 0; i < options[expandCount]; i++) {
+    if (i < closingSoon.length) {
+      console.log(i + ' ' + closingSoon.length);
+      var trEl = document.createElement('tr');
+      var tdEl = document.createElement('td');
+      tdEl.textContent = closingSoon[i].styledName;
+      trEl.appendChild(tdEl);
+      tdEl = document.createElement('td');
+      tdEl.textContent = closingSoon[i].vibe;
+      trEl.appendChild(tdEl);
+      tdEl = document.createElement('td');
+      tdEl.textContent = (parseInt(closingSoon[i].startTime) - 12) + ':00pm';
+      trEl.appendChild(tdEl);
+      tdEl = document.createElement('td');
+      tdEl.textContent = (parseInt(closingSoon[i].end) - 12) + ':00pm';
+      trEl.appendChild(tdEl);
+      tdEl = document.createElement('td');
+      id = 'clock' + i;
+      tdEl.setAttribute('id', id);
+      trEl.appendChild(tdEl);
+      initializeClock(id, i);
+      results.appendChild(trEl);
+    } else {
+      var trEl = document.createElement('tr');
+      var tdEl = document.createElement('td');
+      tdEl.textContent = openingSoon[counter].styledName;
+      trEl.appendChild(tdEl);
+      tdEl = document.createElement('td');
+      tdEl.textContent = openingSoon[counter].vibe;
+      trEl.appendChild(tdEl);
+      tdEl = document.createElement('td');
+      tdEl.textContent = (parseInt(openingSoon[counter].startTime) - 12) + ':00pm';
+      trEl.appendChild(tdEl);
+      tdEl = document.createElement('td');
+      tdEl.textContent = (parseInt(openingSoon[counter].end) - 12) + ':00pm';
+      trEl.appendChild(tdEl);
+      results.appendChild(trEl);
+      counter += 1;
+    }
+  }
+}
+
+function initializeClock(id, i) {
+  var timeinterval = setInterval(function(){
+    var closingDate = new Date();
+    closingDate.setHours(closingSoon[i].end, 0, 0, 0);
+    var currentTime = new Date();
+    var t = closingDate - currentTime;
+    var hours = Math.floor((t / (1000 * 60 * 60)) % 24 );
+    var seconds = Math.floor((t / 1000) % 60 );
+    var minutes = Math.floor((t / 1000 / 60) % 60 );
+    document.getElementById(id).innerHTML = hours + ':' + minutes + ':' + seconds;
+    if(t <= 0){
+      clearInterval(timeinterval);
+    }
+  },1000);
 }
 
 // Need to adjust after discussing object arguments and filters, maybe need to add more input fields to html file
 function addNewLocation(event) {
   var name = event.target.name.value;
-  var start = parseInt(event.target.start.value);
+  var startTime = parseInt(event.target.startTime.value);
   var end = parseInt(event.target.end.value);
   var vibe = event.target.vibe.value;
   var food = event.target.food.value;
@@ -145,9 +174,20 @@ function addNewLocation(event) {
   } else {
     bool = false;
   }
-  var add = new Location(start, end, name, vibe, bool);
+  var add = new Location(startTime, end, name, vibe, bool);
   var lsAdd = JSON.stringify(objectList);
   localStorage.setItem('locationsArray', lsAdd);
+}
+
+function expandList(event) {
+  expandCount += 1;
+  if (closingSoon.length + openingSoon.length <= options[expandCount]) {
+    options[expandCount] = closingSoon.length + openingSoon.length;
+    expandButton.hidden = true;
+  }
+  results.innerHTML = '';
+  sortOpeningSoon();
+  buildResults();
 }
 
 // function removeFood(event) {
@@ -165,12 +205,23 @@ if (localStorage.getItem('locationsArray') !== null) {
   var twoBells = new Location(16, 19, 'The Two Bells', 'vibe', true, 'http://thetwobells.com/');
   var bathTubGin = new Location(17, 19, 'Bathtub Gin', 'vibe', false, 'http://bathtubginseattle.com/');
   var theWhiskeyBar = new Location(14, 19, 'The Whiskey Bar', 'vibe', true, 'http://thewhiskybar.com/');
+  var buckleys = new Location(16, 19, 'Buckleys', 'vibe', true, 'http://www.buckleyspubs.com/');
   var elysianBar = new Location(15, 18, 'Elysian Bar', 'vibe', true, 'http://www.elysianbrewing.com/');
-  // var buckleys = new Location(0, 23, 'Buckleys', 'vibe', true, 'http://www.buckleyspubs.com/');
-  // var buckleys = new Location(0, 23, 'Buckleys', 'vibe', true, 'http://www.buckleyspubs.com/');
-  // var buckleys = new Location(0, 23, 'Buckleys', 'vibe', true, 'http://www.buckleyspubs.com/');
-  // var buckleys = new Location(0, 23, 'Buckleys', 'vibe', true, 'http://www.buckleyspubs.com/');
-  // var buckleys = new Location(0, 23, 'Buckleys', 'vibe', true, 'http://www.buckleyspubs.com/');
+  var robRoy = new Location(16, 19, 'Rob Roy', 'vibe', true, 'http://www.robroyseattle.com/');
+  var rabbitHole = new Location(16, 19, 'Rabbit Hole', 'vibe', true, 'http://rabbitholeseattle.com/');
+  var pinxto = new Location(22, 24, 'Pinxto', 'vibe', true, 'http://www.pintxoseattle.com/');
+  var theUpstairs = new Location(17, 21, 'The Upstairs', 'vibe', true, 'http://www.theupstairsseattle.com/');
+  var lavaLounge = new Location(15, 19, 'Lava Lounge', 'vibe', false, 'http://lavaloungeseattle.com/');
+  var rendevous = new Location(15, 19, 'Rendevous', 'vibe', true, 'http://www.therendezvous.rocks/menu/');
+  var belltownPub = new Location(16, 18, 'Belltown Pub', 'vibe', true, 'http://belltownpub.com/');
+  var shortys = new Location(16, 20, 'Shorty\'s', 'vibe', true, 'http://www.shortydog.com/');
+  var list = new Location(16, 18, 'List', 'vibe', true, 'http://www.listbelltown.com/');
+  var roccos = new Location(11, 19, 'Rocco\'s', 'vibe', true, 'http://www.roccosseattle.com/');
+  var wakeFieldBar = new Location(16, 20, 'Wakefield Bar', 'vibe', true, 'http://wakefieldbar.com/');
+  var fivePoint = new Location(16, 18, 'The 5-point cafe', 'vibe', true, 'http://the5pointcafe.com/');
+  var amber = new Location(16, 19, 'Amber', 'vibe', true, 'http://www.amberseattle.com/');
+  var theCrocodile = new Location(16, 19, 'The Crocodile', 'vibe', false, 'http://www.thecrocodile.com/');
+  var umiSushi = new Location(16, 18, 'Umi Sushi & Sake Bar Restaurant', 'vibe', true, 'http://www.umisakehouse.com/');
 
 }
 
@@ -178,11 +229,10 @@ buildOpenCloseArrays();
 sortObjectList();
 sortClosingSoon();
 sortOpeningSoon();
-
-buildResultsHeader();
 buildResults();
 
-document.getElementById('form').addEventListener('submit', addNewLocation);
+document.getElementById('addLocation').addEventListener('submit', addNewLocation);
+expandButton.addEventListener('click', expandList);
 
 // function diveFilter (event) {
 //
@@ -190,4 +240,4 @@ document.getElementById('form').addEventListener('submit', addNewLocation);
 
 //if they hit the vibe button, I want to resort my array by vibe then display
 //if they hit the food button, I want to remove any locations without food
-document.getElementById('food').addEventListener('click', removeFood);
+// document.getElementById('food').addEventListener('click', removeFood);
