@@ -7,13 +7,20 @@ var userComment = document.getElementById('user-comment');
 var submitButton = document.getElementById('submit-button');
 var allComments = ['Never have I tasted so delicious a libation'];
 var allNames = ['Dudeman'];
-var allNamesParsed = JSON.parse(localStorage.getItem('allNames'));
-var allCommentsParsed = JSON.parse(localStorage.getItem('allComments'));
 var indexNumber = 0;
+var allNamesParsed = JSON.parse(localStorage.getItem('allComments'));
+var allCommentsParsed = JSON.parse(localStorage.getItem('allNames'));
+
+if (JSON.parse(localStorage.getItem('allComments')) === null){
+  var allCommentsParsed = [];
+}
+
+if (JSON.parse(localStorage.getItem('allNames')) === null){
+  var allNamesParsed = [];
+}
+
 userComment.textContent = '"' + allComments[0] + '"';
 userName.textContent = ' - ' + allNames[0];
-// store the all comments on local storage
-// make a function to push comments to the comments array
 
 function CharacterCount(title, maxLength) {
   this.title = title;
@@ -74,16 +81,18 @@ function submitButtonEvent (event){
 }
 
 function pullCommentsFromStorage (){
-  var pullUserComments = JSON.parse(localStorage.getItem('allComments'));
-  var pullUserNames = JSON.parse(localStorage.getItem('allNames'));
-
-  if (indexNumber === pullUserNames.length){
+  if (indexNumber === allCommentsParsed.length){
     indexNumber = 0;
   }
-
-  userComment.innerText = '"' + pullUserComments[indexNumber] + '"';
-  userName.innerText = ' - ' + pullUserNames[indexNumber];
-  indexNumber += 1;
+  if (allNamesParsed === [] || allCommentsParsed === []){
+    allNamesParsed = ['Dudeman'];
+    allCommentsParsed = ['Never have I tasted so delicious a libation'];
+  }
+  else {
+    userComment.innerText = '"' + allNamesParsed[indexNumber] + '"';
+    userName.innerText = ' - ' + allCommentsParsed[indexNumber];
+    indexNumber += 1;
+  }
 }
 
 window.setInterval(pullCommentsFromStorage, 4000);
