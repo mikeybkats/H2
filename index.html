@@ -26,42 +26,36 @@
         </div>
       </section>
 
-      <section class="ticker-section" id="ticker-section">
-
-        <div class="ticker-filter-section">
-          <h2 class="ticker-title">happy hour ticker</h2>
-          <div class="filter-switches">
-            <h3>filters:</h3>
-            <div class="filter-switch">
-              <img src="images/hour_glass.png">
-            </div>
-            <div class="filter-switch">
-              <img src="images/burger.png">
-            </div>
-            <div class="filter-switch">
-              <img src="images/vibe.png">
-              <form>
-                <select class="filter-switch" name="vibe">
-                  <option value="relaxing">Relaxing</option>
-                  <option value="refined">Refined</option>
-                  <option value="upbeat">Upbeat</option>
-                </select>
-              </form>
+      <body id='body'>
+        <section class="ticker-section" id="ticker-section">
+          <div class="ticker-filter-section">
+            <h2 class="ticker-title">happy hour ticker</h2>
+            <div class="filter-switches">
+              <h3>filters:</h3>
+              <div class="filter-switch" id="time">
+                <img src="images/hour_glass.png">
+              </div>
+              <div class="filter-switch" id="food">
+                <img src="images/burger.png">
+              </div>
+              <div class="filter-switch" id="vibe">
+                <img src="images/vibe.png">
+              </div>
             </div>
           </div>
-        </div>
 
-        <div class="ticker-alignment">
-          <div id="results">
+          <div class="ticker-alignment">
+            <table id="results">
+            </table>
           </div>
-          <button id="expand">Expand</button>
-        </div>
+        </section>
 
-      </section>
+        <div id=expandDiv>
+        </div>
 
       <section class="comments" id="comments-section">
         <div class="bigquote">
-          <h0 id="user-comment">"Never have I tasted so delicious a libation!"</h0>
+          <h0 id="user-comment"></h0>
           <div class="block-quote-caption">
             <div class="circle-small">
               <img src="images/comment_face.png" class="comment-face">
@@ -72,14 +66,14 @@
         </div>
 
         <div class="comment-form">
-          <h2>Choose Wisely. Choose Pub Capture.</h2>
+          <!-- <h2>Choose Wisely. Choose Pub Capture.</h2>
           <p>Leave us a message if you have a location recommendation or if you would like to be added to our list.</p>
-          <form id="addLocation">
+          <form id="form">
             <fieldset>
               <label for="name">Name: </label>
               <input class="input1" name="name">
-              <label for="startTime">Happy Hour Start: </label>
-              <input class="input2" name="startTime">
+              <label for="start">Happy Hour Start: </label>
+              <input class="input2" name="start">
               <label for="end">Happy Hour End: </label>
               <input class="input2" name="end">
               <select name="vibe">
@@ -92,14 +86,12 @@
                 <option value="true">Yes</option>
                 <option value="false">No</option>
               </select>
-              <input type="submit" name="Add Location">
-            </div>
+              <input type="submit" name="Add Location"> -->
 
-            <div class="comment-form">
           <h2>Why not leave a message or recommendation?</h2>
           <p>Please leave us a message if you have a location recommendation or if you would like to be added to our list.</p>
 
-          <form id="comments">
+          <form>
             <fieldset>
               <textarea class="input1" name="nameEntry" id="input1">enter your name</textarea>
               <p id="name-character-meter" class="character-count-meter"></p>
@@ -119,7 +111,7 @@
         <div class="circle"></div>
       </section>
 
-      <script src="app.js" type="text/javascript"></script>
+      <!-- <script src="app.js" type="text/javascript"></script> -->
       <script src="app-comment.js" type="text/javascript"></script>
 
     </body>
