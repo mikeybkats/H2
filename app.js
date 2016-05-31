@@ -162,20 +162,16 @@ if (localStorage.getItem('locationsArray') !== null) {
     objectList[i] = list[i];
   }
 } else {
-  var stjohns = new Location ('St. Johns', 'stjohns', 'Groovy', true, 17, 20, 'http://www.saintjohnsseattle.com/');
-  var larrysbar = new Location ('Larry\'s Bar', 'larrysbar', 'Groovy', true, 18, 20);
-  var moesbar = new Location ('Moe\'s Bar', 'moesbar', 'Uppity', false, 17, 19);
-  var curlysbar = new Location ('Curly\'s Bar', 'curlysbar', 'Uppity', false, 16, 19, true);
-  var benstavern = new Location ('Ben\'s Tavern', 'benstavern', 'Uppity', false, 17, 20);
-  var jerrystavern = new Location ('Jerry\'s Tavern', 'jerrystavern', 'Hipster', true, 18, 20);
-  var conans = new Location ('Conan\'s', 'conans', 'Hipster', true, 18, 21, true);
-  var johns = new Location ('John\'s', 'johns', 'Hipster', false, 19, 21);
-  var bearkats = new Location ('Bearkat\'s', 'jerrystavern', 'Hipster', true, 19, 21);
-  var bishops = new Location ('Bishop\'s', 'conans', 'Hipster', true, 19, 21, true);
-  var toms = new Location ('Tom\'s', 'toms', 'Dive', true, 20, 21, true);
-  var dicks = new Location ('Dick\'s', 'dicks', 'Dive', false, 20, 21);
-  var harrys = new Location ('harry\'s', 'harrys', 'Dive', true, 20, 21);
-  var yomommas = new Location ('YoMommas\'s', 'yomommas', 'Dive', true, 20, 21, true);
+  var twoBells = new Location(16, 19, 'The Two Bells', 'vibe', true, 'http://thetwobells.com/');
+  var bathTubGin = new Location(17, 19, 'Bathtub Gin', 'vibe', false, 'http://bathtubginseattle.com/');
+  var theWhiskeyBar = new Location(14, 19, 'The Whiskey Bar', 'vibe', true, 'http://thewhiskybar.com/');
+  var elysianBar = new Location(15, 18, 'Elysian Bar', 'vibe', true, 'http://www.elysianbrewing.com/');
+  // var buckleys = new Location(0, 23, 'Buckleys', 'vibe', true, 'http://www.buckleyspubs.com/');
+  // var buckleys = new Location(0, 23, 'Buckleys', 'vibe', true, 'http://www.buckleyspubs.com/');
+  // var buckleys = new Location(0, 23, 'Buckleys', 'vibe', true, 'http://www.buckleyspubs.com/');
+  // var buckleys = new Location(0, 23, 'Buckleys', 'vibe', true, 'http://www.buckleyspubs.com/');
+  // var buckleys = new Location(0, 23, 'Buckleys', 'vibe', true, 'http://www.buckleyspubs.com/');
+
 }
 
 buildOpenCloseArrays();
