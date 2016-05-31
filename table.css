@@ -1,3 +1,72 @@
 * {
   border: 1px solid black;
 }
+
+.ticker-section {
+  display: flex;
+  flex-direction: column;
+  background-color: black;
+  justify-content: center;
+  align-items: center;
+  min-height: 50px;
+}
+
+.ticker-filter-section {
+  display: flex;
+  flex-direction: column;
+  margin-right: 35%;
+}
+
+.filter-switches {
+  display: flex;
+  align-items: center;
+}
+
+.filter-switch {
+    background-color: #d4bd4b;
+    margin: 0 15px 0 15px;
+    height: 40px;
+    width: 40px;
+    padding: 5px;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    cursor: pointer;
+}
+
+.filter-switch img {
+  max-width: 90%;
+  max-height: 90%;
+}
+
+.ticker {
+  background-color: white;
+  flex-direction: row;
+  display: flex;
+  min-width: 70%;
+  color: #666;
+}
+
+.ticker h3 {
+  color: #666;
+  font-size: 1.5em;
+}
+
+.ticker p {
+  color: #666;
+}
+
+
+.ticker-alignment {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  min-width: 85%;
+  background-color: white;
+}
+
+.ticker-title {
+  line-height: 0px;
+  margin-bottom: 10px;
+  color: white;
+}
