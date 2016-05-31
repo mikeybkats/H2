@@ -5,15 +5,15 @@ var closingSoon = [];
 var options = [5, 10, 15, 20];
 var expandCount = 0;
 
-var relaxingFilter = false;
+var relaxingFilterSetting = false;
 var relaxingOpeningSoon = [];
 var relaxingClosingSoon = [];
 
-var upbeatFilter = false;
+var upbeatFilterSetting = false;
 var upbeatOpeningSoon = [];
 var upbeatClosingClosing = [];
 
-var refinedFilter = false;
+var refinedFilterSetting = false;
 var refinedOpeningSoon = [];
 var refinedClosingSoon = [];
 
@@ -268,7 +268,7 @@ function expandList (event) { //This happens when there's more options
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
   sectionBuild(expandCount, openingSoon, closingSoon);//Build the section again now that expandCount has been plused up
-  expander(expandCount, openingSoon, closingSoon);//Show the button if there's still more
+  expander(expandCount, openingSoon, closingSoon);//This is gonna be a problem because I call it multiple times. I may need to create a new button depending on the filter. This could be the filter
 }
 
 function refinedFilterHandler (event) {
