@@ -8,8 +8,8 @@ var submitButton = document.getElementById('submit-button');
 var allComments = ['Never have I tasted so delicious a libation'];
 var allNames = ['Dudeman'];
 var indexNumber = 0;
-var allNamesParsed = JSON.parse(localStorage.getItem('allComments'));
-var allCommentsParsed = JSON.parse(localStorage.getItem('allNames'));
+var allNamesParsed = JSON.parse(localStorage.getItem('allNames'));
+var allCommentsParsed = JSON.parse(localStorage.getItem('allComments'));
 
 if (JSON.parse(localStorage.getItem('allComments')) === null){
   var allCommentsParsed = [];
@@ -62,14 +62,12 @@ function commentFieldReset (event){
 }
 
 function submitButtonEvent (event){
-  allComments.push(commentEntry.value);
-  allNames.push(nameEntry.value);
-  console.log(allNames);
-  console.log(allComments);
   if (commentEntry.value === 'leave a comment'){
     alert('please leave a comment');
     return;
   }
+  allComments.push(commentEntry.value);
+  allNames.push(nameEntry.value);
   allNamesStringified = JSON.stringify(allNames);
   allCommentsStringified = JSON.stringify(allComments);
   localStorage.setItem('allNames', allNamesStringified);
@@ -81,23 +79,27 @@ function submitButtonEvent (event){
 }
 
 function pullCommentsFromStorage (){
-  if (indexNumber === allCommentsParsed.length){
+  if (indexNumber >= allCommentsParsed.length){
     indexNumber = 0;
   }
-  if (allNamesParsed === [] || allCommentsParsed === []){
+  if (allNamesParsed.length === 0){
     allNamesParsed = ['Dudeman'];
     allCommentsParsed = ['Never have I tasted so delicious a libation'];
+    userComment.innerText = '"' + allCommentsParsed + '"';
+    userName.innerText = ' - ' + allNamesParsed;
+    indexNumber += 1;
   }
   else {
-    userComment.innerText = '"' + allNamesParsed[indexNumber] + '"';
-    userName.innerText = ' - ' + allCommentsParsed[indexNumber];
+    userComment.innerText = '"' + allCommentsParsed[indexNumber] + '"';
+    userName.innerText = ' - ' + allNamesParsed[indexNumber];
     indexNumber += 1;
   }
 }
 
 window.setInterval(pullCommentsFromStorage, 4000);
 nameEntry.addEventListener('focus', nameFieldReset);
-commentEntry.addEventListener('focus', commentFieldReset);
 nameEntry.addEventListener('keydown', pushNameCharacters);
+commentEntry.addEventListener('focus', commentFieldReset);
 commentEntry.addEventListener('keydown', pushCommentCharacters);
+// commentEntry.addEventListener('keydown 13', pushCommentCharacters);
 submitButton.addEventListener('click', submitButtonEvent);
