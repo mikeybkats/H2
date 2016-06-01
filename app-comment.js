@@ -10,11 +10,9 @@ var allNames = ['Dudeman'];
 var indexNumber = 0;
 var allNamesParsed = JSON.parse(localStorage.getItem('allNames'));
 var allCommentsParsed = JSON.parse(localStorage.getItem('allComments'));
-
 if (JSON.parse(localStorage.getItem('allComments')) === null){
   var allCommentsParsed = [];
 }
-
 if (JSON.parse(localStorage.getItem('allNames')) === null){
   var allNamesParsed = [];
 }
@@ -22,17 +20,16 @@ if (JSON.parse(localStorage.getItem('allNames')) === null){
 userComment.textContent = '"' + allComments[0] + '"';
 userName.textContent = ' - ' + allNames[0];
 
+// setting up box ChacterCount constructor
 function CharacterCount(title, maxLength) {
   this.title = title;
   this.count = 0;
   this.maxLength = maxLength;
 }
 
+// setting up character box objects
 var commentBox = new CharacterCount ('comment', 40);
 var nameBox = new CharacterCount ('name', 15);
-
-function populateComment (event){
-}
 
 function pushCommentCharacters (event){
   commentBox.count = commentEntry.value.length;
@@ -62,9 +59,12 @@ function commentFieldReset (event){
 }
 
 function submitButtonEvent (event){
-  if (commentEntry.value === 'leave a comment'){
+  if (commentEntry.value === 'leave a comment' || commentEntry.value === ''){
     alert('please leave a comment');
     return;
+  }
+  if (nameEntry.value === ''){
+    nameEntry.value = 'unknown human';
   }
   allComments.push(commentEntry.value);
   allNames.push(nameEntry.value);
@@ -76,6 +76,8 @@ function submitButtonEvent (event){
   allCommentsParsed = JSON.parse(localStorage.getItem('allComments'));
   userComment.innerText = '"' + allCommentsParsed[(allCommentsParsed.length - 1) || 0] + '"';
   userName.innerText = ' - ' + allNamesParsed[(allNamesParsed.length - 1) || 0];
+  nameEntry.value = 'enter your name';
+  commentEntry.value = 'leave a comment';
 }
 
 function pullCommentsFromStorage (){
@@ -96,6 +98,11 @@ function pullCommentsFromStorage (){
   }
 }
 
+function checkboxSelect (){
+  var checkboxMale = document.getElementById('checkbox-male');
+}
+
+checkboxMale.addEventListener('focus',checkboxSelect);
 window.setInterval(pullCommentsFromStorage, 4000);
 nameEntry.addEventListener('focus', nameFieldReset);
 nameEntry.addEventListener('keydown', pushNameCharacters);
