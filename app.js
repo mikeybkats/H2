@@ -31,10 +31,10 @@ var refinedFilter = document.getElementById('vibe');
 refinedFilter.addEventListener('click', refinedFilterHandler);
 
 var foodFilter = document.getElementById('food');
-foodFilter.addEventListener('click', foodFilterHandler);
+//foodFilter.addEventListener('click', foodFilterHandler);
 
 var timeFilter = document.getElementById('time');
-timeFilter.addEventListener('click', timeFilterHandler);
+//timeFilter.addEventListener('click', timeFilterHandler);
 
 // if (today.getDay > 5) {
 //   console.log('gotta do the weekend list yo');
@@ -300,7 +300,7 @@ var build = function (expandCount, openingSoonArray, closingSoonArray, handler) 
 build(0, openingSoon, closingSoon, openingHandler);
 
 // Checking to see if there are more in the Arrays we're working from
-var expandCheck = function (openingSoonArray, closingSoonArray, handler) {
+function expandCheck (openingSoonArray, closingSoonArray, handler) {
   if ((openingSoonArray + closingSoonArray) > resultsTable.childElementCount) {
     var expandButton = document.createElement('button');
     expandButton.id = 'expandButton';
