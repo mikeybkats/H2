@@ -578,12 +578,14 @@ header {
   color: #666;
 }
 
-
 .ticker-alignment {
   display: flex;
   align-content: center;
   justify-content: center;
   min-width: 85%;
+}
+
+.ticker-table {
   background-color: white;
 }
 
@@ -615,6 +617,7 @@ form {
 fieldset {
   border: 0px;
   padding: 0px;
+  color: white;
 }
 
 .comment-form {
@@ -677,7 +680,7 @@ footer {
 }
 
 .about {
-  background-color: black;
+  background-color: #ff6000;
   min-height: 400px;
   display: flex;
   flex-direction: row;
@@ -690,15 +693,99 @@ footer {
   display: flex;
   align-items: center;
   margin-bottom: 50px;
+
+
+}
+.question-section {
+  background-color: black;
+  min-height: 400px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+.question {
+  align-items: center;
+}
+.questionairre {
+  max-width: 37%;
+}
+h3#question-id {
+  color: white;
+}
+h3#answer-id {
+  color:white;
+}
+h4#questions {
+  color:black;
 }
 
-.circle {
+.circle#michael {
   border-radius: 100%;
   margin: 0 4% 0 4%;
   min-width: 160px;
   min-height: 160px;
   border: 5px solid #ff6000;
-  background-color: #ff6000;
+  background-image: url("images/michael.jpg");
+}
+.circle#michael:hover {
+  background-image: url("images/oldfashioned.jpg")
+}
+
+.circle#john {
+  border-radius: 100%;
+  margin: 0 4% 0 4%;
+  min-width: 160px;
+  min-height: 160px;
+  border: 5px solid #ff6000;
+  background-image: url("images/john.jpg");
+}
+.circle#john:hover {
+  background-image: url("images/torpedo.jpg")
+}
+
+.circle#bishop {
+  border-radius: 100%;
+  margin: 0 4% 0 4%;
+  min-width: 160px;
+  min-height: 160px;
+  border: 5px solid #ff6000;
+  background-image: url("images/bishop.jpg");
+}
+.circle#bishop:hover {
+  background-image: url("images/hoffbrau-logo.jpg")
+}
+
+.circle#dylan {
+  border-radius: 100%;
+  margin: 0 4% 0 4%;
+  min-width: 160px;
+  min-height: 160px;
+  border: 5px solid #ff6000;
+  background-image: url("images/dylan.jpg");
+}
+.circle#dylan:hover {
+  background-image: url("images/southernbaptist.jpg")
+}
+
+div.founders {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+div.meet {
+  text-align: center;
+}
+
+div.names {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  width:800px;
+  color:white;
 }
 
 .circle-small {

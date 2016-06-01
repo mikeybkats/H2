@@ -30,11 +30,12 @@ var bodyElement = document.getElementById('body');
 var refinedFilter = document.getElementById('vibe');
 refinedFilter.addEventListener('click', refinedFilterHandler);
 
-// var foodFilter = document.getElementById('food');
-// foodFilter.addEventListener('click', foodFilterHandler);
-//
-// var timeFilter = document.getElementById('time');
-// timeFilter.addEventListener('click', timeFilterHandler);
+
+var foodFilter = document.getElementById('food');
+//foodFilter.addEventListener('click', foodFilterHandler);
+
+var timeFilter = document.getElementById('time');
+//timeFilter.addEventListener('click', timeFilterHandler);
 
 // if (today.getDay > 5) {
 //   console.log('gotta do the weekend list yo');
@@ -72,7 +73,6 @@ var toms = new Location ('Tom\'s', 'toms', 'Relaxing', true, 8, 9, true);
 var dicks = new Location ('Dick\'s', 'dicks', 'Relaxing', false, 8, 9);
 var harrys = new Location ('Harry\'s', 'harrys', 'Relaxing', true, 8, 9);
 var yomommas = new Location ('YoMommas\'s', 'yomommas', 'Relaxing', true, 8, 9, true);
-
 
 //Creates two arrays for locations opening soon and closing soon
 // for (var i = 0; i < objectList.length; i++)
@@ -180,18 +180,6 @@ var buildOpeningSoonRow = function (i, arrayUsed) {
     newLoc.appendChild(tdEl);
   };
   createVibe();
-
-  // var createClock = function () {
-  //   var setTimer = function (){
-  //     //something that pulls in props from an instance and creates a timer
-  //     var newTimer = 'Countdown Timer';
-  //     var newClock = document.createElement('tr');
-  //     newClock.textContent = newTimer; //Add location countdown
-  //     newLoc.appendChild(newClock);
-  //   }
-  //   setTimer();
-  // }
-  // createClock();
 };
 
 var buildClosingSoonRow = function (i, arrayUsed) {
@@ -214,16 +202,20 @@ var buildClosingSoonRow = function (i, arrayUsed) {
   createVibe();
 
   var createClock = function () {
-    var setTimer = function (){
-      //something that pulls in props from an instance and creates a timer
-      var newClock = document.createElement('td');
-      // newClock.textContent = newTimer; //Add location countdown
-      //Create your timer
-      //
-      newLoc.appendChild(newClock);
-      newClock.style.color = '#cc0000';
-    };
-    setTimer();
+    var newClock = document.createElement('td');
+    newLoc.appendChild(newClock);
+    var timeinterval = setInterval(function(){
+      var closingDate = (new Date()).setHours(arrayUsed[i].end, 0, 0, 0);
+      var t = closingDate - (new Date());
+      var hours = Math.floor((t / (1000 * 60 * 60)) % 24 );
+      var seconds = Math.floor((t / 1000) % 60 );
+      var minutes = Math.floor((t / 1000 / 60) % 60 );
+      newClock.innerHTML = hours + ':' + minutes + ':' + seconds;
+      if(t <= 0){
+        clearInterval(timeinterval);
+      }
+    },1000);
+    newClock.style.color = '#cc0000';
   };
   createClock();
 };
@@ -399,19 +391,3 @@ function refinedFilterHandler (event) {
   }
   sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
 }
-
-// function relaxingFilterHandler (event) {
-//   expandCount = 0;
-//   while (resultsTable.firstChild) { //While the resultsTable has a first child
-//     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
-//   }
-//   builder(relaxingOpeningSoon, relaxingClosingSoon, relaxingFilterHandler);
-// }
-//
-// function upbeatFilterHandler (event) {
-//   expandCount = 0;
-//   while (resultsTable.firstChild) { //While the resultsTable has a first child
-//     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
-//   }
-//   builder(upbeatOpeningSoon, upbeatClosingSoon, upbeatFilterHandler);
-// }
