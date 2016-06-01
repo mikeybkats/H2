@@ -18,11 +18,12 @@ var refinedFilterSetting = false;
 var refinedOpeningSoon = [];
 var refinedClosingSoon = [];
 
+var foodStyling = false;
+
 var resultsTable = document.getElementById('results');
 //I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
 
-// var today = new Date();
-var today = 4;
+var currentTime = new Date();
 
 // Testing button for filters... will move soon
 var bodyElement = document.getElementById('body');
@@ -30,12 +31,26 @@ var bodyElement = document.getElementById('body');
 var refinedFilter = document.getElementById('vibe');
 refinedFilter.addEventListener('click', refinedFilterHandler);
 
+// Highlight rows containing food on click, on another click unhighlight
 var foodFilter = document.getElementById('food');
 foodFilter.addEventListener('click', foodFilterHandler);
 function foodFilterHandler(event) {
-  var hasFood = document.querySelectorAll('.row-highlight');
-  for (var i = 0; i < hasFood.length; i++) {
-    hasFood[i].style.color = '#FF6000';
+  if (!foodStyling) {
+    foodStyling = true;
+    var hasFood = document.querySelectorAll('.row-highlight');
+    var foodIcon = document.getElementById('food');
+    foodIcon.style.backgroundColor = '#FF6000';
+    for (var i = 0; i < hasFood.length; i++) {
+      hasFood[i].style.backgroundColor = '#FF6000';
+    }
+  } else {
+    foodStyling = false;
+    var hasFood = document.querySelectorAll('.row-highlight');
+    var foodIcon = document.getElementById('food');
+    foodIcon.style.backgroundColor = '#d4bd4b';
+    for (var i = 0; i < hasFood.length; i++) {
+      hasFood[i].style.backgroundColor = 'white';
+    }
   }
 }
 
@@ -97,8 +112,8 @@ var yomommas = new Location ('YoMommas\'s', 'yomommas', 'Relaxing', true, 8, 9, 
 function buildOpenCloseArrays () {
   console.log('building opening and closing array');
   for (var i = 0; i < objectList.length; i++) {
-    if (today < objectList[i].end) { //Is happy hour over?
-      if (today > objectList[i].start) {//Has happy hour begun?
+    if (currentTime.getHours() < objectList[i].end) { //Is happy hour over?
+      if (currentTime.getHours() > objectList[i].start) {//Has happy hour begun?
         closingSoon.push(objectList[i]);
         if ('Refined' === objectList[i].vibe) {
           refinedClosingSoon.push(objectList[i]);
@@ -110,7 +125,7 @@ function buildOpenCloseArrays () {
           upbeatClosingClosing.push(objectList[i]);
         }
       }
-      if (today < objectList[i].start) {
+      if (currentTime.getHours() < objectList[i].start) {
         openingSoon.push(objectList[i]);
         if ('Refined' === objectList[i].vibe) {
           refinedOpeningSoon.push(objectList[i]);
