@@ -578,12 +578,15 @@ header {
   color: #666;
 }
 
-
 .ticker-alignment {
   display: flex;
   align-content: center;
   justify-content: center;
   min-width: 85%;
+}
+
+.ticker-table {
+  background-color: white;
 }
 
 .ticker-title {
