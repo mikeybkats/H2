@@ -75,7 +75,6 @@ var dicks = new Location ('Dick\'s', 'dicks', 'Relaxing', false, 8, 9);
 var harrys = new Location ('Harry\'s', 'harrys', 'Relaxing', true, 8, 9);
 var yomommas = new Location ('YoMommas\'s', 'yomommas', 'Relaxing', true, 8, 9, true);
 
-
 //Creates two arrays for locations opening soon and closing soon
 // for (var i = 0; i < objectList.length; i++)
 //   if (today.getHours() < objectList[i].end) { //Is happy hour over?
@@ -183,18 +182,6 @@ var buildOpeningSoonRow = function (i, arrayUsed) {
     newLoc.appendChild(tdEl);
   };
   createVibe();
-
-  // var createClock = function () {
-  //   var setTimer = function (){
-  //     //something that pulls in props from an instance and creates a timer
-  //     var newTimer = 'Countdown Timer';
-  //     var newClock = document.createElement('tr');
-  //     newClock.textContent = newTimer; //Add location countdown
-  //     newLoc.appendChild(newClock);
-  //   }
-  //   setTimer();
-  // }
-  // createClock();
 };
 
 //closingSoon Row Builder
@@ -218,15 +205,20 @@ var buildClosingSoonRow = function (i, arrayUsed) {
   createVibe();
 
   var createClock = function () {
-    var setTimer = function (){
-      //something that pulls in props from an instance and creates a timer
-      var newTimer = 'Countdown Timer';
-      var newClock = document.createElement('tr');
-      newClock.textContent = newTimer; //Add location countdown
-      newLoc.appendChild(newClock);
-      newClock.style.color = '#cc0000';
-    };
-    setTimer();
+    var newClock = document.createElement('td');
+    newLoc.appendChild(newClock);
+    var timeinterval = setInterval(function(){
+      var closingDate = (new Date()).setHours(arrayUsed[i].end, 0, 0, 0);
+      var t = closingDate - (new Date());
+      var hours = Math.floor((t / (1000 * 60 * 60)) % 24 );
+      var seconds = Math.floor((t / 1000) % 60 );
+      var minutes = Math.floor((t / 1000 / 60) % 60 );
+      newClock.innerHTML = hours + ':' + minutes + ':' + seconds;
+      if(t <= 0){
+        clearInterval(timeinterval);
+      }
+    },1000);
+    newClock.style.color = '#cc0000';
   };
   createClock();
 };
