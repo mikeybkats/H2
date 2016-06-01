@@ -31,7 +31,13 @@ var refinedFilter = document.getElementById('vibe');
 refinedFilter.addEventListener('click', refinedFilterHandler);
 
 var foodFilter = document.getElementById('food');
-//foodFilter.addEventListener('click', foodFilterHandler);
+foodFilter.addEventListener('click', foodFilterHandler);
+function foodFilterHandler(event) {
+  var hasFood = document.querySelectorAll('.row-highlight');
+  for (var i = 0; i < hasFood.length; i++) {
+    hasFood[i].style.color = '#FF6000';
+  }
+}
 
 var timeFilter = document.getElementById('time');
 //timeFilter.addEventListener('click', timeFilterHandler);
@@ -167,6 +173,9 @@ sortAllClosingSoon();
 //openingSoon Row Builder
 var buildOpeningSoonRow = function (i, arrayUsed) {
   var newLoc = document.createElement('tr');
+  if (arrayUsed[i].food) {
+    newLoc.setAttribute('class', 'row-highlight');
+  }
   newLoc.id = 'loc' + arrayUsed.indexOf(arrayUsed[i]);
   resultsTable.appendChild(newLoc);
 
@@ -188,6 +197,9 @@ var buildOpeningSoonRow = function (i, arrayUsed) {
 //closingSoon Row Builder
 var buildClosingSoonRow = function (i, arrayUsed) {
   var newLoc = document.createElement('tr');
+  if (arrayUsed[i].food) {
+    newLoc.setAttribute('class', 'row-highlight');
+  }
   newLoc.id = 'loc' + arrayUsed.indexOf(arrayUsed[i]);//Prob doesn't need to be numbered
   resultsTable.appendChild(newLoc);
 
