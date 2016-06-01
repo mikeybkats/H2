@@ -1,3 +1,4 @@
+
 var objectList = [];
 var objectListWeekend = [];
 var openingSoon = [];
@@ -30,10 +31,10 @@ var refinedFilter = document.getElementById('vibe');
 refinedFilter.addEventListener('click', refinedFilterHandler);
 
 var foodFilter = document.getElementById('food');
-foodFilter.addEventListener('click', foodFilter);
+foodFilter.addEventListener('click', foodFilterHandler);
 
 var timeFilter = document.getElementById('time');
-timeFilter.addEventListener('click', timeFilter);
+timeFilter.addEventListener('click', timeFilterHandler);
 
 // if (today.getDay > 5) {
 //   console.log('gotta do the weekend list yo');
@@ -230,7 +231,6 @@ var sectionBuild = function (numResults, openingSoonArray, closingSoonArray) {
       buildOpeningSoonRow(i, openingSoonArray); //very interesting that i doesn't automatically scope down into this function.
     }
   }
-
   for (var i = 0; i < closingSoonArray.length; i++) {
     if (resultsTable.childElementCount < options[numResults]) {
       buildClosingSoonRow(i, closingSoonArray);
@@ -259,20 +259,68 @@ function expandList (event) { //This happens when there's more options
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
-  sectionBuild(expandCount, openingSoon, closingSoon);//Build the section again now that expandCount has been plused up
-  expander(expandCount, openingSoon, closingSoon);//This is gonna be a problem because I call it multiple times. I may need to create a new button depending on the filter. This could be the filter
+  sectionBuild(expandCount, openingSoon, closingSoon);
+  expander(expandCount, openingSoon, closingSoon);
 }
 
 function refinedFilterHandler (event) {
-  console.log('Vibin bro');
   expandCount = 0;
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
-  sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);//Build the section again now that expandCount has been plused up
-  expander(expandCount, refinedOpeningSoon, refinedClosingSoon);//Show the button if there's still more
+  sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
+  expander(expandCount, refinedOpeningSoon, refinedClosingSoon);
   ++expandCount;
 }
 
-//if they hit the vibe button, I want to resort my array by vibe then display
-//if they hit the food button, I want to remove any locations without food
+//I need to check if there are additional items in the arrays
+//OR I need to build from the arrays as long as there are items in the arrays
+//AND I haven't reached my field of view limits
+//THEN I want to display an expand button
+//WITH an event handler function that will take from the input parameters of the origin expand button.
+
+var build = function (expandCount, openingSoonArray, closingSoonArray, handler) {
+  // As long as I have space on the DOM
+  if (resultsTable.childElementCount < options[expandCount]) {
+    // As long as I have items in my Arrays
+    if ((openingSoonArray + closingSoonArray) > options[expandCount]) {
+      // I want to fill the remain spaces
+      var remainingSpaces = options[expandCount] - resultsTable.childElementCount;
+      // By building from my chosen Array by the amount I want to expand
+      for (var i = 0; i < remainingSpaces; i++) {
+        sectionBuild(expandCount, openingSoonArray, closingSoonArray);
+      }
+    }
+  }
+  ++expandCount;
+  expandCheck(openingSoonArray, closingSoonArray, handler);
+};
+
+//Build initial view
+build(0, openingSoon, closingSoon, openingHandler);
+
+// Checking to see if there are more in the Arrays we're working from
+var expandCheck = function (openingSoonArray, closingSoonArray, handler) {
+  if ((openingSoonArray + closingSoonArray) > resultsTable.childElementCount) {
+    var expandButton = document.createElement('button');
+    expandButton.id = 'expandButton';
+    expandButton.textContent = 'See More';
+    var expandDiv = document.getElementById('expandDiv');
+    expandDiv.appendChild(expandButton);
+    expandButton.addEventListener('click', handler);
+  }
+};
+
+function openingHandler (event) { //This happens when there's more options
+  expandDiv.removeChild(expandButton); //Removes button
+  while (resultsTable.firstChild) { //While the resultsTable has a first child
+    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
+  }
+  build(expandCount, openingSoon, closingSoon);
+  expander(expandCount, openingSoon, closingSoon);
+}
+
+// I want to keep building to the DOM
+
+// I want to create a button
+// I want that button to have a handler that draws from the same arrays the builder did.
