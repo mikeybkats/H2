@@ -1,10 +1,24 @@
-objectList = [];
-objectListWeekend = [];
-openingSoon = [];
-closingSoon = [];
-options = [5, 10, 15, 20];
-expandCount = 0;
-var resultsSection = document.getElementById("results");
+
+var objectList = [];
+var objectListWeekend = [];
+var openingSoon = [];
+var closingSoon = [];
+var options = [5, 10, 15, 20];
+var expandCount = 0;
+
+var relaxingFilterSetting = false;
+var relaxingOpeningSoon = [];
+var relaxingClosingSoon = [];
+
+var upbeatFilterSetting = false;
+var upbeatOpeningSoon = [];
+var upbeatClosingClosing = [];
+
+var refinedFilterSetting = false;
+var refinedOpeningSoon = [];
+var refinedClosingSoon = [];
+
+var resultsTable = document.getElementById('results');
 //I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
 
 
@@ -13,12 +27,15 @@ var today = 4;
 
 // Testing button for filters... will move soon
 var bodyElement = document.getElementById('body');
-var diveButton = document.createElement('button');
-diveButton.id = 'diveButton';
-diveButton.textContent = 'DIVE FILTER';
-bodyElement.appendChild(diveButton);
-diveButton.addEventListener('click', diveFilter);
 
+var refinedFilter = document.getElementById('vibe');
+refinedFilter.addEventListener('click', refinedFilterHandler);
+
+var foodFilter = document.getElementById('food');
+foodFilter.addEventListener('click', foodFilter);
+
+var timeFilter = document.getElementById('time');
+timeFilter.addEventListener('click', timeFilter);
 
 // if (today.getDay > 5) {
 //   console.log('gotta do the weekend list yo');
@@ -39,23 +56,27 @@ function Location (styledname, name, vibe, food, start, end, weekend, url) {
   objectList.push(this);
   if (weekend === true) {
     objectListWeekend.push(this);
-  }
+  };
+  // if ('Refined' === this.vibe) {
+  //   refinedClosingSoon.push(objectList[i]);
+  // }
 };
 
-var stjohns = new Location ('St. Johns', 'stjohns', 'Groovy', true, 5, 8, 'http://www.saintjohnsseattle.com/');
-var larrysbar = new Location ('Larry\'s Bar', 'larrysbar', 'Groovy', true, 6, 9);
-var moesbar = new Location ('Moe\'s Bar', 'moesbar', 'Uppity', false, 5, 7);
-var curlysbar = new Location ('Curly\'s Bar', 'curlysbar', 'Uppity', false, 4, 7, true);
-var benstavern = new Location ('Ben\'s Tavern', 'benstavern', 'Uppity', false, 5, 8);
-var jerrystavern = new Location ('Jerry\'s Tavern', 'jerrystavern', 'Hipster', true, 6, 8);
-var conans = new Location ('Conan\'s', 'conans', 'Hipster', true, 6, 9, true);
-var johns = new Location ('John\'s', 'johns', 'Hipster', false, 7, 9);
-var bearkats = new Location ('Bearkat\'s', 'jerrystavern', 'Hipster', true, 7, 9);
-var bishops = new Location ('Bishop\'s', 'conans', 'Hipster', true, 7, 9, true);
-var toms = new Location ('Tom\'s', 'toms', 'Dive', true, 8, 9, true);
-var dicks = new Location ('Dick\'s', 'dicks', 'Dive', false, 8, 9);
-var harrys = new Location ('harry\'s', 'harrys', 'Dive', true, 8, 9);
-var yomommas = new Location ('YoMommas\'s', 'yomommas', 'Dive', true, 8, 9, true);
+var stjohns = new Location ('St. Johns', 'stjohns', 'Refined', true, 5, 8, 'http://www.saintjohnsseattle.com/');
+var larrysbar = new Location ('Larry\'s Bar', 'larrysbar', 'Refined', true, 6, 9);
+var moesbar = new Location ('Moe\'s Bar', 'moesbar', 'Refined', false, 5, 7);
+var curlysbar = new Location ('Curly\'s Bar', 'curlysbar', 'Refined', false, 4, 7, true);
+var benstavern = new Location ('Ben\'s Tavern', 'benstavern', 'Refined', false, 5, 8);
+var jerrystavern = new Location ('Jerry\'s Tavern', 'jerrystavern', 'Upbeat', true, 6, 8);
+var conans = new Location ('Conan\'s', 'conans', 'Upbeat', true, 6, 9, true);
+var johns = new Location ('John\'s', 'johns', 'Upbeat', false, 7, 9);
+var bearkats = new Location ('Bearkat\'s', 'jerrystavern', 'Upbeat', true, 7, 9);
+var bishops = new Location ('Bishop\'s', 'conans', 'Upbeat', true, 7, 9, true);
+var toms = new Location ('Tom\'s', 'toms', 'Relaxing', true, 8, 9, true);
+var dicks = new Location ('Dick\'s', 'dicks', 'Relaxing', false, 8, 9);
+var harrys = new Location ('Harry\'s', 'harrys', 'Relaxing', true, 8, 9);
+var yomommas = new Location ('YoMommas\'s', 'yomommas', 'Relaxing', true, 8, 9, true);
+
 
 //Creates two arrays for locations opening soon and closing soon
 // for (var i = 0; i < objectList.length; i++)
@@ -74,14 +95,32 @@ function buildOpenCloseArrays () {
   for (var i = 0; i < objectList.length; i++) {
     if (today < objectList[i].end) { //Is happy hour over?
       if (today > objectList[i].start) {//Has happy hour begun?
-          closingSoon.push(objectList[i]);
+        closingSoon.push(objectList[i]);
+        if ('Refined' === objectList[i].vibe) {
+          refinedClosingSoon.push(objectList[i]);
+        }
+        if ('Relaxing' === objectList[i].vibe) {
+          relaxingClosingSoon.push(objectList[i]);
+        }
+        if ('Upbeat' === objectList[i].vibe) {
+          upbeatClosingClosing.push(objectList[i]);
+        }
       }
       if (today < objectList[i].start) {
         openingSoon.push(objectList[i]);
+        if ('Refined' === objectList[i].vibe) {
+          refinedOpeningSoon.push(objectList[i]);
+        }
+        if ('Relaxing' === objectList[i].vibe) {
+          relaxingOpeningSoon.push(objectList[i]);
+        }
+        if ('Upbeat' === objectList[i].vibe) {
+          upbeatOpeningSoon.push(objectList[i]);
+        }
       }
     }
   }
-  console.log('There are ' + (openingSoon.length + closingSoon.length) + ' available Happy Hours');
+  console.log('There are ' + (openingSoon.length + closingSoon.length) + ' available Happy Hours. ' + relaxingOpeningSoon.length + ' are relaxing Happy Hours opening soon. ' + relaxingClosingSoon.length + ' are relaxing Happy Hours closing soon. ' + refinedOpeningSoon.length + ' are refined Happy Hours opening soon. ' + refinedClosingSoon.length + ' are refined Happy Hours closing soon. ' + upbeatOpeningSoon.length + ' are upbeat Happy Hours opening soon. ' + upbeatClosingClosing.length + ' are upbeat Happy Hours closing soon.');
 }
 buildOpenCloseArrays();
 
@@ -90,51 +129,68 @@ var sortObjectList = function () {
   objectList.sort(function (a, b) {
     return a.start > b.start;
   });
-}
+};
 sortObjectList();
 
-var sortClosingSoon = function () {
-  console.log('sorting closing array');
-  closingSoon.sort(function (a, b) {
-    return a.end > b.end;
-  });
-}
-sortClosingSoon();
-
-var sortOpeningSoon = function () {
+var sortAllOpeningSoon = function () {
   console.log('sorting opening array');
   openingSoon.sort(function (a, b) {
     return a.start > b.start;
   });
-}
-sortOpeningSoon();
+  relaxingOpeningSoon.sort(function (a, b) {
+    return a.start > b.start;
+  });
+  refinedOpeningSoon.sort(function (a, b) {
+    return a.start > b.start;
+  });
+  upbeatOpeningSoon.sort(function (a, b) {
+    return a.start > b.start;
+  });
+};
+sortAllOpeningSoon();
 
+var sortAllClosingSoon = function () {
+  console.log('sorting closing array');
+  closingSoon.sort(function (a, b) {
+    return a.end > b.end;
+  });
+  relaxingClosingSoon.sort(function (a, b) {
+    return a.start > b.start;
+  });
+  refinedClosingSoon.sort(function (a, b) {
+    return a.start > b.start;
+  });
+  upbeatClosingClosing.sort(function (a, b) {
+    return a.start > b.start;
+  });
+};
+sortAllClosingSoon();
 
 //openingSoon Row Builder
-var buildOpeningSoonRow = function (i) {
-  var newLoc = document.createElement('div');
-  newLoc.id = 'loc' + openingSoon.indexOf(openingSoon[i]);
-  resultsSection.appendChild(newLoc);
+var buildOpeningSoonRow = function (i, arrayUsed) {
+  var newLoc = document.createElement('tr');
+  newLoc.id = 'loc' + arrayUsed.indexOf(arrayUsed[i]);
+  resultsTable.appendChild(newLoc);
 
-  var createH3 = function () {
-    var h3El = document.createElement('h3');
-    h3El.textContent = openingSoon[i].styledname;//Add location name
-    newLoc.appendChild(h3El);
+  var createTdName = function () {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = arrayUsed[i].styledname;//Add location name
+    newLoc.appendChild(tdEl);
   };
-  createH3();
+  createTdName();
 
-  var createP = function () {
-    var pEl = document.createElement('p');
-    pEl.textContent = openingSoon[i].vibe;//Add location vibe
-    newLoc.appendChild(pEl);
+  var createVibe = function () {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = arrayUsed[i].vibe;//Add location vibe
+    newLoc.appendChild(tdEl);
   };
-  createP();
+  createVibe();
 
   // var createClock = function () {
   //   var setTimer = function (){
   //     //something that pulls in props from an instance and creates a timer
   //     var newTimer = 'Countdown Timer';
-  //     var newClock = document.createElement('div');
+  //     var newClock = document.createElement('tr');
   //     newClock.textContent = newTimer; //Add location countdown
   //     newLoc.appendChild(newClock);
   //   }
@@ -144,60 +200,59 @@ var buildOpeningSoonRow = function (i) {
 };
 
 //closingSoon Row Builder
-var buildClosingSoonRow = function (i) {
-  var newLoc = document.createElement('div');
-  newLoc.id = 'loc' + closingSoon.indexOf(closingSoon[i]);//Prob doesn't need to be numbered
-  resultsSection.appendChild(newLoc);
+var buildClosingSoonRow = function (i, arrayUsed) {
+  var newLoc = document.createElement('tr');
+  newLoc.id = 'loc' + arrayUsed.indexOf(arrayUsed[i]);//Prob doesn't need to be numbered
+  resultsTable.appendChild(newLoc);
 
-  var createH3 = function () {
-    var h3El = document.createElement('h3');
-    h3El.textContent = closingSoon[i].styledname;//Add location name
-    newLoc.appendChild(h3El);
+  var createTdName = function () {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = arrayUsed[i].styledname;//Add location name
+    newLoc.appendChild(tdEl);
   };
-  createH3();
+  createTdName();
 
-  var createP = function () {
-    var pEl = document.createElement('p');
-    pEl.textContent = closingSoon[i].vibe;//Add location vibe
-    newLoc.appendChild(pEl);
+  var createVibe = function () {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = arrayUsed[i].vibe;//Add location vibe
+    newLoc.appendChild(tdEl);
   };
-  createP();
+  createVibe();
 
   var createClock = function () {
     var setTimer = function (){
       //something that pulls in props from an instance and creates a timer
       var newTimer = 'Countdown Timer';
-      var newClock = document.createElement('div');
+      var newClock = document.createElement('tr');
       newClock.textContent = newTimer; //Add location countdown
       newLoc.appendChild(newClock);
-      newClock.style.color = "#cc0000";
-    }
+      newClock.style.color = '#cc0000';
+    };
     setTimer();
-  }
+  };
   createClock();
 };
 
 //Builds first five taking first from openingSoon and then from closingSoon
-var sectionBuild = function (numResults) {
-  for (var i = 0; i < openingSoon.length; i++) {
-    if (resultsSection.childElementCount < options[numResults]) {
-      console.log('building openingSoon row with i @ ' + i);
-      buildOpeningSoonRow(i); //very interesting that i doesn't automatically scope down into this function.
+var sectionBuild = function (numResults, openingSoonArray, closingSoonArray) {
+  for (var i = 0; i < openingSoonArray.length; i++) {
+    if (resultsTable.childElementCount < options[numResults]) {
+      buildOpeningSoonRow(i, openingSoonArray); //very interesting that i doesn't automatically scope down into this function.
     }
   }
 
-  for (var i = 0; i < closingSoon.length; i++) {
-    console.log('building closingSoon row with i @ ' + i);
-    if (resultsSection.childElementCount < options[numResults]) {
-      buildClosingSoonRow(i);
+  for (var i = 0; i < closingSoonArray.length; i++) {
+    if (resultsTable.childElementCount < options[numResults]) {
+      buildClosingSoonRow(i, closingSoonArray);
     }
   }
-}
-sectionBuild(0);
+};
+sectionBuild(0, openingSoon, closingSoon);
 
 //Creates button to expand results based on the amount you want shown
-function expander (numResults) {
-    if (openingSoon.length + closingSoon.length > options[numResults]) {
+function expander (numResults, expandingFromOpeningArray, expandingFromClosingArray) {
+  console.log(expandingFromOpeningArray.length);
+  if (expandingFromOpeningArray.length + expandingFromClosingArray.length > options[numResults]) {
     var expandButton = document.createElement('button');
     expandButton.id = 'expandButton';
     expandButton.textContent = 'See More';
@@ -207,54 +262,29 @@ function expander (numResults) {
     expandButton.addEventListener('click', expandList);
   }
 }
-expander(expandCount);
-
+expander(expandCount, openingSoon, closingSoon);
 
 
 function expandList (event) { //This happens when there's more options
   expandDiv.removeChild(expandButton); //Removes button
-  while (resultsSection.firstChild) { //While the resultsSection has a first child
-    resultsSection.removeChild(resultsSection.firstChild);//Remove all the children
+  while (resultsTable.firstChild) { //While the resultsTable has a first child
+    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
-  sectionBuild(expandCount);//Build the section again now that expandCount has been plused up
-  expander(expandCount);//Show the button if there's still more
+  sectionBuild(expandCount, openingSoon, closingSoon);//Build the section again now that expandCount has been plused up
+  expander(expandCount, openingSoon, closingSoon);//This is gonna be a problem because I call it multiple times. I may need to create a new button depending on the filter. This could be the filter
 }
 
 
-//There doesn't seem to be any way to store things from the DOM in order to remove them
-//You can't push the DOM elements to an array because they don't show up as removable elements
-//You can't store an element in a variable and then remove the element stored in the variable from DOM
-//You can't even iterate over the DOM because you can't test the innerHTML text against a string
-//No matter where I define the i, or whether I use a while or for loop, the i looses its scope
-//This crazy nonsense is the a work in progress
-function diveFilter (event) {
-  console.log('in');
-  var i = 1;
-  while (i < resultsSection.childElementCount+1) {
-    console.log(i);
-    var checkMe = resultsSection.childNodes[i].childNodes[1].innerHTML;
-    i++;
-    if (checkMe === 'Hipster') {
-      console.log(checkMe === 'Hipster');
-      console.log(resultsSection.childNodes[i-1]);
-      resultsSection.removeChild(resultsSection.childNodes[i-1]);
-    }
+function refinedFilterHandler (event) {
+  console.log('Vibin bro');
+  expandCount = 0;
+  while (resultsTable.firstChild) { //While the resultsTable has a first child
+    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
+  sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);//Build the section again now that expandCount has been plused up
+  expander(expandCount, refinedOpeningSoon, refinedClosingSoon);//Show the button if there's still more
+  ++expandCount;
 }
-
-
-
-// function diveFilter (event) {
-//   var i = 1;
-//   console.log(typeof(resultsSection.childNodes[i].childNodes[i].innerHTML));
-//   var store = resultsSection.childNodes[i].childNodes[i].innerHTML;
-//   console.log(store === 'Hipster');
-//
-//   if (store === 'Hipster') {
-//     resultsSection.removeChild(resultsSection.childNodes[i]);
-//     console.log('WTF?');
-//   }
-// }
 
 //if they hit the vibe button, I want to resort my array by vibe then display
 //if they hit the food button, I want to remove any locations without food
