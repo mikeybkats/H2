@@ -10,6 +10,10 @@ var allNames = ['Dudeman'];
 var indexNumber = 0;
 var allNamesParsed = JSON.parse(localStorage.getItem('allNames'));
 var allCommentsParsed = JSON.parse(localStorage.getItem('allComments'));
+var checkboxMale = document.getElementById('checkbox-male');
+var checkboxFemale = document.getElementById('checkbox-female');
+var checkboxUndeclared = document.getElementById('checkbox-undeclared');
+
 if (JSON.parse(localStorage.getItem('allComments')) === null){
   var allCommentsParsed = [];
 }
@@ -98,12 +102,15 @@ function pullCommentsFromStorage (){
   }
 }
 
-function checkboxSelect (){
-  var checkboxMale = document.getElementById('checkbox-male');
+function checkboxMaleSelect (){
+  checkboxfemale.checked = false;
+  checkboxUndeclared.checked = false;
 }
 
-checkboxMale.addEventListener('focus',checkboxSelect);
 window.setInterval(pullCommentsFromStorage, 4000);
+
+checkboxMale.addEventListener('focus',checkboxMaleSelect);
+
 nameEntry.addEventListener('focus', nameFieldReset);
 nameEntry.addEventListener('keydown', pushNameCharacters);
 commentEntry.addEventListener('focus', commentFieldReset);
