@@ -584,7 +584,6 @@ header {
   align-content: center;
   justify-content: center;
   min-width: 85%;
-  background-color: white;
 }
 
 .ticker-title {
@@ -692,13 +691,71 @@ footer {
   margin-bottom: 50px;
 }
 
-.circle {
+.circle#michael {
   border-radius: 100%;
   margin: 0 4% 0 4%;
   min-width: 160px;
   min-height: 160px;
   border: 5px solid #ff6000;
-  background-color: #ff6000;
+  background-image: url("images/michael.jpg");
+}
+.circle#michael:hover {
+  background-image: url("images/oldfashioned.jpg")
+}
+
+.circle#john {
+  border-radius: 100%;
+  margin: 0 4% 0 4%;
+  min-width: 160px;
+  min-height: 160px;
+  border: 5px solid #ff6000;
+  background-image: url("images/john.jpg");
+}
+.circle#john:hover {
+  background-image: url("images/torpedo.jpg")
+}
+
+.circle#bishop {
+  border-radius: 100%;
+  margin: 0 4% 0 4%;
+  min-width: 160px;
+  min-height: 160px;
+  border: 5px solid #ff6000;
+  background-image: url("images/bishop.jpg");
+}
+.circle#bishop:hover {
+  background-image: url("images/hoffbrau-logo.jpg")
+}
+
+.circle#dylan {
+  border-radius: 100%;
+  margin: 0 4% 0 4%;
+  min-width: 160px;
+  min-height: 160px;
+  border: 5px solid #ff6000;
+  background-image: url("images/dylan.jpg");
+}
+.circle#dylan:hover {
+  background-image: url("images/southernbaptist.jpg")
+}
+
+div.founders {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+div.meet {
+  text-align: center;
+}
+
+div.names {
+  display:flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: stretch;
+  width:800px;
+  color:white;
 }
 
 .circle-small {
