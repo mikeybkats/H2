@@ -676,7 +676,7 @@ footer {
 }
 
 .about {
-  background-color: black;
+  background-color: #ff6000;
   min-height: 400px;
   display: flex;
   flex-direction: row;
@@ -689,11 +689,31 @@ footer {
   display: flex;
   align-items: center;
   margin-bottom: 50px;
+
+
+}
+.question-section {
+  background-color: black;
+  min-height: 400px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+}
+.question {
+  align-items: center;
+}
+.questionairre {
+  max-width: 37%;
 }
 h3#question-id {
-  color: black;
+  color: white;
 }
-h4#answer-id {
+h3#answer-id {
+  color:white;
+}
+h4#questions {
   color:black;
 }
 
