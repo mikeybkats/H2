@@ -148,7 +148,7 @@ function buildResults() {
   }
 }
 
-function initializeClock(id, i) {
+function initializeClock(i) {
   var timeinterval = setInterval(function(){
     var closingDate = new Date();
     closingDate.setHours(closingSoon[i].end, 0, 0, 0);
@@ -157,7 +157,7 @@ function initializeClock(id, i) {
     var hours = Math.floor((t / (1000 * 60 * 60)) % 24 );
     var seconds = Math.floor((t / 1000) % 60 );
     var minutes = Math.floor((t / 1000 / 60) % 60 );
-    document.getElementById(id).innerHTML = hours + ':' + minutes + ':' + seconds;
+    newClock.innerHTML = hours + ':' + minutes + ':' + seconds;
     if(t <= 0){
       clearInterval(timeinterval);
     }
