@@ -690,6 +690,12 @@ footer {
   align-items: center;
   margin-bottom: 50px;
 }
+h3#question-id {
+  color: black;
+}
+h4#answer-id {
+  color:black;
+}
 
 .circle#michael {
   border-radius: 100%;
