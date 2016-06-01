@@ -30,11 +30,11 @@ var bodyElement = document.getElementById('body');
 var refinedFilter = document.getElementById('vibe');
 refinedFilter.addEventListener('click', refinedFilterHandler);
 
-var foodFilter = document.getElementById('food');
-foodFilter.addEventListener('click', foodFilterHandler);
-
-var timeFilter = document.getElementById('time');
-timeFilter.addEventListener('click', timeFilterHandler);
+// var foodFilter = document.getElementById('food');
+// foodFilter.addEventListener('click', foodFilterHandler);
+//
+// var timeFilter = document.getElementById('time');
+// timeFilter.addEventListener('click', timeFilterHandler);
 
 // if (today.getDay > 5) {
 //   console.log('gotta do the weekend list yo');
@@ -165,7 +165,6 @@ var sortAllClosingSoon = function () {
 };
 sortAllClosingSoon();
 
-//openingSoon Row Builder
 var buildOpeningSoonRow = function (i, arrayUsed) {
   var newLoc = document.createElement('tr');
   newLoc.id = 'loc' + arrayUsed.indexOf(arrayUsed[i]);
@@ -198,7 +197,6 @@ var buildOpeningSoonRow = function (i, arrayUsed) {
   // createClock();
 };
 
-//closingSoon Row Builder
 var buildClosingSoonRow = function (i, arrayUsed) {
   var newLoc = document.createElement('tr');
   newLoc.id = 'loc' + arrayUsed.indexOf(arrayUsed[i]);//Prob doesn't need to be numbered
@@ -233,43 +231,58 @@ var buildClosingSoonRow = function (i, arrayUsed) {
   createClock();
 };
 
-//Builds first five taking first from openingSoon and then from closingSoon
-var sectionBuild = function (numResults, openingSoonArray, closingSoonArray) {
+var sectionBuild = function (openingSoonArray, closingSoonArray) {
+  console.log(options[expandCount] + ' sectionBuild expand count.');
   for (var i = 0; i < openingSoonArray.length; i++) {
-    if (resultsTable.childElementCount < options[numResults]) {
+    if (resultsTable.childElementCount < options[expandCount]) {
       buildOpeningSoonRow(i, openingSoonArray); //very interesting that i doesn't automatically scope down into this function.
     }
   }
   for (var i = 0; i < closingSoonArray.length; i++) {
-    if (resultsTable.childElementCount < options[numResults]) {
+    if (resultsTable.childElementCount < options[expandCount]) {
       buildClosingSoonRow(i, closingSoonArray);
     }
   }
 };
-sectionBuild(0, openingSoon, closingSoon);
 
-//Creates button to expand results based on the amount you want shown
-function expander (numResults, expandingFromOpeningArray, expandingFromClosingArray) {
-  console.log(expandingFromOpeningArray.length);
-  if (expandingFromOpeningArray.length + expandingFromClosingArray.length > options[numResults]) {
+var expandCheck = function (openingSoonArray, closingSoonArray, handler) {
+  console.log('There are ' + (openingSoonArray.length + closingSoonArray.length) + ' available Happy Hours. ' + ' And there are ' + resultsTable.childElementCount + ' Happy Hours on the DOM.');
+
+  if ((openingSoonArray.length + closingSoonArray.length) > options[expandCount]) {
     var expandButton = document.createElement('button');
     expandButton.id = 'expandButton';
     expandButton.textContent = 'See More';
     var expandDiv = document.getElementById('expandDiv');
+    console.log('appending button');
     expandDiv.appendChild(expandButton);
-    ++expandCount;
-    expandButton.addEventListener('click', expandList);
+    expandButton.addEventListener('click', handler);
   }
-}
-expander(expandCount, openingSoon, closingSoon);
+};
 
-function expandList (event) { //This happens when there's more options
+var builder = function (openingSoonArray, closingSoonArray, handler) {
+  if ((openingSoonArray.length + closingSoonArray.length) > resultsTable.childElementCount) {
+    // By building from my chosen Array by the amount I want to expand
+    for (var i = 0; i < options[expandCount]; i++) {
+      sectionBuild(openingSoonArray, closingSoonArray);
+    }
+  }
+  console.log(options[expandCount] + ' out of build expand count.');
+  expandCheck(openingSoonArray, closingSoonArray, handler);
+  ++expandCount;
+};
+
+//BUILD INITIAL VIEW
+builder(openingSoon, closingSoon, openingExpandHandler);
+
+//EVENT HANDLERS
+function openingExpandHandler (event) { //This happens when there's more options
+  console.log('removing button');
+  console.log(options[expandCount]);
   expandDiv.removeChild(expandButton); //Removes button
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
-  sectionBuild(expandCount, openingSoon, closingSoon);
-  expander(expandCount, openingSoon, closingSoon);
+  builder(openingSoon, closingSoon, openingExpandHandler);
 }
 
 function refinedFilterHandler (event) {
@@ -277,59 +290,21 @@ function refinedFilterHandler (event) {
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
-  sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
-  expander(expandCount, refinedOpeningSoon, refinedClosingSoon);
-  ++expandCount;
+  builder(refinedOpeningSoon, refinedClosingSoon, refinedFilterHandler);
 }
 
-//I need to check if there are additional items in the arrays
-//OR I need to build from the arrays as long as there are items in the arrays
-//AND I haven't reached my field of view limits
-//THEN I want to display an expand button
-//WITH an event handler function that will take from the input parameters of the origin expand button.
-
-var build = function (expandCount, openingSoonArray, closingSoonArray, handler) {
-  // As long as I have space on the DOM
-  if (resultsTable.childElementCount < options[expandCount]) {
-    // As long as I have items in my Arrays
-    if ((openingSoonArray + closingSoonArray) > options[expandCount]) {
-      // I want to fill the remain spaces
-      var remainingSpaces = options[expandCount] - resultsTable.childElementCount;
-      // By building from my chosen Array by the amount I want to expand
-      for (var i = 0; i < remainingSpaces; i++) {
-        sectionBuild(expandCount, openingSoonArray, closingSoonArray);
-      }
-    }
-  }
-  ++expandCount;
-  expandCheck(openingSoonArray, closingSoonArray, handler);
-};
-
-//Build initial view
-build(0, openingSoon, closingSoon, openingHandler);
-
-// Checking to see if there are more in the Arrays we're working from
-var expandCheck = function (openingSoonArray, closingSoonArray, handler) {
-  if ((openingSoonArray + closingSoonArray) > resultsTable.childElementCount) {
-    var expandButton = document.createElement('button');
-    expandButton.id = 'expandButton';
-    expandButton.textContent = 'See More';
-    var expandDiv = document.getElementById('expandDiv');
-    expandDiv.appendChild(expandButton);
-    expandButton.addEventListener('click', handler);
-  }
-};
-
-function openingHandler (event) { //This happens when there's more options
-  expandDiv.removeChild(expandButton); //Removes button
-  while (resultsTable.firstChild) { //While the resultsTable has a first child
-    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
-  }
-  build(expandCount, openingSoon, closingSoon);
-  expander(expandCount, openingSoon, closingSoon);
-}
-
-// I want to keep building to the DOM
-
-// I want to create a button
-// I want that button to have a handler that draws from the same arrays the builder did.
+// function relaxingFilterHandler (event) {
+//   expandCount = 0;
+//   while (resultsTable.firstChild) { //While the resultsTable has a first child
+//     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
+//   }
+//   builder(relaxingOpeningSoon, relaxingClosingSoon, relaxingFilterHandler);
+// }
+//
+// function upbeatFilterHandler (event) {
+//   expandCount = 0;
+//   while (resultsTable.firstChild) { //While the resultsTable has a first child
+//     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
+//   }
+//   builder(upbeatOpeningSoon, upbeatClosingSoon, upbeatFilterHandler);
+// }
