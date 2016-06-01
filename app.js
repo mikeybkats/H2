@@ -56,9 +56,6 @@ function Location (styledname, name, vibe, food, start, end, weekend, url) {
   if (weekend === true) {
     objectListWeekend.push(this);
   };
-  // if ('Refined' === this.vibe) {
-  //   refinedClosingSoon.push(objectList[i]);
-  // }
 };
 
 var stjohns = new Location ('St. Johns', 'stjohns', 'Refined', true, 5, 8, 'http://www.saintjohnsseattle.com/');
@@ -232,10 +229,10 @@ var buildClosingSoonRow = function (i, arrayUsed) {
 };
 
 var sectionBuild = function (openingSoonArray, closingSoonArray) {
-  console.log(options[expandCount] + ' sectionBuild expand count.');
-  for (var i = 0; i < openingSoonArray.length; i++) {
-    if (resultsTable.childElementCount < options[expandCount]) {
-      buildOpeningSoonRow(i, openingSoonArray); //very interesting that i doesn't automatically scope down into this function.
+  // var combinedLength = openingSoonArray.length + closingSoonArray.length;
+  for (var i = 0; i < openingSoonArray.length; i++) { //write all the openings
+    if (resultsTable.childElementCount < options[expandCount]) {//as long as there's less on the DOM than we have available
+      buildOpeningSoonRow(i, openingSoonArray);
     }
   }
   for (var i = 0; i < closingSoonArray.length; i++) {
@@ -245,52 +242,162 @@ var sectionBuild = function (openingSoonArray, closingSoonArray) {
   }
 };
 
-var expandCheck = function (openingSoonArray, closingSoonArray, handler) {
-  console.log('There are ' + (openingSoonArray.length + closingSoonArray.length) + ' available Happy Hours. ' + ' And there are ' + resultsTable.childElementCount + ' Happy Hours on the DOM.');
+//openingSoon Row Builder
+var buildOpeningSoonRow = function (i, arrayUsed) {
+  var newLoc = document.createElement('tr');
+  newLoc.id = 'loc' + arrayUsed.indexOf(arrayUsed[i]);
+  resultsTable.appendChild(newLoc);
 
-  if ((openingSoonArray.length + closingSoonArray.length) > options[expandCount]) {
+  var createTdName = function () {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = arrayUsed[i].styledname;//Add location name
+    newLoc.appendChild(tdEl);
+  };
+  createTdName();
+
+  var createVibe = function () {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = arrayUsed[i].vibe;//Add location vibe
+    newLoc.appendChild(tdEl);
+  };
+  createVibe();
+
+  // var createClock = function () {
+  //   var setTimer = function (){
+  //     //something that pulls in props from an instance and creates a timer
+  //     var newTimer = 'Countdown Timer';
+  //     var newClock = document.createElement('tr');
+  //     newClock.textContent = newTimer; //Add location countdown
+  //     newLoc.appendChild(newClock);
+  //   }
+  //   setTimer();
+  // }
+  // createClock();
+};
+
+//closingSoon Row Builder
+var buildClosingSoonRow = function (i, arrayUsed) {
+  var newLoc = document.createElement('tr');
+  newLoc.id = 'loc' + arrayUsed.indexOf(arrayUsed[i]);//Prob doesn't need to be numbered
+  resultsTable.appendChild(newLoc);
+
+  var createTdName = function () {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = arrayUsed[i].styledname;//Add location name
+    newLoc.appendChild(tdEl);
+  };
+  createTdName();
+
+  var createVibe = function () {
+    var tdEl = document.createElement('td');
+    tdEl.textContent = arrayUsed[i].vibe;//Add location vibe
+    newLoc.appendChild(tdEl);
+  };
+  createVibe();
+
+  var createClock = function () {
+    var setTimer = function (){
+      //something that pulls in props from an instance and creates a timer
+      var newTimer = 'Countdown Timer';
+      var newClock = document.createElement('tr');
+      newClock.textContent = newTimer; //Add location countdown
+      newLoc.appendChild(newClock);
+      newClock.style.color = '#cc0000';
+    };
+    setTimer();
+  };
+  createClock();
+};
+
+//Builds first five taking first from openingSoon and then from closingSoon
+var sectionBuild = function (numResults, openingSoonArray, closingSoonArray) {
+  for (var i = 0; i < openingSoonArray.length; i++) {
+    if (resultsTable.childElementCount < options[numResults]) {
+      buildOpeningSoonRow(i, openingSoonArray); //very interesting that i doesn't automatically scope down into this function.
+    }
+  }
+
+  for (var i = 0; i < closingSoonArray.length; i++) {
+    if (resultsTable.childElementCount < options[numResults]) {
+      buildClosingSoonRow(i, closingSoonArray);
+    }
+  }
+};
+sectionBuild(0, openingSoon, closingSoon);
+
+//Creates button to expand results based on the amount you want shown
+function expander (numResults, expandingFromOpeningArray, expandingFromClosingArray) {
+  console.log(expandingFromOpeningArray.length);
+  if (expandingFromOpeningArray.length + expandingFromClosingArray.length > options[numResults]) {
     var expandButton = document.createElement('button');
     expandButton.id = 'expandButton';
     expandButton.textContent = 'See More';
     var expandDiv = document.getElementById('expandDiv');
-    console.log('appending button');
     expandDiv.appendChild(expandButton);
-    expandButton.addEventListener('click', handler);
+    ++expandCount;
+    expandButton.addEventListener('click', expandList);
   }
-};
+}
+expander(expandCount, openingSoon, closingSoon);
 
-var builder = function (openingSoonArray, closingSoonArray, handler) {
-  if ((openingSoonArray.length + closingSoonArray.length) > resultsTable.childElementCount) {
-    // By building from my chosen Array by the amount I want to expand
-    for (var i = 0; i < options[expandCount]; i++) {
-      sectionBuild(openingSoonArray, closingSoonArray);
-    }
-  }
-  console.log(options[expandCount] + ' out of build expand count.');
-  expandCheck(openingSoonArray, closingSoonArray, handler);
-  ++expandCount;
-};
-
-//BUILD INITIAL VIEW
-builder(openingSoon, closingSoon, openingExpandHandler);
-
-//EVENT HANDLERS
-function openingExpandHandler (event) { //This happens when there's more options
-  console.log('removing button');
-  console.log(options[expandCount]);
+function expandList (event) { //This happens when there's more options
   expandDiv.removeChild(expandButton); //Removes button
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
-  builder(openingSoon, closingSoon, openingExpandHandler);
+  sectionBuild(expandCount, openingSoon, closingSoon);//Build the section again now that expandCount has been plused up
+  expander(expandCount, openingSoon, closingSoon);//Show the button if there's still more
 }
+
+
+// var expandCheck = function (openingSoonArray, closingSoonArray, handler) {
+//   console.log('There are ' + (openingSoonArray.length + closingSoonArray.length) + ' available Happy Hours. ' + ' And there are ' + resultsTable.childElementCount + ' Happy Hours on the DOM.');
+//
+//   if ((openingSoonArray.length + closingSoonArray.length) > resultsTable.childElementCount) {
+//     var expandButton = document.createElement('button');
+//     expandButton.id = 'expandButton';
+//     expandButton.textContent = 'See More';
+//     var expandDiv = document.getElementById('expandDiv');
+//     console.log('appending button');
+//     expandDiv.appendChild(expandButton);
+//     expandButton.addEventListener('click', handler);
+//   }
+// };
+//
+// var builder = function (openingSoonArray, closingSoonArray, handler) {
+//   // if ((openingSoonArray.length + closingSoonArray.length) < options[expandCount]) {
+//     // var remaining = ((openingSoonArray.length + closingSoonArray.length) - resultsTable.childElementCount);
+//   for (var i = 0; i < (openingSoonArray.length + closingSoonArray.length); i++) {
+//     if ((openingSoonArray.length + closingSoonArray.length) < options[expandCount]) {
+//       sectionBuild(openingSoonArray, closingSoonArray);
+//     }
+//   }
+//   // }
+//   expandCheck(openingSoonArray, closingSoonArray, handler);
+//   ++expandCount;
+// };
+//
+// // If
+//
+// //BUILD INITIAL VIEW
+// builder(openingSoon, closingSoon, openingExpandHandler);
+//
+// //EVENT HANDLERS
+// function openingExpandHandler (event) { //This happens when there's more options
+//   expandDiv.removeChild(expandButton); //Removes button
+//   while (resultsTable.firstChild) { //While the resultsTable has a first child
+//     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
+//   }
+//   console.log(openingSoon.length + closingSoon.length);
+//   builder(openingSoon, closingSoon, openingExpandHandler);
+// }
 
 function refinedFilterHandler (event) {
   expandCount = 0;
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
-  builder(refinedOpeningSoon, refinedClosingSoon, refinedFilterHandler);
+  sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
 }
 
 // function relaxingFilterHandler (event) {
