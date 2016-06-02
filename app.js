@@ -382,8 +382,9 @@ function buildTableHeader () {
 
 function filterHandler (event) {
   expandCount = 0;
-  if (expandDiv.firstChild) {
-    expandDiv.removeChild(document.getElementById('expandButton')); //Removes button
+  var buttonContainer = document.getElementById('expandDiv');
+  if (buttonContainer.firstChild) {
+    buttonContainer.removeChild(buttonContainer.firstChild); //Removes button
   }
 
   while (resultsTable.firstChild) { //While the resultsTable has a first child
