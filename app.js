@@ -21,7 +21,7 @@ var refinedClosingSoon = [];
 var resultsTable = document.getElementById('results');
 
 //I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
-var today = 16;
+var today = 15;
 // var today = new Date();
 var foodStyling = false;
 var foodFilter = document.getElementById('food');
@@ -289,7 +289,6 @@ var sectionBuild = function (numResults, openingSoonArray, closingSoonArray) {
       buildOpeningSoonRow(i, openingSoonArray); //very interesting that i doesn't automatically scope down into this function.
     }
   }
-
 };
 sectionBuild(0, openingSoon, closingSoon);
 
@@ -311,7 +310,7 @@ function expander (numResults, expandingFromOpeningArray, expandingFromClosingAr
 expander(expandCount, openingSoon, closingSoon);
 
 function expandList (event) { //This happens when there's more options
-  expandDiv.removeChild(expandButton); //Removes button
+  expandDiv.removeChild(document.getElementById('expandButton')); //Removes button
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
@@ -324,10 +323,12 @@ function expandList (event) { //This happens when there's more options
   } else if (relaxingFilterSetting) {
     currentClosingArray = relaxingClosingSoon;
     currentOpeningArray = relaxingOpeningSoon;
-  }
-  if (refinedFilterSetting) {
+  } else if (refinedFilterSetting) {
     currentClosingArray = upbeatClosingSoon;
     currentOpeningArray = upbeatOpeningSoon;
+  } else {
+    currentOpeningArray = openingSoon;
+    currentClosingArray = closingSoon;
   }
   sectionBuild(expandCount, currentOpeningArray, currentClosingArray);//Build the section again now that expandCount has been plused up
   foodStylingSet();
@@ -380,6 +381,8 @@ function buildTableHeader () {
 
 function filterHandler (event) {
   expandCount = 0;
+  expandDiv.removeChild(document.getElementById('expandButton')); //Removes button
+
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
@@ -387,16 +390,22 @@ function filterHandler (event) {
   buildTableHeader();
   if (event.target.value === 'refined') {
     refinedFilterSetting = true;
+    relaxingFilterSetting = false;
+    upbeatFilterSetting = false;
     sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
     foodStylingSet();
     expander(expandCount, refinedOpeningSoon, refinedClosingSoon);//Show the button if there's still more
   } else if (event.target.value === 'relaxing') {
     relaxingFilterSetting = true;
+    refinedFilterSetting = false;
+    upbeatFilterSetting = false;
     sectionBuild(expandCount, relaxingOpeningSoon, relaxingClosingSoon);
     foodStylingSet();
     expander(expandCount, relaxingOpeningSoon, relaxingClosingSoon);//Show the button if there's still more
   } else if (event.target.value === 'upbeat') {
     upbeatFilterSetting = true;
+    relaxingFilterSetting = false;
+    refinedFilterSetting = false;
     sectionBuild(expandCount, upbeatOpeningSoon, upbeatClosingSoon);
     foodStylingSet();
     expander(expandCount, upbeatOpeningSoon, upbeatClosingSoon);//Show the button if there's still more
