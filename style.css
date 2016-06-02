@@ -540,7 +540,6 @@ header {
 .ticker-filter-section {
   display: flex;
   flex-direction: column;
-  margin-right: 35%;
 }
 
 .filter-switches {
