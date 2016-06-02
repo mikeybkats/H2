@@ -49,7 +49,7 @@ var nameBox = new CharacterCount ('name', 15);
 
 function pushCommentCharacters (event){
   commentBox.count = commentEntry.value.length;
-  // console.log(commentBox.count);
+  console.log(commentBox.count);
   commentCharacterMeter.textContent = commentBox.count + '/' + commentBox.maxLength;
 
   if (commentBox.count >= 40){
@@ -98,6 +98,11 @@ function submitButtonEvent (event){
     allImages.push(genderNeutralImages[0]);
   }
 
+  if (checkboxUndeclared.checked === false && checkboxFemale.checked === false && checkboxMale.checked === false){
+    commentImage.src = 'images/' + genderNeutralImages[0] + '.png';
+    allImages.push(genderNeutralImages[0]);
+  }
+
   allComments.push(commentEntry.value);
   allNames.push(nameEntry.value);
 
@@ -140,7 +145,7 @@ function pullCommentsFromStorage (){
     userComment.innerText = '"' + allCommentsParsed[indexNumber] + '"';
     userName.innerText = ' - ' + allNamesParsed[indexNumber];
     commentImage.src = 'images/' + allImagesParsed[indexNumber] + '.png';
-    // console.log(commentImage.src);
+    console.log(commentImage.src);
     indexNumber += 1;
   }
 }
@@ -160,7 +165,7 @@ function checkboxUndeclaredSelect (){
   checkboxMale.checked = false;
 }
 
-window.setInterval(pullCommentsFromStorage, 4000);
+window.setInterval(pullCommentsFromStorage, 3000);
 
 checkboxMale.addEventListener('click',checkboxMaleSelect);
 checkboxFemale.addEventListener('click',checkboxFemaleSelect);
