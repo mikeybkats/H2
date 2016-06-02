@@ -38,20 +38,25 @@
               <div class="filter-switch" id="food">
                 <img src="images/burger.png">
               </div>
-              <div class="filter-switch" id="vibe">
-                <img src="images/vibe.png">
+              <div class="" id="vibe">
+                <!-- <img src="images/vibe.png"> -->
+                <select class="filter-switch-dropdown" name="vibe">
+                  <option value="relaxing">Relaxing</option>
+                  <option value="refined">Refined</option>
+                  <option value="upbeat">Upbeat</option>
+                </select>
               </div>
             </div>
           </div>
 
           <div class="ticker-alignment">
-            <table id="results">
+            <table id="results" class="ticker-table">
             </table>
           </div>
 
           <div id=expandDiv>
           </div>
-          
+
         </section>
 
         <!-- <h2>Choose Wisely. Choose Pub Capture.</h2>
@@ -81,10 +86,10 @@
           <h0 id="user-comment"></h0>
           <div class="block-quote-caption">
             <div class="circle-small">
-              <img src="images/comment_face.png" class="comment-face">
+              <img src="" id="comment-image" class="comment-face">
             </div>
 
-            <h3 class="block-quote-caption-type" id="user-name">- Dudeman</h3>
+            <h3 class="block-quote-caption-type" id="user-name"></h3>
           </div>
         </div>
 
@@ -96,6 +101,10 @@
           <form>
             <fieldset>
               <textarea class="input1" name="nameEntry" id="input1">enter your name</textarea>
+              <input class="checkbox" name="checkboxMale" id="checkbox-male" type="checkbox"> Male </input>
+              <input class="checkbox" name="checkboxFemale" id="checkbox-female" type="checkbox"> Female </input>
+              <input class="checkbox" name="checkboxUndeclared" id="checkbox-undeclared" type="checkbox"> Undeclared </input>
+
               <p id="name-character-meter" class="character-count-meter"></p>
               <textarea class="input2" name="commentEntry" id="input2">leave a comment</textarea>
               <p id="comment-character-meter" class="character-count-meter"></p>
@@ -106,15 +115,46 @@
         </div>
       </section>
 
+      <section class="question-section">
+        <div>
+          <h1> Let us help you make a selection</h1>
+        </div>
+        <div class="questionairre">
+            <div class="question">
+              <h3 id="question-id"></h3>
+            </div>
+          <div class="selection">
+            <button class="button" id="yes-button">Yes</button>
+            <button class="button" id="no-button">No</button>
+            <button class="button" id="next-button">Next</button>
+          </div>
+          <div class="answer">
+            <h3 id="answer-id"></h3>
+          </div>
+       </div>
+      </section>
+
       <section class="about" id="about-section">
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
-        <div class="circle"></div>
+        <div class="meet">
+          <h1>The Founders</h1>
+            <div class="founders">
+              <div class="circle" id="michael"></div>
+              <div class="circle" id="john"></div>
+              <div class="circle" id="bishop"></div>
+              <div class="circle" id="dylan"></div>
+            </div>
+            <div class="names">
+              <h5> Michael Bakarat</h5>
+               <h5> John Shaff</h5>
+               <h5> Michael Bishop</h5>
+               <h5> Dylan Sanders</h5>
+            </div>
+        </div>
       </section>
 
       <script src="app.js" type="text/javascript"></script>
       <script src="app-comment.js" type="text/javascript"></script>
+      <script src="app-questions.js" type="text/javascript"></script>
 
     </body>
 
