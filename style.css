@@ -561,6 +561,15 @@ header {
   max-height: 90%;
 }
 
+.filter-switch-dropdown {
+  background-image: src('images/vibe.png');
+  background-color: #d4bd4b;
+  margin: 0 15px 0 15px;
+  height: 20px;
+  width: 100px;
+  border: none;
+}
+
 .ticker {
   background-color: white;
   flex-direction: row;
