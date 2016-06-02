@@ -294,6 +294,10 @@ sectionBuild(0, openingSoon, closingSoon);
 
 //Creates button to expand results based on the amount you want shown
 function expander (numResults, expandingFromOpeningArray, expandingFromClosingArray) {
+  var buttonContainer = document.getElementById('expandDiv');
+  if (buttonContainer.firstChild) {
+    buttonContainer.removeChild(buttonContainer.firstChild); //Removes button
+  }
   console.log(expandingFromOpeningArray.length);
   if (expandingFromOpeningArray.length + expandingFromClosingArray.length > options[numResults]) {
     var expandButton = document.createElement('button');
@@ -310,6 +314,7 @@ function expander (numResults, expandingFromOpeningArray, expandingFromClosingAr
 expander(expandCount, openingSoon, closingSoon);
 
 function expandList (event) { //This happens when there's more options
+  console.log(expandDiv);
   expandDiv.removeChild(document.getElementById('expandButton')); //Removes button
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
