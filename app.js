@@ -12,7 +12,7 @@ var relaxingClosingSoon = [];
 
 var upbeatFilterSetting = false;
 var upbeatOpeningSoon = [];
-var upbeatClosingClosing = [];
+var upbeatClosingSoon = [];
 
 var refinedFilterSetting = false;
 var refinedOpeningSoon = [];
@@ -27,6 +27,12 @@ var bodyElement = document.getElementById('body');
 
 var refinedFilter = document.getElementById('vibe');
 refinedFilter.addEventListener('change', refinedFilterHandler);
+
+var relaxingFilter = document.getElementById('vibe');
+refinedFilter.addEventListener('change', relaxingFilterHandler);
+
+var upbeatFilter = document.getElementById('vibe');
+refinedFilter.addEventListener('change', upbeatFilterHandler);
 
 var foodFilter = document.getElementById('food');
 //foodFilter.addEventListener('click', foodFilterHandler);
@@ -90,6 +96,18 @@ instantiate();
 //     openingSoon.push(objectList[i]);
 //     }
 //   }
+buildTableHeader();
+
+function foodStylingSet () {
+  if (foodStyling) {
+    var hasFood = document.querySelectorAll('.row-highlight');
+    var foodIcon = document.getElementById('food');
+    foodIcon.style.backgroundColor = '#FF6000';
+    for (var i = 0; i < hasFood.length; i++) {
+      hasFood[i].style.backgroundColor = '#FF6000';
+    }
+  }
+}
 
 //***Testing loop*** falsely creates openingSoon array, delete when done
 //Creates opening and closing arrays
@@ -291,7 +309,6 @@ var sectionBuild = function (numResults, openingSoonArray, closingSoonArray) {
   }
 
 };
-buildResultsHeader();
 sectionBuild(0, openingSoon, closingSoon);
 
 //Creates button to expand results based on the amount you want shown
@@ -314,46 +331,54 @@ function expandList (event) { //This happens when there's more options
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
-  buildResultsHeader();
+  buildTableHeader();
   sectionBuild(expandCount, openingSoon, closingSoon);//Build the section again now that expandCount has been plused up
   foodStylingSet();
   expander(expandCount, openingSoon, closingSoon);//Show the button if there's still more
 }
 
-function foodStylingSet () {
-  if (foodStyling) {
-    var hasFood = document.querySelectorAll('.row-highlight');
-    var foodIcon = document.getElementById('food');
-    foodIcon.style.backgroundColor = '#FF6000';
-    for (var i = 0; i < hasFood.length; i++) {
-      hasFood[i].style.backgroundColor = '#FF6000';
-    }
-  }
-}
+// function buildResultsHeader() {
+//   var thEl = document.createElement('th');
+//   var tdEl = document.createElement('td');
+//   tdEl.setAttribute('class', 'table-header');
+//   tdEl.textContent = 'Venue name';
+//   thEl.appendChild(tdEl);
+//   tdEl = document.createElement('td');
+//   tdEl.setAttribute('class', 'table-header');
+//   tdEl.textContent = 'Vibe';
+//   thEl.appendChild(tdEl);
+//   tdEl = document.createElement('td');
+//   tdEl.setAttribute('class', 'table-header');
+//   tdEl.textContent = 'Happy Hour Start Time';
+//   thEl.appendChild(tdEl);
+//   tdEl = document.createElement('td');
+//   tdEl.setAttribute('class', 'table-header');
+//   tdEl.textContent = 'Happy Hour End Time';
+//   thEl.appendChild(tdEl);
+//   tdEl = document.createElement('td');
+//   tdEl.setAttribute('class', 'table-header');
+//   tdEl.textContent = 'Happy Hour ends in... ';
+//   thEl.appendChild(tdEl);
+//   resultsTable.appendChild(thEl);
+// }
 
-function buildResultsHeader() {
-  var thEl = document.createElement('th');
-  var tdEl = document.createElement('td');
-  tdEl.setAttribute('class', 'table-header');
-  tdEl.textContent = 'Venue name';
-  thEl.appendChild(tdEl);
-  tdEl = document.createElement('td');
-  tdEl.setAttribute('class', 'table-header');
-  tdEl.textContent = 'Vibe';
-  thEl.appendChild(tdEl);
-  tdEl = document.createElement('td');
-  tdEl.setAttribute('class', 'table-header');
-  tdEl.textContent = 'Happy Hour Start Time';
-  thEl.appendChild(tdEl);
-  tdEl = document.createElement('td');
-  tdEl.setAttribute('class', 'table-header');
-  tdEl.textContent = 'Happy Hour End Time';
-  thEl.appendChild(tdEl);
-  tdEl = document.createElement('td');
-  tdEl.setAttribute('class', 'table-header');
-  tdEl.textContent = 'Happy Hour ends in... ';
-  thEl.appendChild(tdEl);
-  resultsTable.appendChild(thEl);
+function buildTableHeader () {
+  var headerRow = document.createElement('tr');
+  resultsTable.appendChild(headerRow);
+  var venueHead = document.createElement('td');
+  venueHead.textContent = 'VENUE';
+  headerRow.appendChild(venueHead);
+  var vibeHead = document.createElement('td');
+  vibeHead.textContent = 'VIBE';
+  headerRow.appendChild(vibeHead);
+  var startHead = document.createElement('td');
+  startHead.textContent = 'OPENS';
+  headerRow.appendChild(startHead);
+  var endHead = document.createElement('td');
+  endHead.textContent = 'END';
+  headerRow.appendChild(endHead);
+  var timerHead = document.createElement('td');
+  headerRow.appendChild(timerHead);
 }
 
 function refinedFilterHandler (event) {
@@ -361,8 +386,26 @@ function refinedFilterHandler (event) {
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
-  buildResultsHeader();
+  buildTableHeader();
   sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
+}
+
+function relaxingFilterHandler (event) {
+  expandCount = 0;
+  while (resultsTable.firstChild) { //While the resultsTable has a first child
+    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
+  }
+  buildTableHeader();
+  sectionBuild(expandCount, relaxingOpeningSoon, relaxingClosingSoon);
+}
+
+function upbeatFilterHandler (event) {
+  expandCount = 0;
+  while (resultsTable.firstChild) { //While the resultsTable has a first child
+    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
+  }
+  buildTableHeader();
+  sectionBuild(expandCount, upbeatOpeningSoon, upbeatClosingSoon);
 }
 
 function foodFilterHandler(event) {
@@ -384,8 +427,6 @@ function foodFilterHandler(event) {
     }
   }
 }
-
-
 
 // var expandCheck = function (openingSoonArray, closingSoonArray, handler) {
 //   console.log('There are ' + (openingSoonArray.length + closingSoonArray.length) + ' available Happy Hours. ' + ' And there are ' + resultsTable.childElementCount + ' Happy Hours on the DOM.');
