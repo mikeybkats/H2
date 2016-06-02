@@ -20,7 +20,13 @@ var femaleImages = ['comment_face_female00'];
 var genderNeutralImages = ['comment_face_undeclared00'];
 var allNamesParsed = JSON.parse(localStorage.getItem('allNames'));
 var allCommentsParsed = JSON.parse(localStorage.getItem('allComments'));
+<<<<<<< HEAD
+var checkboxMale = document.getElementById('checkbox-male');
+var checkboxFemale = document.getElementById('checkbox-female');
+var checkboxUndeclared = document.getElementById('checkbox-undeclared');
+=======
 var allImagesParsed = JSON.parse(localStorage.getItem('allImages'));
+>>>>>>> 13ca2ebad102b4d0315e03771d44fff70e9a2c90
 
 if (JSON.parse(localStorage.getItem('allComments')) === null){
   var allCommentsParsed = [];
@@ -146,6 +152,15 @@ function pullCommentsFromStorage (){
 }
 
 function checkboxMaleSelect (){
+<<<<<<< HEAD
+  checkboxfemale.checked = false;
+  checkboxUndeclared.checked = false;
+}
+
+window.setInterval(pullCommentsFromStorage, 4000);
+
+checkboxMale.addEventListener('focus',checkboxMaleSelect);
+=======
   checkboxFemale.checked = false;
   checkboxUndeclared.checked = false;
 }
@@ -165,6 +180,7 @@ window.setInterval(pullCommentsFromStorage, 3000);
 checkboxMale.addEventListener('click',checkboxMaleSelect);
 checkboxFemale.addEventListener('click',checkboxFemaleSelect);
 checkboxUndeclared.addEventListener('click',checkboxUndeclaredSelect);
+>>>>>>> 13ca2ebad102b4d0315e03771d44fff70e9a2c90
 
 nameEntry.addEventListener('focus', nameFieldReset);
 nameEntry.addEventListener('keydown', pushNameCharacters);
