@@ -1,4 +1,3 @@
-var allQuestions = ['Are you looking for a bar with more of a relaxed feeling?', 'Want a place that has 70s Decor?'];
 var yesButton = document.getElementById('yes-button');
 var noButton = document.getElementById('no-button');
 var nextButton = document.getElementById('next-button');
@@ -15,13 +14,13 @@ function Questions (location, question, answer) {
   this.answer = answer;
 
 }
-var twoBells = new Questions('Two Bells', 'Want a friendly bar?', 'Try Two Bells');
-var bathTubGin = new Questions('Bathtub Gin', 'Want a Speak Easy?', 'Bathtub Gin is your choice');
-var theWhiskeyBar = new Questions('The Whiskey Bar', 'Would you like the ultimate whiskey selection?', 'You\'re only option is The Whiskey Bar');
-var amber = new Questions('Amber', 'Want more of a classy environment with dancing as an option?', 'Amber is the environment for you');
+var twoBells = new Questions('Two Bells', 'Want a friendly bar?', 'Try Two Bells!');
+var bathTubGin = new Questions('Bathtub Gin', 'Want a Speak Easy?', 'Bathtub Gin is your choice!');
+var theWhiskeyBar = new Questions('The Whiskey Bar', 'Want the ultimate whiskey selection?', 'You\'re only option is The Whiskey Bar!');
+var amber = new Questions('Amber', 'A classy vibe with dancing as an option?', 'Amber is the environment for you!');
 
 var allBars = [twoBells, bathTubGin, theWhiskeyBar, amber];
-// questionArea.innerText = 'H2 Question Area';
+
 questionArea.innerText = 'Question: ' + allBars[indexCounter].question;
 
 // if the index number equals length of array, it must equal to 0
@@ -32,15 +31,13 @@ function nextQuestion() {
   if (indexCounter < maxQuestions) {
     answerArea.innerText = '';
     questionArea.innerText = 'Question: ' + allBars[indexCounter].question;
-    // indexCounter = 0;
   } else {
-    // alert('You have gone through all the questions');
-    answerArea.innerText = 'Check the table for other selections';
+   //  hide buttons and refer to the table
+    answerArea.innerText = 'Check the table above for other selections.';
     nextButton.hidden = true;
     yesButton.hidden = true;
     noButton.hidden = true;
     questionArea.innerText = '';
-
   }
 
 }
@@ -50,7 +47,7 @@ function clickYes() {
 }
 function clickNo() {
   // when user clicks the no button, answer will display a nice message
-  answerArea.innerText = 'Click the Next button and see if we can\'t find you something better';
+  answerArea.innerText = 'Click the Next button and see if we can\'t find you something else.';
 }
 
 nextButton.addEventListener('click', nextQuestion);
