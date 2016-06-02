@@ -943,6 +943,25 @@ div.main-box-citation {
   margin-top: 60px;
 }
 
+
+.alt-refresh {
+  visibility: hidden;
+  position: absolute;
+  background-color: brown;
+  /*
+  right: 58%;
+  top: 213%;*/
+}
+
+.alt-refresh:hover {
+  visibility: visible;
+  position: absolute;
+  background-color: brown;
+  /*
+  right: 58%;
+  top: 213%;*/
+}
+
 /*#expandButton {
   color: blue;
 }*/
