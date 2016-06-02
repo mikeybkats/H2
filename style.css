@@ -426,6 +426,10 @@ p {
   color: white;
 }
 
+a {
+  color: white;
+}
+
 h0 {
   font-family: 'Open Sans', sans-serif;
   font-weight: 800;
@@ -615,7 +619,7 @@ tr {
 
 
 td {
-  padding: 0px 15px;
+  padding: 5px 15px;
   margin: 0 8px 0 0;
   width: 70px;
   text-align: left;
@@ -675,6 +679,7 @@ form {
 fieldset {
   border: 0px;
   padding: 0px;
+  color: white;
 }
 
 .comment-form {
@@ -766,8 +771,9 @@ footer {
   align-items: center;
 }
 .questionnaire {
-  max-width: 37%;
+  max-width: 60%;
   height: 215px;
+  margin-bottom: 40px;
 }
 h1#thefounders {
   text-decoration: underline;
@@ -899,9 +905,9 @@ div.main-box-citation {
   border-left: none;
   border-right: none;
   border-bottom: none;
-  color: white;
+  color: black;
   font-size: 1.5em;
-  font-weight: 300;
+  font-weight: 200;
   cursor: pointer;
 }
 
@@ -913,6 +919,19 @@ div.main-box-citation {
 .character-count-meter {
   font-size: 1.2em;
   margin: 0 3px;
+}
+
+.about-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 30px;
+}
+
+.about-footer-item {
+  margin: 10px;
+  font-size: 10px;
 }
 
 /*#expandButton {
