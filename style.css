@@ -423,6 +423,10 @@ p {
   color: white;
 }
 
+a {
+  color: white;
+}
+
 h0 {
   font-family: 'Open Sans', sans-serif;
   font-weight: 800;
@@ -591,6 +595,68 @@ header {
   margin-bottom: 10px;
 }
 
+<<<<<<< HEAD
+=======
+.ticker-table {
+  background-color: white;
+  min-height: 200px;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+td.table-header {
+  background-color: gray;
+  margin: 8px;
+  /*min-width: 90px;*/
+}
+
+tr {
+  display: flex;
+  justify-content: flex-start;;
+}
+
+
+td {
+  padding: 5px 15px;
+  margin: 0 8px 0 0;
+  width: 70px;
+  text-align: left;
+}
+
+th {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: gray;
+}
+
+tr:nth-child(1){
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: gray;
+  height: 55px;
+  font-weight: 600;
+}
+
+td:nth-child(1){
+  width: 200px;
+}
+
+/*td.table-header:nth-child(2) {
+  background-color: gray;
+  margin: 8px;
+  max-width: 80px;
+}*/
+
+.ticker-title {
+  line-height: 0px;
+  margin-bottom: 10px;
+}
+
+>>>>>>> affce6a8d7ca84de3b29b344a3e07b48c58ae153
 .comments {
   background-color: #d4bd4b;
   min-height: 660px;
@@ -614,6 +680,7 @@ form {
 fieldset {
   border: 0px;
   padding: 0px;
+  color: white;
 }
 
 .comment-form {
@@ -705,8 +772,9 @@ footer {
   align-items: center;
 }
 .questionnaire {
-  max-width: 37%;
+  max-width: 60%;
   height: 215px;
+  margin-bottom: 40px;
 }
 h1#thefounders {
   text-decoration: underline;
@@ -832,9 +900,46 @@ div.main-box-citation {
 
 }
 
+<<<<<<< HEAD
+=======
+
+.button-seemore {
+  margin: 0px;
+  height: 45px;
+  width: 200px;
+  background-color: #d4bd4b;
+  border-top: 8px solid #9A6532;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
+  color: black;
+  font-size: 1.5em;
+  font-weight: 200;
+  cursor: pointer;
+}
+
+.expand-div {
+  display: flex;
+  justify-content: center;
+}
+
+>>>>>>> affce6a8d7ca84de3b29b344a3e07b48c58ae153
 .character-count-meter {
   font-size: 1.2em;
   margin: 0 3px;
+}
+
+.about-footer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  margin-top: 30px;
+}
+
+.about-footer-item {
+  margin: 10px;
+  font-size: 10px;
 }
 
 /*#expandButton {
