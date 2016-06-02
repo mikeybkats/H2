@@ -323,7 +323,7 @@ function expandList (event) { //This happens when there's more options
   } else if (relaxingFilterSetting) {
     currentClosingArray = relaxingClosingSoon;
     currentOpeningArray = relaxingOpeningSoon;
-  } else if (refinedFilterSetting) {
+  } else if (upbeatFilterSetting) {
     currentClosingArray = upbeatClosingSoon;
     currentOpeningArray = upbeatOpeningSoon;
   } else {
