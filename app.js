@@ -20,9 +20,8 @@ var refinedClosingSoon = [];
 
 var resultsTable = document.getElementById('results');
 //I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
-
+var today = 16;
 // var today = new Date();
-var today = new Date();
 var foodStyling = false;
 // Testing button for filters... will move soon
 var bodyElement = document.getElementById('body');
@@ -78,26 +77,26 @@ function Location (start, end, styledname, vibe, food, url) {
   // };
 };
 
-var twoBells = new Location(16, 19, 'The Two Bells', 'vibe', true, 'http://thetwobells.com/');
-var bathTubGin = new Location(17, 19, 'Bathtub Gin', 'vibe', false, 'http://bathtubginseattle.com/');
-var theWhiskeyBar = new Location(14, 19, 'The Whiskey Bar', 'vibe', true, 'http://thewhiskybar.com/');
-var buckleys = new Location(16, 19, 'Buckleys', 'vibe', true, 'http://www.buckleyspubs.com/');
-var elysianBar = new Location(15, 18, 'Elysian Bar', 'vibe', true, 'http://www.elysianbrewing.com/');
-var robRoy = new Location(16, 19, 'Rob Roy', 'vibe', true, 'http://www.robroyseattle.com/');
-var rabbitHole = new Location(16, 19, 'Rabbit Hole', 'vibe', true, 'http://rabbitholeseattle.com/');
-var pinxto = new Location(22, 24, 'Pinxto', 'vibe', true, 'http://www.pintxoseattle.com/');
-var theUpstairs = new Location(17, 21, 'The Upstairs', 'vibe', true, 'http://www.theupstairsseattle.com/');
-var lavaLounge = new Location(15, 19, 'Lava Lounge', 'vibe', false, 'http://lavaloungeseattle.com/');
-var rendevous = new Location(15, 19, 'Rendevous', 'vibe', true, 'http://www.therendezvous.rocks/menu/');
-var belltownPub = new Location(16, 18, 'Belltown Pub', 'vibe', true, 'http://belltownpub.com/');
-var shortys = new Location(16, 20, 'Shorty\'s', 'vibe', true, 'http://www.shortydog.com/');
-var list = new Location(16, 18, 'List', 'vibe', true, 'http://www.listbelltown.com/');
-var roccos = new Location(13, 19, 'Rocco\'s', 'vibe', true, 'http://www.roccosseattle.com/');
-var wakeFieldBar = new Location(16, 20, 'Wakefield Bar', 'vibe', true, 'http://wakefieldbar.com/');
-var fivePoint = new Location(16, 18, 'The 5-point cafe', 'vibe', true, 'http://the5pointcafe.com/');
-var amber = new Location(16, 19, 'Amber', 'vibe', true, 'http://www.amberseattle.com/');
-var theCrocodile = new Location(16, 19, 'The Crocodile', 'vibe', false, 'http://www.thecrocodile.com/');
-var umiSushi = new Location(16, 18, 'Umi Sushi & Sake Bar Restaurant', 'vibe', true, 'http://www.umisakehouse.com/');
+var twoBells = new Location(16, 19, 'The Two Bells', 'Relaxing', true, 'http://thetwobells.com/');
+var bathTubGin = new Location(17, 19, 'Bathtub Gin', 'Relaxing', false, 'http://bathtubginseattle.com/');
+var theWhiskeyBar = new Location(14, 19, 'The Whiskey Bar', 'Refined', true, 'http://thewhiskybar.com/');
+var buckleys = new Location(16, 19, 'Buckleys', 'Upbeat', true, 'http://www.buckleyspubs.com/');
+var elysianBar = new Location(15, 18, 'Elysian Bar', 'Upbeat', true, 'http://www.elysianbrewing.com/');
+var robRoy = new Location(16, 19, 'Rob Roy', 'Refined', true, 'http://www.robroyseattle.com/');
+var rabbitHole = new Location(16, 19, 'Rabbit Hole', 'Upbeat', true, 'http://rabbitholeseattle.com/');
+var pinxto = new Location(22, 24, 'Pinxto', 'Relaxing', true, 'http://www.pintxoseattle.com/');
+var theUpstairs = new Location(17, 21, 'The Upstairs', 'Relaxing', true, 'http://www.theupstairsseattle.com/');
+var lavaLounge = new Location(15, 19, 'Lava Lounge', 'Upbeat', false, 'http://lavaloungeseattle.com/');
+var rendevous = new Location(15, 19, 'Rendevous', 'Upbeat', true, 'http://www.therendezvous.rocks/menu/');
+var belltownPub = new Location(16, 18, 'Belltown Pub', 'Upbeat', true, 'http://belltownpub.com/');
+var shortys = new Location(16, 20, 'Shorty\'s', 'Upbeat', true, 'http://www.shortydog.com/');
+var list = new Location(16, 18, 'List', 'Refined', true, 'http://www.listbelltown.com/');
+var roccos = new Location(13, 19, 'Rocco\'s', 'Relaxing', true, 'http://www.roccosseattle.com/');
+var wakeFieldBar = new Location(16, 20, 'Wakefield Bar', 'Refined', true, 'http://wakefieldbar.com/');
+var fivePoint = new Location(16, 18, 'The 5-point cafe', 'Upbeat', true, 'http://the5pointcafe.com/');
+var amber = new Location(16, 19, 'Amber', 'Refined', true, 'http://www.amberseattle.com/');
+var theCrocodile = new Location(16, 19, 'The Crocodile', 'Upbeat', false, 'http://www.thecrocodile.com/');
+var umiSushi = new Location(16, 18, 'Umi Sushi & Sake Bar Restaurant', 'Relaxing', true, 'http://www.umisakehouse.com/');
 
 //Creates two arrays for locations opening soon and closing soon
 // for (var i = 0; i < objectList.length; i++)
@@ -111,11 +110,12 @@ var umiSushi = new Location(16, 18, 'Umi Sushi & Sake Bar Restaurant', 'vibe', t
 
 //***Testing loop*** falsely creates openingSoon array, delete when done
 //Creates opening and closing arrays
+// Need to add .getHours() to today's to run in real time
 function buildOpenCloseArrays () {
   console.log('building opening and closing array');
   for (var i = 0; i < objectList.length; i++) {
-    if (today.getHours() < objectList[i].end) { //Is happy hour over?
-      if (today.getHours() > objectList[i].start) {//Has happy hour begun?
+    if (today < objectList[i].end) { //Is happy hour over?
+      if (today > objectList[i].start) {//Has happy hour begun?
         closingSoon.push(objectList[i]);
         if ('Refined' === objectList[i].vibe) {
           refinedClosingSoon.push(objectList[i]);
@@ -127,7 +127,7 @@ function buildOpenCloseArrays () {
           upbeatClosingClosing.push(objectList[i]);
         }
       }
-      if (today.getHours() < objectList[i].start) {
+      if (today < objectList[i].start) {
         openingSoon.push(objectList[i]);
         if ('Refined' === objectList[i].vibe) {
           refinedOpeningSoon.push(objectList[i]);
@@ -266,14 +266,17 @@ var buildClosingSoonRow = function (i, arrayUsed) {
     newLoc.appendChild(newClock);
     var timeinterval = setInterval(function(){
       var closingDate = new Date();
+      var currentTimeFake = new Date();
+      currentTimeFake.setHours(today);
       closingDate.setHours(arrayUsed[i].end, 0, 0, 0);
-      var t = closingDate - (new Date());
+      var t = closingDate - currentTimeFake;
       var hours = Math.floor((t / (1000 * 60 * 60)) % 24 );
       var seconds = Math.floor((t / 1000) % 60 );
       var minutes = Math.floor((t / 1000 / 60) % 60 );
       newClock.innerHTML = hours + ':' + minutes + ':' + seconds;
-      if(t <= 0){
+      if(t < 0){
         clearInterval(timeinterval);
+        newLoc.removeChild(newClock);
       }
     },1000);
     newClock.style.color = '#cc0000';
@@ -281,33 +284,15 @@ var buildClosingSoonRow = function (i, arrayUsed) {
   createClock();
 };
 
-var sectionBuild = function (openingSoonArray, closingSoonArray) {
-  // var combinedLength = openingSoonArray.length + closingSoonArray.length;
-  for (var i = 0; i < openingSoonArray.length; i++) { //write all the openings
-    if (resultsTable.childElementCount < options[expandCount]) {//as long as there's less on the DOM than we have available
-      buildOpeningSoonRow(i, openingSoonArray);
-    }
-  }
-  for (var i = 0; i < closingSoonArray.length; i++) {
-    if (resultsTable.childElementCount < options[expandCount]) {
-      buildClosingSoonRow(i, closingSoonArray);
-    }
-  }
-};
-
-//openingSoon Row Builder
-
-//closingSoon Row Builder
-
 //Builds first five taking first from openingSoon and then from closingSoon
 var sectionBuild = function (numResults, openingSoonArray, closingSoonArray) {
   for (var i = 0; i < closingSoonArray.length; i++) {
-    if (resultsTable.childElementCount < options[numResults]) {
+    if (resultsTable.childElementCount - 1 < options[numResults]) {
       buildClosingSoonRow(i, closingSoonArray);
     }
   }
   for (var i = 0; i < openingSoonArray.length; i++) {
-    if (resultsTable.childElementCount < options[numResults]) {
+    if (resultsTable.childElementCount - 1 < options[numResults]) {
       buildOpeningSoonRow(i, openingSoonArray); //very interesting that i doesn't automatically scope down into this function.
     }
   }
@@ -376,6 +361,7 @@ function buildResultsHeader() {
   thEl.appendChild(tdEl);
   resultsTable.appendChild(thEl);
 }
+
 // var expandCheck = function (openingSoonArray, closingSoonArray, handler) {
 //   console.log('There are ' + (openingSoonArray.length + closingSoonArray.length) + ' available Happy Hours. ' + ' And there are ' + resultsTable.childElementCount + ' Happy Hours on the DOM.');
 //
@@ -420,9 +406,18 @@ function buildResultsHeader() {
 
 function refinedFilterHandler (event) {
   expandCount = 0;
+  console.log(event);
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
   buildResultsHeader();
-  sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
+  if (event.target.vibe.value === 'relaxing') {
+    sectionBuild(expandCount, relaxingOpeningSoon, relaxingClosingSoon);
+  }
+  if (event.target.vibe.value === 'refined') {
+    sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
+  }
+  if (event.target.vibe.value === 'upbeat') {
+    sectionBuild(expandCount, upbeatOpeningSoon, upbeatClosingSoon);
+  }
 }

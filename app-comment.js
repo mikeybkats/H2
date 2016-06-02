@@ -49,7 +49,7 @@ var nameBox = new CharacterCount ('name', 15);
 
 function pushCommentCharacters (event){
   commentBox.count = commentEntry.value.length;
-  console.log(commentBox.count);
+  // console.log(commentBox.count);
   commentCharacterMeter.textContent = commentBox.count + '/' + commentBox.maxLength;
 
   if (commentBox.count >= 40){
@@ -140,7 +140,7 @@ function pullCommentsFromStorage (){
     userComment.innerText = '"' + allCommentsParsed[indexNumber] + '"';
     userName.innerText = ' - ' + allNamesParsed[indexNumber];
     commentImage.src = 'images/' + allImagesParsed[indexNumber] + '.png';
-    console.log(commentImage.src);
+    // console.log(commentImage.src);
     indexNumber += 1;
   }
 }
