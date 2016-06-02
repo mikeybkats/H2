@@ -101,6 +101,7 @@ function submitButtonEvent (event){
   if (checkboxUndeclared.checked === false && checkboxFemale.checked === false && checkboxMale.checked === false){
     commentImage.src = 'images/' + genderNeutralImages[0] + '.png';
     allImages.push(genderNeutralImages[0]);
+    console.log(genderNeutralImages[0]);
   }
 
   allComments.push(commentEntry.value);
@@ -145,7 +146,7 @@ function pullCommentsFromStorage (){
     userComment.innerText = '"' + allCommentsParsed[indexNumber] + '"';
     userName.innerText = ' - ' + allNamesParsed[indexNumber];
     commentImage.src = 'images/' + allImagesParsed[indexNumber] + '.png';
-    // console.log(commentImage.src);
+    console.log(commentImage.src);
     indexNumber += 1;
   }
 }
