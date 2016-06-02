@@ -1,6 +1,3 @@
-
-
-
 /*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
 
 /**
@@ -543,6 +540,7 @@ header {
 .ticker-filter-section {
   display: flex;
   flex-direction: column;
+  margin-right: 35%;
 }
 
 .filter-switches {
@@ -596,6 +594,7 @@ header {
   line-height: 0px;
   margin-bottom: 10px;
 }
+
 
 .ticker-table {
   background-color: white;
@@ -865,6 +864,13 @@ div.main-box-citation {
   flex-direction:row;
   align-content: space-between;
 }
+
+#citation-row {
+  word-wrap: break-word;
+  height: auto;
+  width: auto;
+}
+
 
 .circle-small {
   border-radius: 100%;
