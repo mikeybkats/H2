@@ -1,6 +1,4 @@
-* {
-  border: 1px solid black;
-}
+
 
 
 /*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
@@ -541,7 +539,6 @@ header {
 .ticker-filter-section {
   display: flex;
   flex-direction: column;
-  margin-right: 35%;
 }
 
 .filter-switches {
@@ -881,6 +878,24 @@ div.main-box-citation {
   font-weight: 300;
   cursor: pointer;
 
+}
+
+
+.button-seemore {
+  margin: 0px;
+  height: 45px;
+  width: 200px;
+  background-color: #d4bd4b;
+  border-top: 3px solid #9A6532;
+  color: white;
+  font-size: 1.5em;
+  font-weight: 300;
+  cursor: pointer;
+}
+
+.expand-div {
+  display: flex;
+  justify-content: center;
 }
 
 .character-count-meter {
