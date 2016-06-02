@@ -299,8 +299,10 @@ function expander (numResults, expandingFromOpeningArray, expandingFromClosingAr
   if (expandingFromOpeningArray.length + expandingFromClosingArray.length > options[numResults]) {
     var expandButton = document.createElement('button');
     expandButton.id = 'expandButton';
-    expandButton.textContent = 'See More';
+    expandButton.setAttribute('class', 'button-seemore');
+    expandButton.textContent = 'SEE MORE';
     var expandDiv = document.getElementById('expandDiv');
+    expandDiv.setAttribute('class', 'expand-div');
     expandDiv.appendChild(expandButton);
     ++expandCount;
     expandButton.addEventListener('click', expandList);
@@ -314,9 +316,22 @@ function expandList (event) { //This happens when there's more options
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
   buildTableHeader();
-  sectionBuild(expandCount, openingSoon, closingSoon);//Build the section again now that expandCount has been plused up
+  var currentClosingArray;
+  var currentOpeningArray;
+  if (refinedFilterSetting) {
+    currentClosingArray = refinedClosingSoon;
+    currentOpeningArray = refinedOpeningSoon;
+  } else if (relaxingFilterSetting) {
+    currentClosingArray = relaxingClosingSoon;
+    currentOpeningArray = relaxingOpeningSoon;
+  }
+  if (refinedFilterSetting) {
+    currentClosingArray = upbeatClosingSoon;
+    currentOpeningArray = upbeatOpeningSoon;
+  }
+  sectionBuild(expandCount, currentOpeningArray, currentClosingArray);//Build the section again now that expandCount has been plused up
   foodStylingSet();
-  expander(expandCount, openingSoon, closingSoon);//Show the button if there's still more
+  expander(expandCount, currentOpeningArray, currentClosingArray);//Show the button if there's still more
 }
 
 // function buildResultsHeader() {
