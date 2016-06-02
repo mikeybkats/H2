@@ -28,7 +28,7 @@ var foodStyling = false;
 var bodyElement = document.getElementById('body');
 
 var refinedFilter = document.getElementById('vibe');
-refinedFilter.addEventListener('click', refinedFilterHandler);
+refinedFilter.addEventListener('change', refinedFilterHandler);
 
 var foodFilter = document.getElementById('food');
 //foodFilter.addEventListener('click', foodFilterHandler);
@@ -338,7 +338,18 @@ function expandList (event) { //This happens when there's more options
   }
   buildResultsHeader();
   sectionBuild(expandCount, openingSoon, closingSoon);//Build the section again now that expandCount has been plused up
+  foodStylingSet();
   expander(expandCount, openingSoon, closingSoon);//Show the button if there's still more
+}
+function foodStylingSet () {
+  if (foodStyling) {
+    var hasFood = document.querySelectorAll('.row-highlight');
+    var foodIcon = document.getElementById('food');
+    foodIcon.style.backgroundColor = '#FF6000';
+    for (var i = 0; i < hasFood.length; i++) {
+      hasFood[i].style.backgroundColor = '#FF6000';
+    }
+  }
 }
 
 function buildResultsHeader() {
@@ -364,7 +375,6 @@ function buildResultsHeader() {
   tdEl.textContent = 'Happy Hour ends in... ';
   thEl.appendChild(tdEl);
   resultsTable.appendChild(thEl);
-  var count = document.querySelectorAll('table-header');
 }
 // var expandCheck = function (openingSoonArray, closingSoonArray, handler) {
 //   console.log('There are ' + (openingSoonArray.length + closingSoonArray.length) + ' available Happy Hours. ' + ' And there are ' + resultsTable.childElementCount + ' Happy Hours on the DOM.');
@@ -413,5 +423,6 @@ function refinedFilterHandler (event) {
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
+  buildResultsHeader();
   sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
 }
