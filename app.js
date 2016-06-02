@@ -375,7 +375,7 @@ function buildTableHeader () {
   startHead.textContent = 'OPENS';
   headerRow.appendChild(startHead);
   var endHead = document.createElement('td');
-  endHead.textContent = 'END';
+  endHead.textContent = 'CLOSES';
   headerRow.appendChild(endHead);
   var timerHead = document.createElement('td');
   headerRow.appendChild(timerHead);
