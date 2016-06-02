@@ -376,12 +376,15 @@ function buildTableHeader () {
   endHead.textContent = 'END';
   headerRow.appendChild(endHead);
   var timerHead = document.createElement('td');
+  timerHead.textContent = 'TIME REMAINING';
   headerRow.appendChild(timerHead);
 }
 
 function filterHandler (event) {
   expandCount = 0;
-  expandDiv.removeChild(document.getElementById('expandButton')); //Removes button
+  if (expandDiv.firstChild) {
+    expandDiv.removeChild(document.getElementById('expandButton')); //Removes button
+  }
 
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
