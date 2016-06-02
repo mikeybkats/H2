@@ -26,8 +26,12 @@ var today = 16;
 var foodStyling = false;
 var foodFilter = document.getElementById('food');
 var timeFilter = document.getElementById('time');
-//timeFilter.addEventListener('click', timeFilterHandler);
+timeFilter.addEventListener('click', timeFilterHandler);
 foodFilter.addEventListener('click', foodFilterHandler);
+
+function timeFilterHandler(event) {
+  location.reload();
+}
 
 // if (today.getDay > 5) {
 //   console.log('gotta do the weekend list yo');
@@ -367,17 +371,27 @@ function filterHandler (event) {
   console.log(event.target.value);
   buildTableHeader();
   if (event.target.value === 'refined') {
+    refinedFilterSetting = true;
     sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
     foodStylingSet();
     expander(expandCount, refinedOpeningSoon, refinedClosingSoon);//Show the button if there's still more
   } else if (event.target.value === 'relaxing') {
+    relaxingFilterSetting = true;
     sectionBuild(expandCount, relaxingOpeningSoon, relaxingClosingSoon);
     foodStylingSet();
     expander(expandCount, relaxingOpeningSoon, relaxingClosingSoon);//Show the button if there's still more
   } else if (event.target.value === 'upbeat') {
+    upbeatFilterSetting = true;
     sectionBuild(expandCount, upbeatOpeningSoon, upbeatClosingSoon);
     foodStylingSet();
     expander(expandCount, upbeatOpeningSoon, upbeatClosingSoon);//Show the button if there's still more
+  } else {
+    refinedFilterSetting = false;
+    relaxingFilterSetting = false;
+    upbeatFilterSetting = false;
+    sectionBuild(expandCount, openingSoon, closingSoon);//Build the section again now that expandCount has been plused up
+    foodStylingSet();
+    expander(expandCount, openingSoon, closingSoon);
   }
 }
 
