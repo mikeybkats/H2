@@ -12,45 +12,32 @@ var relaxingClosingSoon = [];
 
 var upbeatFilterSetting = false;
 var upbeatOpeningSoon = [];
-var upbeatClosingClosing = [];
+var upbeatClosingSoon = [];
 
 var refinedFilterSetting = false;
 var refinedOpeningSoon = [];
 var refinedClosingSoon = [];
 
 var resultsTable = document.getElementById('results');
+
 //I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
 var today = 16;
 // var today = new Date();
 var foodStyling = false;
-// Testing button for filters... will move soon
 var bodyElement = document.getElementById('body');
 
 var refinedFilter = document.getElementById('vibe');
 refinedFilter.addEventListener('change', refinedFilterHandler);
 
+var relaxingFilter = document.getElementById('vibe');
+refinedFilter.addEventListener('change', relaxingFilterHandler);
+
+var upbeatFilter = document.getElementById('vibe');
+refinedFilter.addEventListener('change', upbeatFilterHandler);
+
 var foodFilter = document.getElementById('food');
 //foodFilter.addEventListener('click', foodFilterHandler);
 
-function foodFilterHandler(event) {
-  if (!foodStyling) {
-    foodStyling = true;
-    var hasFood = document.querySelectorAll('.row-highlight');
-    var foodIcon = document.getElementById('food');
-    foodIcon.style.backgroundColor = '#FF6000';
-    for (var i = 0; i < hasFood.length; i++) {
-      hasFood[i].style.backgroundColor = '#FF6000';
-    }
-  } else {
-    foodStyling = false;
-    var hasFood = document.querySelectorAll('.row-highlight');
-    var foodIcon = document.getElementById('food');
-    foodIcon.style.backgroundColor = '#d4bd4b';
-    for (var i = 0; i < hasFood.length; i++) {
-      hasFood[i].style.backgroundColor = 'white';
-    }
-  }
-}
 var timeFilter = document.getElementById('time');
 //timeFilter.addEventListener('click', timeFilterHandler);
 foodFilter.addEventListener('click', foodFilterHandler);
@@ -77,26 +64,29 @@ function Location (start, end, styledname, vibe, food, url) {
   // };
 };
 
-var twoBells = new Location(16, 19, 'The Two Bells', 'Relaxing', true, 'http://thetwobells.com/');
-var bathTubGin = new Location(17, 19, 'Bathtub Gin', 'Relaxing', false, 'http://bathtubginseattle.com/');
-var theWhiskeyBar = new Location(14, 19, 'The Whiskey Bar', 'Refined', true, 'http://thewhiskybar.com/');
-var buckleys = new Location(16, 19, 'Buckleys', 'Upbeat', true, 'http://www.buckleyspubs.com/');
-var elysianBar = new Location(15, 18, 'Elysian Bar', 'Upbeat', true, 'http://www.elysianbrewing.com/');
-var robRoy = new Location(16, 19, 'Rob Roy', 'Refined', true, 'http://www.robroyseattle.com/');
-var rabbitHole = new Location(16, 19, 'Rabbit Hole', 'Upbeat', true, 'http://rabbitholeseattle.com/');
-var pinxto = new Location(22, 24, 'Pinxto', 'Relaxing', true, 'http://www.pintxoseattle.com/');
-var theUpstairs = new Location(17, 21, 'The Upstairs', 'Relaxing', true, 'http://www.theupstairsseattle.com/');
-var lavaLounge = new Location(15, 19, 'Lava Lounge', 'Upbeat', false, 'http://lavaloungeseattle.com/');
-var rendevous = new Location(15, 19, 'Rendevous', 'Upbeat', true, 'http://www.therendezvous.rocks/menu/');
-var belltownPub = new Location(16, 18, 'Belltown Pub', 'Upbeat', true, 'http://belltownpub.com/');
-var shortys = new Location(16, 20, 'Shorty\'s', 'Upbeat', true, 'http://www.shortydog.com/');
-var list = new Location(16, 18, 'List', 'Refined', true, 'http://www.listbelltown.com/');
-var roccos = new Location(13, 19, 'Rocco\'s', 'Relaxing', true, 'http://www.roccosseattle.com/');
-var wakeFieldBar = new Location(16, 20, 'Wakefield Bar', 'Refined', true, 'http://wakefieldbar.com/');
-var fivePoint = new Location(16, 18, 'The 5-point cafe', 'Upbeat', true, 'http://the5pointcafe.com/');
-var amber = new Location(16, 19, 'Amber', 'Refined', true, 'http://www.amberseattle.com/');
-var theCrocodile = new Location(16, 19, 'The Crocodile', 'Upbeat', false, 'http://www.thecrocodile.com/');
-var umiSushi = new Location(16, 18, 'Umi Sushi & Sake Bar Restaurant', 'Relaxing', true, 'http://www.umisakehouse.com/');
+function instantiate () {
+  var twoBells = new Location(16, 19, 'The Two Bells', 'Relaxing', true, 'http://thetwobells.com/');
+  var bathTubGin = new Location(17, 19, 'Bathtub Gin', 'Relaxing', false, 'http://bathtubginseattle.com/');
+  var theWhiskeyBar = new Location(14, 19, 'The Whiskey Bar', 'Refined', true, 'http://thewhiskybar.com/');
+  var buckleys = new Location(16, 19, 'Buckleys', 'Upbeat', true, 'http://www.buckleyspubs.com/');
+  var elysianBar = new Location(15, 18, 'Elysian Bar', 'Upbeat', true, 'http://www.elysianbrewing.com/');
+  var robRoy = new Location(16, 19, 'Rob Roy', 'Refined', true, 'http://www.robroyseattle.com/');
+  var rabbitHole = new Location(16, 19, 'Rabbit Hole', 'Upbeat', true, 'http://rabbitholeseattle.com/');
+  var pinxto = new Location(22, 24, 'Pinxto', 'Relaxing', true, 'http://www.pintxoseattle.com/');
+  var theUpstairs = new Location(17, 21, 'The Upstairs', 'Relaxing', true, 'http://www.theupstairsseattle.com/');
+  var lavaLounge = new Location(15, 19, 'Lava Lounge', 'Upbeat', false, 'http://lavaloungeseattle.com/');
+  var rendevous = new Location(15, 19, 'Rendevous', 'Upbeat', true, 'http://www.therendezvous.rocks/menu/');
+  var belltownPub = new Location(16, 18, 'Belltown Pub', 'Upbeat', true, 'http://belltownpub.com/');
+  var shortys = new Location(16, 20, 'Shorty\'s', 'Upbeat', true, 'http://www.shortydog.com/');
+  var list = new Location(16, 18, 'List', 'Refined', true, 'http://www.listbelltown.com/');
+  var roccos = new Location(13, 19, 'Rocco\'s', 'Relaxing', true, 'http://www.roccosseattle.com/');
+  var wakeFieldBar = new Location(16, 20, 'Wakefield Bar', 'Refined', true, 'http://wakefieldbar.com/');
+  var fivePoint = new Location(16, 18, 'The 5-point cafe', 'Upbeat', true, 'http://the5pointcafe.com/');
+  var amber = new Location(16, 19, 'Amber', 'Refined', true, 'http://www.amberseattle.com/');
+  var theCrocodile = new Location(16, 19, 'The Crocodile', 'Upbeat', false, 'http://www.thecrocodile.com/');
+  var umiSushi = new Location(16, 18, 'Umi Sushi & Sake Bar Restaurant', 'Relaxing', true, 'http://www.umisakehouse.com/');
+}
+instantiate();
 
 //Creates two arrays for locations opening soon and closing soon
 // for (var i = 0; i < objectList.length; i++)
@@ -107,6 +97,18 @@ var umiSushi = new Location(16, 18, 'Umi Sushi & Sake Bar Restaurant', 'Relaxing
 //     openingSoon.push(objectList[i]);
 //     }
 //   }
+buildTableHeader();
+
+function foodStylingSet () {
+  if (foodStyling) {
+    var hasFood = document.querySelectorAll('.row-highlight');
+    var foodIcon = document.getElementById('food');
+    foodIcon.style.backgroundColor = '#FF6000';
+    for (var i = 0; i < hasFood.length; i++) {
+      hasFood[i].style.backgroundColor = '#FF6000';
+    }
+  }
+}
 
 //***Testing loop*** falsely creates openingSoon array, delete when done
 //Creates opening and closing arrays
@@ -124,7 +126,7 @@ function buildOpenCloseArrays () {
           relaxingClosingSoon.push(objectList[i]);
         }
         if ('Upbeat' === objectList[i].vibe) {
-          upbeatClosingClosing.push(objectList[i]);
+          upbeatClosingSoon.push(objectList[i]);
         }
       }
       if (today < objectList[i].start) {
@@ -141,7 +143,7 @@ function buildOpenCloseArrays () {
       }
     }
   }
-  console.log('There are ' + (openingSoon.length + closingSoon.length) + ' available Happy Hours. ' + relaxingOpeningSoon.length + ' are relaxing Happy Hours opening soon. ' + relaxingClosingSoon.length + ' are relaxing Happy Hours closing soon. ' + refinedOpeningSoon.length + ' are refined Happy Hours opening soon. ' + refinedClosingSoon.length + ' are refined Happy Hours closing soon. ' + upbeatOpeningSoon.length + ' are upbeat Happy Hours opening soon. ' + upbeatClosingClosing.length + ' are upbeat Happy Hours closing soon.');
+  console.log('There are ' + (openingSoon.length + closingSoon.length) + ' available Happy Hours. ' + relaxingOpeningSoon.length + ' are relaxing Happy Hours opening soon. ' + relaxingClosingSoon.length + ' are relaxing Happy Hours closing soon. ' + refinedOpeningSoon.length + ' are refined Happy Hours opening soon. ' + refinedClosingSoon.length + ' are refined Happy Hours closing soon. ' + upbeatOpeningSoon.length + ' are upbeat Happy Hours opening soon. ' + upbeatClosingSoon.length + ' are upbeat Happy Hours closing soon.');
 }
 buildOpenCloseArrays();
 
@@ -181,7 +183,7 @@ var sortAllClosingSoon = function () {
   refinedClosingSoon.sort(function (a, b) {
     return a.start > b.start;
   });
-  upbeatClosingClosing.sort(function (a, b) {
+  upbeatClosingSoon.sort(function (a, b) {
     return a.start > b.start;
   });
 };
@@ -298,7 +300,6 @@ var sectionBuild = function (numResults, openingSoonArray, closingSoonArray) {
   }
 
 };
-buildResultsHeader();
 sectionBuild(0, openingSoon, closingSoon);
 
 //Creates button to expand results based on the amount you want shown
@@ -321,45 +322,101 @@ function expandList (event) { //This happens when there's more options
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
-  buildResultsHeader();
+  buildTableHeader();
   sectionBuild(expandCount, openingSoon, closingSoon);//Build the section again now that expandCount has been plused up
   foodStylingSet();
   expander(expandCount, openingSoon, closingSoon);//Show the button if there's still more
 }
-function foodStylingSet () {
-  if (foodStyling) {
+
+// function buildResultsHeader() {
+//   var thEl = document.createElement('th');
+//   var tdEl = document.createElement('td');
+//   tdEl.setAttribute('class', 'table-header');
+//   tdEl.textContent = 'Venue name';
+//   thEl.appendChild(tdEl);
+//   tdEl = document.createElement('td');
+//   tdEl.setAttribute('class', 'table-header');
+//   tdEl.textContent = 'Vibe';
+//   thEl.appendChild(tdEl);
+//   tdEl = document.createElement('td');
+//   tdEl.setAttribute('class', 'table-header');
+//   tdEl.textContent = 'Happy Hour Start Time';
+//   thEl.appendChild(tdEl);
+//   tdEl = document.createElement('td');
+//   tdEl.setAttribute('class', 'table-header');
+//   tdEl.textContent = 'Happy Hour End Time';
+//   thEl.appendChild(tdEl);
+//   tdEl = document.createElement('td');
+//   tdEl.setAttribute('class', 'table-header');
+//   tdEl.textContent = 'Happy Hour ends in... ';
+//   thEl.appendChild(tdEl);
+//   resultsTable.appendChild(thEl);
+// }
+
+function buildTableHeader () {
+  var headerRow = document.createElement('tr');
+  resultsTable.appendChild(headerRow);
+  var venueHead = document.createElement('td');
+  venueHead.textContent = 'VENUE';
+  headerRow.appendChild(venueHead);
+  var vibeHead = document.createElement('td');
+  vibeHead.textContent = 'VIBE';
+  headerRow.appendChild(vibeHead);
+  var startHead = document.createElement('td');
+  startHead.textContent = 'OPENS';
+  headerRow.appendChild(startHead);
+  var endHead = document.createElement('td');
+  endHead.textContent = 'END';
+  headerRow.appendChild(endHead);
+  var timerHead = document.createElement('td');
+  headerRow.appendChild(timerHead);
+}
+
+function refinedFilterHandler (event) {
+  expandCount = 0;
+  while (resultsTable.firstChild) { //While the resultsTable has a first child
+    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
+  }
+  buildTableHeader();
+  sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
+}
+
+function relaxingFilterHandler (event) {
+  expandCount = 0;
+  while (resultsTable.firstChild) { //While the resultsTable has a first child
+    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
+  }
+  buildTableHeader();
+  sectionBuild(expandCount, relaxingOpeningSoon, relaxingClosingSoon);
+}
+
+function upbeatFilterHandler (event) {
+  expandCount = 0;
+  while (resultsTable.firstChild) { //While the resultsTable has a first child
+    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
+  }
+  buildTableHeader();
+  sectionBuild(expandCount, upbeatOpeningSoon, upbeatClosingSoon);
+}
+
+function foodFilterHandler(event) {
+  if (!foodStyling) {
+    foodStyling = true;
     var hasFood = document.querySelectorAll('.row-highlight');
     var foodIcon = document.getElementById('food');
     foodIcon.style.backgroundColor = '#FF6000';
     for (var i = 0; i < hasFood.length; i++) {
       hasFood[i].style.backgroundColor = '#FF6000';
     }
+  } else {
+    foodStyling = false;
+    var hasFood = document.querySelectorAll('.row-highlight');
+    var foodIcon = document.getElementById('food');
+    foodIcon.style.backgroundColor = '#d4bd4b';
+    for (var i = 0; i < hasFood.length; i++) {
+      hasFood[i].style.backgroundColor = 'white';
+    }
   }
-}
-
-function buildResultsHeader() {
-  var thEl = document.createElement('th');
-  var tdEl = document.createElement('td');
-  tdEl.setAttribute('class', 'table-header');
-  tdEl.textContent = 'Venue name';
-  thEl.appendChild(tdEl);
-  tdEl = document.createElement('td');
-  tdEl.setAttribute('class', 'table-header');
-  tdEl.textContent = 'Vibe';
-  thEl.appendChild(tdEl);
-  tdEl = document.createElement('td');
-  tdEl.setAttribute('class', 'table-header');
-  tdEl.textContent = 'Happy Hour Start Time';
-  thEl.appendChild(tdEl);
-  tdEl = document.createElement('td');
-  tdEl.setAttribute('class', 'table-header');
-  tdEl.textContent = 'Happy Hour End Time';
-  thEl.appendChild(tdEl);
-  tdEl = document.createElement('td');
-  tdEl.setAttribute('class', 'table-header');
-  tdEl.textContent = 'Happy Hour ends in... ';
-  thEl.appendChild(tdEl);
-  resultsTable.appendChild(thEl);
 }
 
 // var expandCheck = function (openingSoonArray, closingSoonArray, handler) {
@@ -403,21 +460,3 @@ function buildResultsHeader() {
 //   console.log(openingSoon.length + closingSoon.length);
 //   builder(openingSoon, closingSoon, openingExpandHandler);
 // }
-
-function refinedFilterHandler (event) {
-  expandCount = 0;
-  console.log(event);
-  while (resultsTable.firstChild) { //While the resultsTable has a first child
-    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
-  }
-  buildResultsHeader();
-  if (event.target.vibe.value === 'relaxing') {
-    sectionBuild(expandCount, relaxingOpeningSoon, relaxingClosingSoon);
-  }
-  if (event.target.vibe.value === 'refined') {
-    sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
-  }
-  if (event.target.vibe.value === 'upbeat') {
-    sectionBuild(expandCount, upbeatOpeningSoon, upbeatClosingSoon);
-  }
-}
