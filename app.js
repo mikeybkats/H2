@@ -21,8 +21,9 @@ var refinedClosingSoon = [];
 var resultsTable = document.getElementById('results');
 
 //I can't just go through all instances and build to the index dynamically because we want to show the user their locations after they've been sorted. openingSoon and closingSoon allows us to sort the locations prior to display.
-var today = 15;
-// var today = new Date();
+// var today = 18;
+var today = new Date();
+today.setHours(18);
 var foodStyling = false;
 var foodFilter = document.getElementById('food');
 var timeFilter = document.getElementById('time');
@@ -75,19 +76,9 @@ function instantiate () {
   var fivePoint = new Location(16, 18, 'The 5-point cafe', 'Upbeat', true, 'http://the5pointcafe.com/');
   var amber = new Location(16, 19, 'Amber', 'Refined', true, 'http://www.amberseattle.com/');
   var theCrocodile = new Location(16, 19, 'The Crocodile', 'Upbeat', false, 'http://www.thecrocodile.com/');
-  var umiSushi = new Location(16, 18, 'Umi Sushi & Sake Bar Restaurant', 'Relaxing', true, 'http://www.umisakehouse.com/');
+  var umiSushi = new Location(16, 18, 'Umi Sake House', 'Relaxing', true, 'http://www.umisakehouse.com/');
 }
 instantiate();
-
-//Creates two arrays for locations opening soon and closing soon
-// for (var i = 0; i < objectList.length; i++)
-//   if (today.getHours() < objectList[i].end) { //Is happy hour over?
-//     if (today.getHours() > objectList[i].start) {//Has happy hour begun?
-//         closingSoon.push(objectList[i]);
-//       }
-//     openingSoon.push(objectList[i]);
-//     }
-//   }
 buildTableHeader();
 
 function foodStylingSet () {
@@ -107,8 +98,8 @@ function foodStylingSet () {
 function buildOpenCloseArrays () {
   console.log('building opening and closing array');
   for (var i = 0; i < objectList.length; i++) {
-    if (today < objectList[i].end) { //Is happy hour over?
-      if (today > objectList[i].start) {//Has happy hour begun?
+    if (today.getHours() < objectList[i].end) { //Is happy hour over?
+      if (today.getHours() >= objectList[i].start) {//Has happy hour begun?
         closingSoon.push(objectList[i]);
         if ('Refined' === objectList[i].vibe) {
           refinedClosingSoon.push(objectList[i]);
@@ -120,7 +111,7 @@ function buildOpenCloseArrays () {
           upbeatClosingSoon.push(objectList[i]);
         }
       }
-      if (today < objectList[i].start) {
+      if (today.getHours() < objectList[i].start) {
         openingSoon.push(objectList[i]);
         if ('Refined' === objectList[i].vibe) {
           refinedOpeningSoon.push(objectList[i]);
@@ -142,6 +133,9 @@ buildOpenCloseArrays();
 var sortObjectList = function () {
   objectList.sort(function (a, b) {
     return a.start > b.start;
+  });
+  objectList.sort(function(a, b) {
+    return a.end < b.end;
   });
 };
 sortObjectList();
@@ -260,12 +254,25 @@ var buildClosingSoonRow = function (i, arrayUsed) {
     var timeinterval = setInterval(function(){
       var closingDate = new Date();
       var currentTimeFake = new Date();
-      currentTimeFake.setHours(today);
+      if (currentTimeFake.getMinutes() === 59 && currentTimeFake.getSeconds() === 59) {
+        currentTimeFake.setHours(19);
+      } else {
+        currentTimeFake.setHours(18);
+      }
       closingDate.setHours(arrayUsed[i].end, 0, 0, 0);
       var t = closingDate - currentTimeFake;
       var hours = Math.floor((t / (1000 * 60 * 60)) % 24 );
       var seconds = Math.floor((t / 1000) % 60 );
       var minutes = Math.floor((t / 1000 / 60) % 60 );
+      if (hours < 10) {
+        hours = '0' + hours;
+      }
+      if (minutes < 10) {
+        minutes = '0' + minutes;
+      }
+      if (seconds < 10) {
+        seconds = '0' + seconds;
+      }
       newClock.innerHTML = hours + ':' + minutes + ':' + seconds;
       if(t < 0){
         clearInterval(timeinterval);
@@ -294,7 +301,10 @@ sectionBuild(0, openingSoon, closingSoon);
 
 //Creates button to expand results based on the amount you want shown
 function expander (numResults, expandingFromOpeningArray, expandingFromClosingArray) {
-  console.log(expandingFromOpeningArray.length);
+  var buttonContainer = document.getElementById('expandDiv');
+  if (buttonContainer.firstChild) {
+    buttonContainer.removeChild(buttonContainer.firstChild); //Removes button
+  }
   if (expandingFromOpeningArray.length + expandingFromClosingArray.length > options[numResults]) {
     var expandButton = document.createElement('button');
     expandButton.id = 'expandButton';
@@ -335,31 +345,6 @@ function expandList (event) { //This happens when there's more options
   expander(expandCount, currentOpeningArray, currentClosingArray);//Show the button if there's still more
 }
 
-// function buildResultsHeader() {
-//   var thEl = document.createElement('th');
-//   var tdEl = document.createElement('td');
-//   tdEl.setAttribute('class', 'table-header');
-//   tdEl.textContent = 'Venue name';
-//   thEl.appendChild(tdEl);
-//   tdEl = document.createElement('td');
-//   tdEl.setAttribute('class', 'table-header');
-//   tdEl.textContent = 'Vibe';
-//   thEl.appendChild(tdEl);
-//   tdEl = document.createElement('td');
-//   tdEl.setAttribute('class', 'table-header');
-//   tdEl.textContent = 'Happy Hour Start Time';
-//   thEl.appendChild(tdEl);
-//   tdEl = document.createElement('td');
-//   tdEl.setAttribute('class', 'table-header');
-//   tdEl.textContent = 'Happy Hour End Time';
-//   thEl.appendChild(tdEl);
-//   tdEl = document.createElement('td');
-//   tdEl.setAttribute('class', 'table-header');
-//   tdEl.textContent = 'Happy Hour ends in... ';
-//   thEl.appendChild(tdEl);
-//   resultsTable.appendChild(thEl);
-// }
-
 function buildTableHeader () {
   var headerRow = document.createElement('tr');
   resultsTable.appendChild(headerRow);
@@ -390,7 +375,6 @@ function filterHandler (event) {
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
-  console.log(event.target.value);
   buildTableHeader();
   if (event.target.value === 'refined') {
     refinedFilterSetting = true;

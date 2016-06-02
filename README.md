@@ -1,5 +1,5 @@
 ----
-# H2 Pub-Crawler Project
+# Pub Capture
 
 ### Team Members:
 * Michael Barakat
@@ -9,13 +9,13 @@
 
 
 ## Summary
->Do you hate missing happy hours or ones you don’t really like? H2 allows you to compare all your local happy hours on one screen by time, food, and feeling.
+>Do you hate missing happy hours or ones you don’t really like? Pub Capture allows you to compare all your local happy hours on one screen by time, food, and feeling.
 
 >Our solution is a tool for the user to discover a happy hour of the right vibe, time window and food that they desire.  -- happy hour digest
 
 ---
 
-## H2 User Stories
+## Pub Capture User Stories
 
 ### Developer viewpoint
 
@@ -28,10 +28,10 @@
 ====================================================================================
 ### User viewpoint
 
-* H2 User: As a user I want to be able to find a HH fast.
-* H2 User: As a user I want to leave a comment or suggestion on the page.
-* H2 User: As a user I want to have the information accessible all in one place.
-* H2 User: As a user I want to see a countdown until happy hour starts/ends.
+* Pub Capture User: As a user I want to be able to find a HH fast.
+* Pub Capture User: As a user I want to leave a comment or suggestion on the page.
+* Pub Capture User: As a user I want to have the information accessible all in one place.
+* Pub Capture User: As a user I want to see a countdown until happy hour starts/ends.
 
 ====================================================================================
 ### Marketing viewpoint
@@ -85,3 +85,4 @@
    * Author: Simon Child -- noun_1811_cc.svg (https://thenounproject.com/)
    * Author: Arthur Shlain -- noun_160008_cc.png (https://thenounproject.com/)
    * Author: Fabyano de Tiburi -- noun_251400_cc.svg (https://thenounproject.com/)
+   * Author: Lubos Volkov -- noun_131355_cc.png (https://www.thenounproject.com/)

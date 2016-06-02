@@ -49,7 +49,7 @@ var nameBox = new CharacterCount ('name', 15);
 
 function pushCommentCharacters (event){
   commentBox.count = commentEntry.value.length;
-  // console.log(commentBox.count);
+  console.log(commentBox.count);
   commentCharacterMeter.textContent = commentBox.count + '/' + commentBox.maxLength;
 
   if (commentBox.count >= 40){
@@ -166,7 +166,7 @@ function checkboxUndeclaredSelect (){
   checkboxMale.checked = false;
 }
 
-window.setInterval(pullCommentsFromStorage, 4000);
+window.setInterval(pullCommentsFromStorage, 3000);
 
 checkboxMale.addEventListener('click',checkboxMaleSelect);
 checkboxFemale.addEventListener('click',checkboxFemaleSelect);

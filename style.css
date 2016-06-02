@@ -1,6 +1,3 @@
-
-
-
 /*! normalize.css v4.1.1 | MIT License | github.com/necolas/normalize.css */
 
 /**
@@ -597,6 +594,7 @@ header {
   margin-bottom: 10px;
 }
 
+
 .ticker-table {
   background-color: white;
   min-height: 200px;
@@ -743,7 +741,7 @@ footer {
 
 .about {
   background-color: #ff6000;
-  min-height: 350px;
+  min-height: 520px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -760,7 +758,7 @@ footer {
 }
 .question-section {
   background-color: black;
-  min-height: 450px;
+  min-height: 620px;
   display:flex;
   justify-content: center;
   align-items: center;
@@ -771,7 +769,7 @@ footer {
   align-items: center;
 }
 .questionnaire {
-  max-width: 60%;
+  max-width: 85%;
   height: 215px;
   margin-bottom: 40px;
 }
@@ -866,6 +864,13 @@ div.main-box-citation {
   align-content: space-between;
 }
 
+#citation-row {
+  word-wrap: break-word;
+  height: auto;
+  width: auto;
+}
+
+
 .circle-small {
   border-radius: 100%;
   margin: 0;
@@ -932,6 +937,10 @@ div.main-box-citation {
 .about-footer-item {
   margin: 10px;
   font-size: 10px;
+}
+
+.section-title {
+  margin-top: 60px;
 }
 
 /*#expandButton {
