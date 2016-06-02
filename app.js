@@ -24,20 +24,7 @@ var resultsTable = document.getElementById('results');
 var today = 16;
 // var today = new Date();
 var foodStyling = false;
-var bodyElement = document.getElementById('body');
-
-var refinedFilter = document.getElementById('vibe');
-refinedFilter.addEventListener('change', refinedFilterHandler);
-
-var relaxingFilter = document.getElementById('vibe');
-refinedFilter.addEventListener('change', relaxingFilterHandler);
-
-var upbeatFilter = document.getElementById('vibe');
-refinedFilter.addEventListener('change', upbeatFilterHandler);
-
 var foodFilter = document.getElementById('food');
-//foodFilter.addEventListener('click', foodFilterHandler);
-
 var timeFilter = document.getElementById('time');
 //timeFilter.addEventListener('click', timeFilterHandler);
 foodFilter.addEventListener('click', foodFilterHandler);
@@ -372,31 +359,26 @@ function buildTableHeader () {
   headerRow.appendChild(timerHead);
 }
 
-function refinedFilterHandler (event) {
+function filterHandler (event) {
   expandCount = 0;
   while (resultsTable.firstChild) { //While the resultsTable has a first child
     resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
   }
+  console.log(event.target.value);
   buildTableHeader();
-  sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
-}
-
-function relaxingFilterHandler (event) {
-  expandCount = 0;
-  while (resultsTable.firstChild) { //While the resultsTable has a first child
-    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
+  if (event.target.value === 'refined') {
+    sectionBuild(expandCount, refinedOpeningSoon, refinedClosingSoon);
+    foodStylingSet();
+    expander(expandCount, refinedOpeningSoon, refinedClosingSoon);//Show the button if there's still more
+  } else if (event.target.value === 'relaxing') {
+    sectionBuild(expandCount, relaxingOpeningSoon, relaxingClosingSoon);
+    foodStylingSet();
+    expander(expandCount, relaxingOpeningSoon, relaxingClosingSoon);//Show the button if there's still more
+  } else if (event.target.value === 'upbeat') {
+    sectionBuild(expandCount, upbeatOpeningSoon, upbeatClosingSoon);
+    foodStylingSet();
+    expander(expandCount, upbeatOpeningSoon, upbeatClosingSoon);//Show the button if there's still more
   }
-  buildTableHeader();
-  sectionBuild(expandCount, relaxingOpeningSoon, relaxingClosingSoon);
-}
-
-function upbeatFilterHandler (event) {
-  expandCount = 0;
-  while (resultsTable.firstChild) { //While the resultsTable has a first child
-    resultsTable.removeChild(resultsTable.firstChild);//Remove all the children
-  }
-  buildTableHeader();
-  sectionBuild(expandCount, upbeatOpeningSoon, upbeatClosingSoon);
 }
 
 function foodFilterHandler(event) {
