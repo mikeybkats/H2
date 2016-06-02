@@ -595,8 +595,7 @@ header {
   margin-bottom: 10px;
 }
 
-<<<<<<< HEAD
-=======
+
 .ticker-table {
   background-color: white;
   min-height: 200px;
@@ -656,7 +655,6 @@ td:nth-child(1){
   margin-bottom: 10px;
 }
 
->>>>>>> affce6a8d7ca84de3b29b344a3e07b48c58ae153
 .comments {
   background-color: #d4bd4b;
   min-height: 660px;
@@ -900,8 +898,6 @@ div.main-box-citation {
 
 }
 
-<<<<<<< HEAD
-=======
 
 .button-seemore {
   margin: 0px;
@@ -923,7 +919,6 @@ div.main-box-citation {
   justify-content: center;
 }
 
->>>>>>> affce6a8d7ca84de3b29b344a3e07b48c58ae153
 .character-count-meter {
   font-size: 1.2em;
   margin: 0 3px;
