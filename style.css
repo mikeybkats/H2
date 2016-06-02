@@ -865,9 +865,12 @@ div.main-box-citation {
   align-content: space-between;
 }
 
-#citation-data {
+#citation-row {
   word-wrap: break-word;
+  height: auto;
+  width: auto;
 }
+
 
 .circle-small {
   border-radius: 100%;
