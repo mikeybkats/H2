@@ -98,6 +98,11 @@ function submitButtonEvent (event){
     allImages.push(genderNeutralImages[0]);
   }
 
+  if (checkboxUndeclared.checked === false && checkboxFemale.checked === false && checkboxMale.checked === false){
+    commentImage.src = 'images/' + genderNeutralImages[0] + '.png';
+    allImages.push(genderNeutralImages[0]);
+  }
+
   allComments.push(commentEntry.value);
   allNames.push(nameEntry.value);
 
