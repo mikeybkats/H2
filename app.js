@@ -75,7 +75,7 @@ function instantiate () {
   var fivePoint = new Location(16, 18, 'The 5-point cafe', 'Upbeat', true, 'http://the5pointcafe.com/');
   var amber = new Location(16, 19, 'Amber', 'Refined', true, 'http://www.amberseattle.com/');
   var theCrocodile = new Location(16, 19, 'The Crocodile', 'Upbeat', false, 'http://www.thecrocodile.com/');
-  var umiSushi = new Location(16, 18, 'Umi Sushi & Sake Bar Restaurant', 'Relaxing', true, 'http://www.umisakehouse.com/');
+  var umiSushi = new Location(16, 18, 'Umi Sake House', 'Relaxing', true, 'http://www.umisakehouse.com/');
 }
 instantiate();
 
