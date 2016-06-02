@@ -615,7 +615,7 @@ tr {
 
 
 td {
-  padding: 0px 15px;
+  padding: 5px 15px;
   margin: 0 8px 0 0;
   width: 70px;
   text-align: left;
@@ -675,6 +675,7 @@ form {
 fieldset {
   border: 0px;
   padding: 0px;
+  color: white;
 }
 
 .comment-form {
