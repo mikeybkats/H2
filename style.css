@@ -595,9 +595,9 @@ header {
 
 .ticker-table {
   background-color: white;
-  min-height: 350px;
+  min-height: 200px;
   display: flex;
-  max-width: 60%;
+  width: 100%;
   flex-direction: column;
   justify-content: flex-start;
 }
@@ -626,6 +626,15 @@ th {
   justify-content: flex-start;
   align-items: center;
   background-color: gray;
+}
+
+tr:nth-child(1){
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: gray;
+  height: 55px;
+  font-weight: 600;
 }
 
 td:nth-child(1){
@@ -886,7 +895,10 @@ div.main-box-citation {
   height: 45px;
   width: 200px;
   background-color: #d4bd4b;
-  border-top: 3px solid #9A6532;
+  border-top: 8px solid #9A6532;
+  border-left: none;
+  border-right: none;
+  border-bottom: none;
   color: white;
   font-size: 1.5em;
   font-weight: 300;
