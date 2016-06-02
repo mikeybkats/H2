@@ -561,15 +561,6 @@ header {
   max-height: 90%;
 }
 
-.filter-switch-dropdown {
-  background-image: src('images/vibe.png');
-  background-color: #d4bd4b;
-  margin: 0 15px 0 15px;
-  height: 20px;
-  width: 100px;
-  border: none;
-}
-
 .ticker {
   background-color: white;
   flex-direction: row;
@@ -587,15 +578,12 @@ header {
   color: #666;
 }
 
+
 .ticker-alignment {
   display: flex;
   align-content: center;
   justify-content: center;
   min-width: 85%;
-}
-
-.ticker-table {
-  background-color: white;
 }
 
 .ticker-title {
@@ -626,7 +614,6 @@ form {
 fieldset {
   border: 0px;
   padding: 0px;
-  color: white;
 }
 
 .comment-form {
@@ -690,7 +677,7 @@ footer {
 
 .about {
   background-color: #ff6000;
-  min-height: 400px;
+  min-height: 350px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -707,7 +694,7 @@ footer {
 }
 .question-section {
   background-color: black;
-  min-height: 400px;
+  min-height: 450px;
   display:flex;
   justify-content: center;
   align-items: center;
@@ -717,8 +704,17 @@ footer {
 .question {
   align-items: center;
 }
-.questionairre {
+.questionnaire {
   max-width: 37%;
+  height: 215px;
+}
+h1#thefounders {
+  text-decoration: underline;
+}
+h2#citation {
+  text-align: center;
+  text-decoration: underline;
+
 }
 h3#question-id {
   color: white;
@@ -795,6 +791,12 @@ div.names {
   align-items: stretch;
   width:800px;
   color:white;
+}
+div.main-box-citation {
+  display:flex;
+  align-items: flex-start;
+  flex-direction:row;
+  align-content: space-between;
 }
 
 .circle-small {
